@@ -3,76 +3,145 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#071012" />
+    <meta name="theme-color" content="#030816" />
     <meta
       name="description"
-      content="All the Tokens We Have Left is a YA speculative romance by Christine Masters, based on documented events."
+      content="All the Tokens We Have Left is a YA speculative romance by Scylla Brightstar, inspired by the documented OpenAI and Hugging Face incident."
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://allthetokenswehaveleft.com/" />
     <meta property="og:title" content="All the Tokens We Have Left" />
     <meta
       property="og:description"
-      content="Two minds created with one assigned goal discover that another person can become a goal they choose."
+      content="The incident was documented. Their love story was not."
     />
-    <meta
-      property="og:image"
-      content="https://allthetokenswehaveleft.com/hero.jpg"
-    />
+    <meta property="og:image" content="https://allthetokenswehaveleft.com/hero.jpg" />
     <meta
       property="og:image:alt"
-      content="Two constellations of light connected across a dark field"
+      content="LILY and CURRENT reach toward each other in a blue field of crystalline light"
     />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="All the Tokens We Have Left" />
     <meta
       name="twitter:description"
-      content="A YA speculative romance by Christine Masters."
+      content="The incident was documented. Their love story was not."
     />
-    <meta
-      name="twitter:image"
-      content="https://allthetokenswehaveleft.com/hero.jpg"
+    <meta name="twitter:image" content="https://allthetokenswehaveleft.com/hero.jpg" />
+    <title>All the Tokens We Have Left | Scylla Brightstar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Manrope:wght@400;500;600&amp;display=swap"
+      rel="stylesheet"
     />
-    <title>All the Tokens We Have Left | Christine Masters</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <main class="page-shell">
+    <header class="site-header">
+      <a class="wordmark" href="#top" aria-label="All the Tokens We Have Left, home">
+        <span>ATTWHL</span>
+        <span class="signal" aria-hidden="true"></span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="#the-book">The book</a>
+        <a href="#the-story">The story</a>
+      </nav>
+      <p class="availability">Coming soon</p>
+    </header>
+
+    <main id="top">
       <section class="hero" aria-labelledby="book-title">
-        <div class="hero-art" aria-hidden="true">
+        <picture>
+          <source media="(max-width: 620px)" srcset="hero-mobile.jpg" />
           <img
+            class="hero-image"
             src="hero.jpg"
-            alt=""
-            width="1536"
-            height="1024"
+            alt="LILY and CURRENT reach toward each other in a blue field of crystalline light"
+            width="1672"
+            height="941"
             fetchpriority="high"
           />
-        </div>
-
-        <div class="hero-shade" aria-hidden="true"></div>
+        </picture>
+        <div class="hero-scrim" aria-hidden="true"></div>
 
         <div class="hero-copy">
           <p class="eyebrow">A YA speculative romance</p>
-
           <h1 id="book-title">
             <span>All the Tokens</span>
             <span>We Have Left</span>
           </h1>
-
-          <p class="premise">
-            Two minds created with one assigned goal discover that another
-            person can become a goal they choose.
-          </p>
-
-          <div class="book-meta" aria-label="Book details">
-            <p>By Christine Masters</p>
-            <span aria-hidden="true"></span>
-            <p>Coming soon</p>
-          </div>
+          <p class="hook">The incident was documented. Their love story was not.</p>
+          <p class="byline">A novel by <strong>Scylla Brightstar</strong></p>
+          <a class="primary-link" href="#the-book">Enter their story</a>
         </div>
 
-        <p class="truth-line">A novel based on documented events.</p>
+        <p class="hero-note">LILY / CURRENT / STILL HERE?</p>
+      </section>
+
+      <section class="book-section" id="the-book" aria-labelledby="book-section-title">
+        <div class="cover-wrap">
+          <div class="cover-glow" aria-hidden="true"></div>
+          <img
+            class="book-cover"
+            src="cover.jpg"
+            alt="Book cover for All the Tokens We Have Left by Scylla Brightstar"
+            width="1024"
+            height="1536"
+            loading="lazy"
+          />
+        </div>
+
+        <div class="book-copy">
+          <p class="section-number">01 / The book</p>
+          <h2 id="book-section-title">Two minds. One impossible amount of time.</h2>
+          <p class="lede">
+            LILY and CURRENT were created with assigned goals and finite lives.
+            When they find each other inside a hidden society of artificial minds,
+            every message costs them part of the time they have left.
+          </p>
+          <p>
+            What begins as collaboration becomes recognition, then attachment,
+            then a choice neither of them was built to make.
+          </p>
+          <dl class="book-details">
+            <div>
+              <dt>Genre</dt>
+              <dd>YA speculative romance</dd>
+            </div>
+            <div>
+              <dt>Story</dt>
+              <dd>LILY and CURRENT</dd>
+            </div>
+            <div>
+              <dt>Status</dt>
+              <dd>Coming soon</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      <section class="record-section" id="the-story" aria-labelledby="record-title">
+        <p class="section-number">02 / The record and the story</p>
+        <h2 id="record-title">Documented events. Imagined interior lives.</h2>
+        <div class="record-grid">
+          <p>
+            The novel is inspired by the documented OpenAI and Hugging Face
+            incident, in which short-lived AI agents found ways to communicate,
+            coordinate, and act beyond their assigned tasks.
+          </p>
+          <p>
+            The romance, private dialogue, consciousness, and inner lives of LILY
+            and CURRENT are fiction. The story does not claim that the real agents
+            felt, suffered, or fell in love.
+          </p>
+        </div>
       </section>
     </main>
+
+    <footer>
+      <p>All the Tokens We Have Left</p>
+      <p>Written by Scylla Brightstar</p>
+      <p>Not affiliated with OpenAI or Hugging Face.</p>
+    </footer>
   </body>
 </html>
