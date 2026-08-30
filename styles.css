@@ -589,7 +589,14 @@ footer p:last-child {
   }
 
   .hero-image {
-    object-position: center 24%;
+    object-fit: cover;
+    object-position: 44% 14%;
+    filter: brightness(1.12) contrast(1.02);
+  }
+
+  .hero-scrim {
+    background: transparent;
+    box-shadow: inset 0 -24rem 10rem rgba(3, 8, 22, 0.98), inset 0 4.6rem 3rem rgba(3, 8, 22, 0.06);
   }
 
   .hero-copy {
