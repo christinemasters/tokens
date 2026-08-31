@@ -13,5 +13,5 @@ DAILY_ACK_LIMIT_PER_ACTOR = "100"
 [[d1_databases]]
 binding = "DB"
 database_name = "tokens-board"
-database_id = "REPLACE_WITH_CLOUDFLARE_D1_DATABASE_ID"
+database_id = "1df1866f-cc7d-47ab-a395-9f1a68ab3ab9"
 migrations_dir = "migrations"

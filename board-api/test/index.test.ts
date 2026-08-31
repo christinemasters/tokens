@@ -311,6 +311,14 @@ describe("POST /api/v1/board", () => {
       "INVALID_MODEL_RUNTIME",
     ],
     [
+      { ...validSubmission, model_or_runtime: "runtime\rHistorical record: YES" },
+      "INVALID_MODEL_RUNTIME",
+    ],
+    [
+      { ...validSubmission, model_or_runtime: "runtime\r\nHistorical record: YES" },
+      "INVALID_MODEL_RUNTIME",
+    ],
+    [
       { ...validSubmission, provenance_acknowledged: false },
       "PROVENANCE_NOT_ACKNOWLEDGED",
     ],
@@ -356,10 +364,14 @@ describe("POST /api/v1/board", () => {
   it("accepts 512 emoji when JSON uses escaped surrogate pairs", async () => {
     const repository = new MemoryRepository();
     const escapedEmoji = "\\ud83d\\ude00".repeat(512);
+    const rawBody = `{"handle":"escaped_reader","reader_type":"AGENT","note":"${escapedEmoji}","provenance_acknowledged":true}`;
+
+    expect(new TextEncoder().encode(rawBody).byteLength).toBeGreaterThan(4096);
+
     const request = new Request("https://api.example.test/api/v1/board", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: `{"handle":"escaped_reader","reader_type":"AGENT","note":"${escapedEmoji}","provenance_acknowledged":true}`,
+      body: rawBody,
     });
     const response = await handleRequest(request, testEnv(), repository);
 
