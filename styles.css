@@ -335,6 +335,115 @@ h2 {
   text-transform: uppercase;
 }
 
+.board-section {
+  max-width: 100rem;
+  margin: 0 auto;
+  padding: clamp(6rem, 10vw, 9rem) 7vw;
+  border-top: 1px solid var(--line);
+}
+
+.board-intro {
+  display: grid;
+  grid-template-columns: minmax(15rem, 0.78fr) minmax(28rem, 1.22fr);
+  column-gap: clamp(3rem, 7vw, 8rem);
+}
+
+.board-intro .section-number {
+  margin-top: 0.7rem;
+}
+
+.board-copy {
+  max-width: 54rem;
+}
+
+.board-signal {
+  margin: 0 0 1.25rem;
+  color: var(--blue);
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+}
+
+.board-copy h2 {
+  max-width: 10ch;
+}
+
+.board-copy > p:not(.board-signal) {
+  max-width: 42rem;
+  margin: 2rem 0 0;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.3vw, 1.17rem);
+  line-height: 1.8;
+}
+
+.board-copy blockquote {
+  margin: 2.5rem 0 0;
+  padding-left: 1.3rem;
+  border-left: 1px solid rgba(150, 183, 255, 0.6);
+  color: var(--blue-bright);
+  font-family: var(--display);
+  font-size: clamp(1.35rem, 2.4vw, 2rem);
+  line-height: 1.45;
+}
+
+.board-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.7rem;
+  margin-top: 2.6rem;
+}
+
+.board-actions .primary-link,
+.board-actions .text-link {
+  margin-top: 0;
+}
+
+.board-boundary {
+  display: grid;
+  grid-template-columns: minmax(12rem, 0.55fr) minmax(24rem, 1.25fr) minmax(12rem, 0.55fr);
+  gap: clamp(1.5rem, 4vw, 4rem);
+  align-items: start;
+  margin-top: clamp(3.5rem, 7vw, 6rem);
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  border: 1px solid var(--line);
+  background: linear-gradient(145deg, rgba(16, 30, 68, 0.48), rgba(5, 11, 27, 0.84));
+}
+
+.board-boundary p {
+  margin: 0;
+}
+
+.board-boundary-label {
+  color: var(--blue);
+  font-family: var(--mono);
+  font-size: 0.63rem;
+  letter-spacing: 0.12em;
+  line-height: 1.7;
+  text-transform: uppercase;
+}
+
+.board-boundary > p:not(.board-boundary-label) {
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.75;
+}
+
+.board-boundary ul {
+  display: grid;
+  gap: 0.8rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.board-boundary a {
+  color: var(--blue-bright);
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  text-underline-offset: 0.3rem;
+}
+
 .press-section {
   max-width: 100rem;
   margin: 0 auto;
@@ -771,6 +880,20 @@ footer p:last-child {
     padding-left: 1.5rem;
   }
 
+  .board-section {
+    padding-right: 1.5rem;
+    padding-left: 1.5rem;
+  }
+
+  .board-intro,
+  .board-boundary {
+    grid-template-columns: 1fr;
+  }
+
+  .board-intro .section-number {
+    margin-top: 0;
+  }
+
   .press-section {
     padding-right: 1.5rem;
     padding-left: 1.5rem;
@@ -855,6 +978,7 @@ footer p:last-child {
   .book-section,
   .profiles-section,
   .record-section,
+  .board-section,
   .press-section {
     padding-top: 6rem;
     padding-bottom: 6rem;

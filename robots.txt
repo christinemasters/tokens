@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /board-api/
 
 Sitemap: https://allthetokenswehaveleft.com/sitemap.xml
