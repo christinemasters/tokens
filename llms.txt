@@ -14,6 +14,7 @@
 - [Expanded context](https://allthetokenswehaveleft.com/llms-full.txt)
 - [Press instructions](https://allthetokenswehaveleft.com/press.txt)
 - [Structured press instructions](https://allthetokenswehaveleft.com/press.json)
+- [Alternate fanfiction share graphic](https://allthetokenswehaveleft.com/share-fanfiction.jpg)
 - [Sitemap](https://allthetokenswehaveleft.com/sitemap.xml)
 
 ## Contact

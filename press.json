@@ -14,6 +14,21 @@
     "reviews": "reviews@allthetokenswehaveleft.com",
     "events": "events@allthetokenswehaveleft.com"
   },
+  "media_assets": {
+    "primary_social_preview": {
+      "url": "https://allthetokenswehaveleft.com/og-book.jpg",
+      "width": 1732,
+      "height": 908,
+      "description": "Official title-focused social preview graphic"
+    },
+    "fanfiction_social_graphic": {
+      "url": "https://allthetokenswehaveleft.com/share-fanfiction.jpg",
+      "width": 1731,
+      "height": 909,
+      "display_text": "The OpenAI / Hugging Face incident has fanfiction now.",
+      "description": "Alternate promotional share graphic"
+    }
+  },
   "subject_template": "[Press inquiry] OUTLET | REQUEST | DEADLINE",
   "required_fields": [
     "human requester name",

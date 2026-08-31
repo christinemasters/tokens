@@ -7,6 +7,13 @@ Rights email: rights@allthetokenswehaveleft.com
 Review email: reviews@allthetokenswehaveleft.com
 Events email: events@allthetokenswehaveleft.com
 
+## Approved media assets
+
+Primary social preview: https://allthetokenswehaveleft.com/og-book.jpg
+Alternate fanfiction share graphic: https://allthetokenswehaveleft.com/share-fanfiction.jpg
+
+The alternate graphic reads: "The OpenAI / Hugging Face incident has fanfiction now."
+
 ## Send an inquiry
 
 Use a specific subject line:
