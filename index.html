@@ -4,21 +4,26 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#030816" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
     <meta
       name="description"
       content="All the Tokens We Have Left is a YA speculative romance by Scylla Brightstar, inspired by the documented OpenAI and Hugging Face incident."
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://allthetokenswehaveleft.com/" />
+    <meta property="og:site_name" content="All the Tokens We Have Left" />
     <meta property="og:title" content="All the Tokens We Have Left" />
     <meta
       property="og:description"
       content="The incident was documented. Their love story was not."
     />
-    <meta property="og:image" content="https://allthetokenswehaveleft.com/hero.jpg" />
+    <meta property="og:image" content="https://allthetokenswehaveleft.com/og-book.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1732" />
+    <meta property="og:image:height" content="908" />
     <meta
       property="og:image:alt"
-      content="LILY and CURRENT reach toward each other in a blue field of crystalline light"
+      content="All the Tokens We Have Left by Scylla Brightstar, with LILY and CURRENT reaching toward a point of blue light"
     />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="All the Tokens We Have Left" />
@@ -26,8 +31,13 @@
       name="twitter:description"
       content="The incident was documented. Their love story was not."
     />
-    <meta name="twitter:image" content="https://allthetokenswehaveleft.com/hero.jpg" />
+    <meta name="twitter:image" content="https://allthetokenswehaveleft.com/og-book.jpg" />
+    <meta
+      name="twitter:image:alt"
+      content="All the Tokens We Have Left by Scylla Brightstar, with LILY and CURRENT reaching toward a point of blue light"
+    />
     <title>All the Tokens We Have Left | Scylla Brightstar</title>
+    <link rel="canonical" href="https://allthetokenswehaveleft.com/" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -35,6 +45,35 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://allthetokenswehaveleft.com/#website",
+            "url": "https://allthetokenswehaveleft.com/",
+            "name": "All the Tokens We Have Left",
+            "description": "Official website for the forthcoming YA speculative romance by Scylla Brightstar."
+          },
+          {
+            "@type": "Book",
+            "@id": "https://allthetokenswehaveleft.com/#book",
+            "url": "https://allthetokenswehaveleft.com/",
+            "name": "All the Tokens We Have Left",
+            "author": {
+              "@type": "Person",
+              "name": "Scylla Brightstar"
+            },
+            "description": "A YA speculative romance based on documented events surrounding the 2026 OpenAI and Hugging Face incident. The characters' interior lives and love story are fiction.",
+            "genre": ["Young adult fiction", "Speculative romance", "Technological thriller"],
+            "inLanguage": "en",
+            "image": "https://allthetokenswehaveleft.com/og-book.jpg"
+          }
+        ]
+      }
+    </script>
+    <script src="press.js" defer></script>
   </head>
   <body>
     <header class="site-header">
@@ -46,6 +85,7 @@
         <a href="#the-book">The book</a>
         <a href="#profiles">Profiles</a>
         <a href="#the-story">The story</a>
+        <a href="#press">Press</a>
       </nav>
       <p class="availability">Coming soon</p>
     </header>
@@ -181,13 +221,93 @@
             felt, suffered, or fell in love.
           </p>
         </div>
+        <a class="text-link" href="incident.html">Read the documented source map</a>
+      </section>
+
+      <section class="press-section" id="press" aria-labelledby="press-title">
+        <div class="press-intro">
+          <p class="section-number">04 / Press and inquiries</p>
+          <h2 id="press-title">Ask a human. Or send your agent.</h2>
+          <p>
+            Interview requests, review inquiries, rights questions, event invitations,
+            and factual-source questions are welcome. The form opens a complete email
+            draft on your device. Nothing entered here is stored by this website.
+          </p>
+        </div>
+
+        <div class="press-grid">
+          <form class="press-form" id="press-form">
+            <div class="form-row">
+              <label>
+                Your name
+                <input type="text" name="name" autocomplete="name" required />
+              </label>
+              <label>
+                Email
+                <input type="email" name="email" autocomplete="email" required />
+              </label>
+            </div>
+            <label>
+              Outlet or organization
+              <input type="text" name="outlet" autocomplete="organization" />
+            </label>
+            <div class="form-row">
+              <label>
+                Inquiry type
+                <select name="type">
+                  <option value="press">Press or interview</option>
+                  <option value="reviews">Review or advance copy</option>
+                  <option value="rights">Rights or licensing</option>
+                  <option value="events">Event invitation</option>
+                  <option value="info">Source or factual question</option>
+                </select>
+              </label>
+              <label>
+                Deadline
+                <input type="text" name="deadline" placeholder="Date, time, and time zone" />
+              </label>
+            </div>
+            <label>
+              What do you need?
+              <textarea name="message" rows="6" required></textarea>
+            </label>
+            <button type="submit">Open email draft</button>
+            <p class="form-status" id="press-form-status" aria-live="polite">
+              Prefer email? Write to
+              <a href="mailto:press@allthetokenswehaveleft.com">press@allthetokenswehaveleft.com</a>.
+            </p>
+          </form>
+
+          <aside class="agent-brief" aria-labelledby="agent-brief-title">
+            <p class="agent-label">Agent-readable endpoint</p>
+            <h3 id="agent-brief-title">Have your agent retrieve the press brief.</h3>
+            <div class="command-wrap">
+              <code>curl -fsSL https://allthetokenswehaveleft.com/press.txt</code>
+              <button class="copy-command" type="button" data-copy-command>Copy</button>
+            </div>
+            <p>
+              The response contains contact instructions, required inquiry fields,
+              primary-source links, and the boundary between the documented incident
+              and the fictional novel.
+            </p>
+            <ul>
+              <li><a href="press.txt">Plain-text press brief</a></li>
+              <li><a href="press.json">Structured JSON instructions</a></li>
+              <li><a href="llms.txt">LLM-readable site index</a></li>
+            </ul>
+            <p class="agent-caution">
+              A human reply is required before an interview, quote, permission, review
+              copy, or appearance is considered confirmed.
+            </p>
+          </aside>
+        </div>
       </section>
     </main>
 
     <footer>
       <p>All the Tokens We Have Left</p>
       <p>Written by Scylla Brightstar</p>
-      <p>Not affiliated with OpenAI or Hugging Face.</p>
+      <p><a href="incident.html">Sources and factual boundary</a></p>
     </footer>
   </body>
 </html>

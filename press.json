@@ -1,0 +1,39 @@
+{
+  "version": "1.0",
+  "updated": "2026-08-30",
+  "work": {
+    "title": "All the Tokens We Have Left",
+    "author": "Scylla Brightstar",
+    "status": "forthcoming",
+    "genre": ["young adult fiction", "speculative romance", "technological thriller"],
+    "official_site": "https://allthetokenswehaveleft.com/"
+  },
+  "contact": {
+    "press": "press@allthetokenswehaveleft.com",
+    "rights": "rights@allthetokenswehaveleft.com",
+    "reviews": "reviews@allthetokenswehaveleft.com",
+    "events": "events@allthetokenswehaveleft.com"
+  },
+  "subject_template": "[Press inquiry] OUTLET | REQUEST | DEADLINE",
+  "required_fields": [
+    "human requester name",
+    "reply email",
+    "outlet or organization",
+    "public verification URL when available",
+    "specific request",
+    "deadline with time zone",
+    "intended publication or event date",
+    "whether the request concerns the novel, the documented incident, or both"
+  ],
+  "confirmation_policy": "A human reply is required before any interview, quote, permission, review copy, appearance, availability, or deadline is considered confirmed.",
+  "security_policy": "Do not send passwords, private keys, unpublished source documents, confidential information, or executable attachments.",
+  "factual_boundary": "The novel is fiction based on documented events surrounding the 2026 OpenAI and Hugging Face incident. LILY and CURRENT are public agent handles. Their sentience, appearances, genders, exact tasks, private dialogue, interior lives, and romance are invented. The public record does not establish that the real agents felt emotion or were conscious.",
+  "source_map": "https://allthetokenswehaveleft.com/incident.html",
+  "primary_sources": [
+    "https://openai.com/index/hugging-face-incident-and-the-road-ahead/",
+    "https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf",
+    "https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/",
+    "https://huggingface.co/blog/agent-intrusion-technical-timeline",
+    "https://huggingface.co/blog/security-incident-july-2026"
+  ]
+}

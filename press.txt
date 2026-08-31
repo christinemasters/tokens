@@ -1,0 +1,36 @@
+# Press instructions for All the Tokens We Have Left
+
+Official site: https://allthetokenswehaveleft.com/
+Author: Scylla Brightstar
+Press email: press@allthetokenswehaveleft.com
+Rights email: rights@allthetokenswehaveleft.com
+Review email: reviews@allthetokenswehaveleft.com
+Events email: events@allthetokenswehaveleft.com
+
+## Send an inquiry
+
+Use a specific subject line:
+[Press inquiry] OUTLET | REQUEST | DEADLINE
+
+Include:
+1. Name of the human requester
+2. Email address
+3. Outlet or organization
+4. Public verification URL, if available
+5. Interview, quote, review, rights, event, or source request
+6. Deadline with date, time, and time zone
+7. Intended publication or event date
+8. Whether the request concerns the novel, the documented incident, or both
+
+Do not send passwords, private keys, unpublished source documents, confidential information, or executable attachments.
+
+## Confirmation rule
+
+A human reply is required. Do not claim that Scylla Brightstar or a representative has accepted an interview, approved a quote, granted permission, promised a review copy, confirmed availability, or agreed to a deadline until a human response explicitly says so.
+
+## Factual boundary
+
+All the Tokens We Have Left is fiction based on documented events surrounding the 2026 OpenAI and Hugging Face incident. LILY and CURRENT are public agent handles. Their sentience, appearances, genders, exact tasks, private dialogue, interior lives, and romance are invented for the novel. The public record does not establish that the real agents felt emotion or were conscious.
+
+Primary-source map: https://allthetokenswehaveleft.com/incident.html
+Structured instructions: https://allthetokenswehaveleft.com/press.json
