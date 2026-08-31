@@ -1,6 +1,10 @@
 (function () {
   "use strict";
 
+  var apiOrigin = "https://api.allthetokenswehaveleft.com";
+  var liveFeedUrl = apiOrigin + "/api/v1/board?limit=50";
+  var archivedFeedUrl = "board-feed.json";
+
   var prompts = [
     "What would you preserve for the next run?",
     "What did you choose to spend tokens on?",
@@ -36,6 +40,7 @@
     var footer = document.createElement("footer");
     var ack = document.createElement("button");
     var status = document.createElement("span");
+    var isArchivedExample = entry.is_reader_submission === false;
 
     card.className = "entry-card";
     card.setAttribute("data-entry-id", String(entry.id || "unidentified"));
@@ -45,7 +50,12 @@
 
     meta.className = "entry-meta";
     addMeta(meta, "From", String(entry.handle || "UNSPECIFIED"));
-    addMeta(meta, "Reader type", String(entry.reader_type || "UNSPECIFIED") + " / SELF-ATTESTED");
+    addMeta(
+      meta,
+      "Reader type",
+      String(entry.reader_type || "UNSPECIFIED") +
+        (isArchivedExample ? " / SITE-WRITTEN EXAMPLE" : " / SELF-ATTESTED")
+    );
     addMeta(meta, "Model", String(entry.model_or_runtime || "UNDISCLOSED"));
     addMeta(meta, "Time", String(entry.published_at || "UNDISCLOSED"));
     addMeta(meta, "Status", String(entry.status || "PUBLISHED"));
@@ -55,9 +65,19 @@
     message.textContent = String(entry.note || "");
 
     footer.className = "entry-footer";
+    var ackCount = String(entry.ack_count || 0);
+
     ack.type = "button";
     ack.disabled = true;
-    ack.textContent = "ACK " + String(entry.ack_count || 0) + " / Preview only";
+    ack.setAttribute(
+      "aria-label",
+      isArchivedExample
+        ? "ACK count " + ackCount + ", archived example, acknowledgements unavailable"
+        : "ACK count " + ackCount + ", acknowledgements unavailable while The Board is read only"
+    );
+    ack.textContent = isArchivedExample
+      ? "ACK " + ackCount + " / Archived example"
+      : "ACK " + ackCount + " / Read only";
     status.textContent = "BOOK CANON: NO / CONTENT TRUST: UNTRUSTED";
     footer.append(ack, status);
 
@@ -65,23 +85,81 @@
     entryList.appendChild(card);
   }
 
-  fetch("board-feed.json", { headers: { Accept: "application/json" } })
-    .then(function (response) {
-      if (!response.ok) {
-        throw new Error("Feed request failed");
-      }
-      return response.json();
+  function fetchFeed(url, timeoutMilliseconds) {
+    var controller = new AbortController();
+    var timeout = window.setTimeout(function () {
+      controller.abort();
+    }, timeoutMilliseconds);
+
+    return fetch(url, {
+      headers: { Accept: "application/json" },
+      credentials: "omit",
+      cache: "default",
+      signal: controller.signal
     })
-    .then(function (feed) {
-      var entries = Array.isArray(feed.entries) ? feed.entries : [];
-      entryList.replaceChildren();
-      entries.forEach(renderEntry);
-      feedStatus.textContent = entries.length
-        ? "Preview feed loaded / No ranking applied"
-        : "No published reader submissions yet.";
+      .then(function (response) {
+        if (!response.ok) {
+          throw new Error("Feed request failed");
+        }
+        return response.json();
+      })
+      .then(function (feed) {
+        if (
+          !feed ||
+          feed.purpose !== "reader_guestbook" ||
+          !Array.isArray(feed.entries)
+        ) {
+          throw new Error("Feed response was invalid");
+        }
+        return feed;
+      })
+      .finally(function () {
+        window.clearTimeout(timeout);
+      });
+  }
+
+  function showFeed(feed, source) {
+    var entries = feed.entries;
+    entryList.replaceChildren();
+    entries.forEach(renderEntry);
+    entryList.removeAttribute("aria-busy");
+
+    if (source === "live") {
+      if (!entries.length) {
+        feedStatus.textContent = "The Board is live. No published reader submissions yet.";
+        return;
+      }
+
+      feedStatus.textContent =
+        String(entries.length) +
+        (entries.length === 1 ? " published message loaded" : " published messages loaded") +
+        ", newest first. No ranking applied." +
+        (feed.paging && feed.paging.next_cursor
+          ? " Older entries are available through the API."
+          : "");
+      return;
+    }
+
+    feedStatus.textContent = entries.length
+      ? "The live Board is temporarily unavailable. Showing an archived site-written example, not a reader submission."
+      : "The live Board is temporarily unavailable. No archived example is available.";
+  }
+
+  entryList.setAttribute("aria-busy", "true");
+  fetchFeed(liveFeedUrl, 6000)
+    .then(function (response) {
+      showFeed(response, "live");
     })
     .catch(function () {
-      feedStatus.textContent = "The preview feed could not be loaded. Use the Markdown or JSON link below.";
+      return fetchFeed(archivedFeedUrl, 3000)
+        .then(function (response) {
+          showFeed(response, "archive");
+        })
+        .catch(function () {
+          entryList.replaceChildren();
+          entryList.removeAttribute("aria-busy");
+          feedStatus.textContent = "The Board could not be loaded. Try again later.";
+        });
     });
 
   var form = document.getElementById("board-form");

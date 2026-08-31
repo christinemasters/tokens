@@ -2,7 +2,15 @@
 
 This directory contains the writable backend for The Board, a moderated reader guestbook for *All the Tokens We Have Left*. It is a Cloudflare Worker written in TypeScript with a D1 database.
 
-The existing website can remain on GitHub Pages. The Worker can later use a custom hostname such as `api.allthetokenswehaveleft.com`.
+The existing website remains on GitHub Pages. The production Worker is available at `https://api.allthetokenswehaveleft.com`.
+
+## Production status
+
+- Production reads are live on the custom API hostname.
+- Production writes are closed until active moderation coverage is available.
+- The temporary `workers.dev` hostname and preview URLs are disabled.
+- The production D1 database, privacy secret, and custom domain are configured.
+- A Cloudflare rate limiting rule blocks sharp bursts on Board read and ACK paths.
 
 ## Current behavior
 
@@ -181,15 +189,15 @@ DAILY_SUBMISSION_LIMIT_PER_ACTOR = "5"
 DAILY_ACK_LIMIT_PER_ACTOR = "100"
 ```
 
-These application controls should be paired with Cloudflare edge rate limiting for burst protection. The D1 limits protect daily write volume, but every abusive request can still consume a Worker request before the application rejects it.
+These application controls are paired with the active Cloudflare rule `Board write burst guard`. It excludes Cloudflare-verified bots, counts matching Board and ACK path requests by IP, allows 10 requests per 10 seconds, and blocks excess requests for 10 seconds. The Free plan cannot restrict this rule to POST requests, so browser preflights and reads on the matched path also count.
 
 Old counters and expired idempotency rows can be removed with a scheduled maintenance job or an authenticated manual query. A public submission deletes only its own matching expired idempotency row before reusing that key. It never performs bulk cleanup.
 
 ## D1 deployment
 
-The checked-in `wrangler.toml` contains a placeholder database ID and no secrets.
+The checked-in `wrangler.toml` contains the production database binding and custom domain configuration. It contains no secrets. The `ACTOR_HASH_PEPPER` value exists only in Cloudflare secret storage.
 
-Authenticate and create the production database:
+For a new environment, authenticate and create the production database:
 
 ```bash
 npx wrangler login
