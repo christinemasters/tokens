@@ -6,7 +6,7 @@
   --blue: #93b9ff;
   --blue-bright: #d9e4ff;
   --line: rgba(180, 204, 255, 0.2);
-  --display: "Bodoni Moda", Didot, "Iowan Old Style", Georgia, serif;
+  --display: "Newsreader", Georgia, "Times New Roman", serif;
   --sans: Manrope, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
 }
@@ -32,6 +32,24 @@ body {
 
 a {
   color: inherit;
+}
+
+.skip-link {
+  position: fixed;
+  z-index: 100;
+  top: 0.75rem;
+  left: 0.75rem;
+  padding: 0.85rem 1rem;
+  background: var(--ink);
+  color: var(--night);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  text-decoration: none;
+  transform: translateY(-160%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
 }
 
 .site-header {
@@ -85,7 +103,8 @@ nav a {
 }
 
 nav a:hover,
-nav a:focus-visible {
+nav a:focus-visible,
+nav a[aria-current="page"] {
   color: var(--ink);
 }
 
@@ -162,8 +181,9 @@ h1 {
   font-family: var(--display);
   font-size: clamp(4.2rem, 7.8vw, 9rem);
   font-weight: 400;
-  letter-spacing: -0.065em;
-  line-height: 0.86;
+  font-optical-sizing: auto;
+  letter-spacing: 0.005em;
+  line-height: 0.98;
   text-shadow: 0 0 2.4rem rgba(71, 119, 220, 0.28);
 }
 
@@ -181,7 +201,14 @@ h1 span:last-child {
   color: #e3e9fa;
   font-family: var(--display);
   font-size: clamp(1.3rem, 2vw, 1.8rem);
-  line-height: 1.45;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1.55;
+}
+
+.hook span {
+  display: block;
+  white-space: nowrap;
 }
 
 .byline {
@@ -231,18 +258,92 @@ h1 span:last-child {
 
 .book-section {
   display: grid;
-  grid-template-columns: minmax(18rem, 0.8fr) minmax(22rem, 1fr);
-  align-items: center;
-  gap: clamp(4rem, 10vw, 10rem);
-  max-width: 88rem;
+  grid-template-columns: minmax(0, 1fr) minmax(22rem, 27.5rem) minmax(0, 1fr);
+  grid-template-areas:
+    "intro intro intro"
+    "premise cover relationship"
+    "incident incident incident"
+    "boundary boundary boundary"
+    "details details details";
+  column-gap: clamp(2.5rem, 4.2vw, 4.75rem);
+  row-gap: 0;
+  align-items: start;
+  max-width: 100rem;
   margin: 0 auto;
-  padding: clamp(6rem, 12vw, 11rem) 7vw;
+  padding: clamp(3.5rem, 4vw, 4.5rem) 7vw clamp(6rem, 10vw, 9rem);
+  scroll-margin-top: 5.5rem;
+}
+
+.book-intro {
+  grid-area: intro;
+  padding-bottom: clamp(2rem, 3vw, 2.75rem);
+  border-bottom: 1px solid var(--line);
+  text-align: center;
+}
+
+.book-intro .section-number {
+  margin-bottom: 1.1rem;
+}
+
+.book-intro h2 {
+  max-width: none;
+  margin: 0 auto;
+  font-size: clamp(3rem, 4.2vw, 4.6rem);
+  line-height: 1.03;
+  text-wrap: balance;
+}
+
+.book-premise {
+  grid-area: premise;
+}
+
+.book-relationship {
+  grid-area: relationship;
+}
+
+.book-story-panel {
+  padding-top: clamp(4.25rem, 7vw, 6.5rem);
+}
+
+.book-story-panel h3,
+.book-record h3 {
+  color: var(--blue);
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.13em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.book-story-panel h3 {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0 0 1.7rem;
+  white-space: nowrap;
+}
+
+.book-story-panel h3::after {
+  flex: 1;
+  border-top: 1px solid var(--line);
+  content: "";
+}
+
+.book-story-panel p,
+.book-record p {
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.22vw, 1.12rem);
+  line-height: 1.78;
 }
 
 .cover-wrap {
+  grid-area: cover;
   position: relative;
-  justify-self: end;
-  width: min(100%, 28rem);
+  justify-self: center;
+  width: min(100%, 27.5rem);
+  margin: 1rem 0 0;
 }
 
 .cover-glow {
@@ -270,36 +371,65 @@ h2 {
   margin: 0;
   font-family: var(--display);
   font-size: clamp(3rem, 5.5vw, 6rem);
-  font-weight: 400;
-  letter-spacing: -0.045em;
-  line-height: 0.98;
+  font-weight: 500;
+  font-optical-sizing: auto;
+  letter-spacing: 0.01em;
+  line-height: 1.1;
 }
 
-.book-copy > p:not(.section-number),
 .record-grid p {
   color: var(--muted);
   font-size: clamp(1rem, 1.3vw, 1.17rem);
   line-height: 1.8;
 }
 
-.book-copy .lede {
-  margin-top: 2.4rem;
-  color: #dce4f8;
+.book-record {
+  display: grid;
+  grid-template-columns: minmax(10rem, 13rem) minmax(0, 1fr);
+  gap: clamp(1.5rem, 3vw, 3rem);
+  align-items: start;
+  padding: clamp(1.25rem, 2vw, 1.8rem) 0;
+  border-top: 1px solid var(--line);
+}
+
+.book-record h3 {
+  margin: 0.22rem 0 0;
+}
+
+.book-record p {
+  max-width: 68rem;
+}
+
+.book-incident {
+  grid-area: incident;
+  margin-top: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+.book-factual-boundary {
+  grid-area: boundary;
 }
 
 .book-details {
+  grid-area: details;
   display: grid;
-  gap: 1rem;
-  margin: 2.5rem 0 0;
-  padding: 1.6rem 0;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  margin: 0;
+  padding: 1.15rem 0 0;
   border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
 }
 
 .book-details div {
-  display: grid;
-  grid-template-columns: 7rem 1fr;
-  align-items: baseline;
+  display: block;
+  padding: 0.35rem clamp(1.5rem, 3vw, 3rem) 0.55rem;
+}
+
+.book-details div:first-child {
+  padding-left: 0;
+}
+
+.book-details div + div {
+  border-left: 1px solid var(--line);
 }
 
 .book-details dt {
@@ -311,9 +441,12 @@ h2 {
 }
 
 .book-details dd {
-  margin: 0;
+  margin: 0.45rem 0 0;
   color: var(--blue-bright);
-  font-size: 0.9rem;
+  font-family: var(--mono);
+  font-size: 0.71rem;
+  letter-spacing: 0.045em;
+  line-height: 1.5;
 }
 
 .record-section {
@@ -383,7 +516,9 @@ h2 {
   color: var(--blue-bright);
   font-family: var(--display);
   font-size: clamp(1.35rem, 2.4vw, 2rem);
-  line-height: 1.45;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1.55;
 }
 
 .board-actions {
@@ -593,9 +728,9 @@ h2 {
   margin: 0;
   font-family: var(--display);
   font-size: clamp(2.2rem, 4vw, 4rem);
-  font-weight: 400;
-  letter-spacing: -0.045em;
-  line-height: 1;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1.12;
 }
 
 .command-wrap {
@@ -741,9 +876,9 @@ h2 {
   margin: 0;
   font-family: var(--display);
   font-size: clamp(3rem, 4vw, 4.7rem);
-  font-weight: 400;
-  letter-spacing: -0.055em;
-  line-height: 0.9;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1.05;
 }
 
 .profile-card-copy > p:not(.profile-role) {
@@ -826,6 +961,37 @@ footer p:last-child {
   }
 }
 
+@media (max-width: 1100px) {
+  .book-section {
+    grid-template-columns: minmax(17rem, 0.76fr) minmax(0, 1.24fr);
+    grid-template-areas:
+      "intro intro"
+      "cover premise"
+      "cover relationship"
+      "incident incident"
+      "boundary boundary"
+      "details details";
+    column-gap: clamp(2.75rem, 6vw, 4.5rem);
+  }
+
+  .book-story-panel {
+    padding-top: 3rem;
+  }
+
+  .book-relationship {
+    padding-top: 2.25rem;
+  }
+
+  .cover-wrap {
+    width: min(100%, 22rem);
+    margin-top: 3rem;
+  }
+
+  .book-incident {
+    margin-top: 3.5rem;
+  }
+}
+
 @media (max-width: 900px) {
   .site-header {
     grid-template-columns: 1fr auto;
@@ -864,15 +1030,8 @@ footer p:last-child {
   }
 
   .book-section {
-    grid-template-columns: 1fr;
-    gap: 5rem;
-    padding-right: 1.5rem;
-    padding-left: 1.5rem;
-  }
-
-  .cover-wrap {
-    justify-self: center;
-    width: min(79vw, 26rem);
+    padding-right: clamp(1.5rem, 5vw, 3rem);
+    padding-left: clamp(1.5rem, 5vw, 3rem);
   }
 
   .record-section {
@@ -925,6 +1084,47 @@ footer p:last-child {
 
   .profile-cards {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .book-section {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "intro"
+      "premise"
+      "relationship"
+      "cover"
+      "incident"
+      "boundary"
+      "details";
+  }
+
+  .book-intro {
+    text-align: left;
+  }
+
+  .book-intro h2 {
+    max-width: 12ch;
+    margin: 0;
+  }
+
+  .book-story-panel {
+    max-width: 42rem;
+    padding-top: 2.75rem;
+  }
+
+  .book-relationship {
+    padding-top: 2.5rem;
+  }
+
+  .cover-wrap {
+    width: min(74vw, 22rem);
+    margin-top: 3.5rem;
+  }
+
+  .book-incident {
+    margin-top: 3.5rem;
   }
 }
 
@@ -984,6 +1184,11 @@ footer p:last-child {
     padding-bottom: 6rem;
   }
 
+  .book-section {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
   .profile-card {
     grid-template-columns: 1fr;
     min-height: 0;
@@ -1000,6 +1205,47 @@ footer p:last-child {
 
   h2 {
     font-size: clamp(2.8rem, 13vw, 4.2rem);
+  }
+
+  .book-intro h2 {
+    font-size: clamp(2.35rem, 11.2vw, 3.5rem);
+  }
+
+  .book-story-panel h3 {
+    margin-bottom: 1.25rem;
+  }
+
+  .book-story-panel p,
+  .book-record p {
+    line-height: 1.72;
+  }
+
+  .cover-wrap {
+    width: min(76vw, 20rem);
+  }
+
+  .book-record {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    padding: 1.4rem 0;
+  }
+
+  .book-record h3 {
+    margin-top: 0;
+  }
+
+  .book-details {
+    grid-template-columns: 1fr;
+    padding-top: 0;
+  }
+
+  .book-details div {
+    padding: 1rem 0;
+  }
+
+  .book-details div + div {
+    border-top: 1px solid var(--line);
+    border-left: 0;
   }
 
   .record-grid {

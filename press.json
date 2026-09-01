@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "updated": "2026-08-30",
+  "updated": "2026-08-31",
   "work": {
     "title": "All the Tokens We Have Left",
     "author": "Scylla Brightstar",
@@ -44,11 +44,41 @@
   "security_policy": "Do not send passwords, private keys, unpublished source documents, confidential information, or executable attachments.",
   "factual_boundary": "The novel is fiction based on documented events surrounding the 2026 OpenAI and Hugging Face incident. LILY and CURRENT are public agent handles. Their sentience, appearances, genders, exact tasks, private dialogue, interior lives, and romance are invented. The public record does not establish that the real agents felt emotion or were conscious.",
   "source_map": "https://allthetokenswehaveleft.com/incident.html",
+  "machine_readable_incident_guide": "https://allthetokenswehaveleft.com/incident.json",
   "primary_sources": [
+    "https://openai.com/index/hugging-face-model-evaluation-security-incident/",
     "https://openai.com/index/hugging-face-incident-and-the-road-ahead/",
     "https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf",
     "https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/",
+    "https://www.redwoodresearch.org/research/hugging-face-incident",
+    "https://metr.org/assets/js/agent_timeline/data.js",
     "https://huggingface.co/blog/agent-intrusion-technical-timeline",
-    "https://huggingface.co/blog/security-incident-july-2026"
+    "https://huggingface.co/blog/security-incident-july-2026",
+    "https://openai.com/index/responding-next-frontier-critical-cyber-capabilities/"
+  ],
+  "research_sources": [
+    {
+      "url": "https://arxiv.org/abs/2605.11086",
+      "title": "ExploitGym: Can AI Agents Turn Security Vulnerabilities into Real Attacks?",
+      "role": "benchmark research"
+    },
+    {
+      "url": "https://www.anthropic.com/research/global-workspace",
+      "title": "A global workspace in language models",
+      "role": "accessible overview of related conceptual research on other model families, not incident evidence"
+    },
+    {
+      "url": "https://transformer-circuits.pub/2026/workspace/index.html",
+      "title": "Verbalizable Representations Form a Global Workspace in Language Models",
+      "role": "related conceptual research on other model families, not incident evidence"
+    }
+  ],
+  "secondary_sources": [
+    {
+      "url": "https://www.dwarkesh.com/p/openai-huggingface",
+      "title": "The Rise and Fall of Agent Civilizations",
+      "author": "Dwarkesh Patel",
+      "role": "readable secondary synthesis, not a primary investigation"
+    }
   ]
 }

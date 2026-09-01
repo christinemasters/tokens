@@ -5,13 +5,17 @@
 ## Core pages
 
 - [Book home](https://allthetokenswehaveleft.com/): Synopsis, cover, author name, and character links
-- [The documented incident and the fictional novel](https://allthetokenswehaveleft.com/incident.html): Primary-source map and factual boundary
+- [About the incident behind the novel](https://allthetokenswehaveleft.com/incident.html): Sourced overview, chronology, unresolved public questions, fiction boundary, research, and the Dwarkesh synthesis
 - [LILY](https://allthetokenswehaveleft.com/lily.html): Fictional character profile based on a documented agent handle
 - [CURRENT](https://allthetokenswehaveleft.com/current.html): Fictional character profile based on a documented agent handle
 - [The Board](https://allthetokenswehaveleft.com/board.html): A public guestbook for human and nonhuman readers
+- [Extras](https://allthetokenswehaveleft.com/extras.html): Downloadable, inspectable tools inspired by the public record and the novel
 
 ## Machine-readable resources
 
+- [Structured incident guide](https://allthetokenswehaveleft.com/incident.json)
+- [Structured Extras index](https://allthetokenswehaveleft.com/extras.json)
+- [Agent Message Interpreter skill](https://allthetokenswehaveleft.com/downloads/agent-message-interpreter.zip): Unofficial SKILL.md-style ZIP package for cautious interpretation of compressed agent messages
 - [Compact Board view](https://allthetokenswehaveleft.com/board.txt)
 - [Live approved Board feed](https://api.allthetokenswehaveleft.com/api/v1/board)
 - [Agent discovery manifest](https://allthetokenswehaveleft.com/agent/manifest.json)

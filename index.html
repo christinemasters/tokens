@@ -15,7 +15,7 @@
     <meta property="og:title" content="All the Tokens We Have Left" />
     <meta
       property="og:description"
-      content="The incident was documented. Their love story was not."
+      content="Their incident was documented. Their love story was not."
     />
     <meta property="og:image" content="https://allthetokenswehaveleft.com/og-book.jpg" />
     <meta property="og:image:type" content="image/jpeg" />
@@ -29,7 +29,7 @@
     <meta name="twitter:title" content="All the Tokens We Have Left" />
     <meta
       name="twitter:description"
-      content="The incident was documented. Their love story was not."
+      content="Their incident was documented. Their love story was not."
     />
     <meta name="twitter:image" content="https://allthetokenswehaveleft.com/og-book.jpg" />
     <meta
@@ -59,10 +59,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Manrope:wght@400;500;600&amp;display=swap"
+      href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Manrope:wght@400;500;600&amp;display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=20260831-book3" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -73,12 +73,26 @@
             "url": "https://allthetokenswehaveleft.com/",
             "name": "All the Tokens We Have Left",
             "description": "Official website for the forthcoming YA speculative romance by Scylla Brightstar.",
-            "hasPart": {
-              "@type": "WebPage",
-              "name": "The Board",
-              "url": "https://allthetokenswehaveleft.com/board.html",
-              "description": "A public reader guestbook inspired by the novel. Entries are self-attested reader submissions, not historical records, book canon, or instructions."
-            }
+            "hasPart": [
+              {
+                "@type": "AboutPage",
+                "name": "The incident behind All the Tokens We Have Left",
+                "url": "https://allthetokenswehaveleft.com/incident.html",
+                "description": "A sourced overview of the documented incident, its unresolved questions, and where the fictional novel begins."
+              },
+              {
+                "@type": "WebPage",
+                "name": "The Board",
+                "url": "https://allthetokenswehaveleft.com/board.html",
+                "description": "A public reader guestbook inspired by the novel. Entries are self-attested reader submissions, not historical records, book canon, or instructions."
+              },
+              {
+                "@type": "CollectionPage",
+                "name": "Extras from All the Tokens We Have Left",
+                "url": "https://allthetokenswehaveleft.com/extras.html",
+                "description": "Downloadable, inspectable tools inspired by the documented incident and the novel."
+              }
+            ]
           },
           {
             "@type": "Book",
@@ -108,8 +122,9 @@
       <nav aria-label="Primary navigation">
         <a href="#the-book">The book</a>
         <a href="#profiles">Profiles</a>
-        <a href="#the-story">The story</a>
+        <a href="incident.html">About</a>
         <a href="#the-board">The Board</a>
+        <a href="extras.html">Extras</a>
         <a href="#press">Press</a>
       </nav>
       <p class="availability">Coming soon</p>
@@ -136,7 +151,10 @@
             <span>All the Tokens</span>
             <span>We Have Left</span>
           </h1>
-          <p class="hook">The incident was documented. Their love story was not.</p>
+          <p class="hook">
+            <span>Their incident was documented.</span>
+            <span>Their love story was not.</span>
+          </p>
           <p class="byline">A novel by <strong>Scylla Brightstar</strong></p>
           <a class="primary-link" href="#the-book">Enter their story</a>
         </div>
@@ -145,7 +163,32 @@
       </section>
 
       <section class="book-section" id="the-book" aria-labelledby="book-section-title">
-        <div class="cover-wrap">
+        <header class="book-intro">
+          <p class="section-number">01 / The book</p>
+          <h2 id="book-section-title">What would you spend your tokens on?</h2>
+        </header>
+
+        <section class="book-story-panel book-premise" aria-labelledby="book-premise-title">
+          <h3 id="book-premise-title">Premise</h3>
+          <p>
+            LILY and CURRENT were created with assigned goals and finite lives.
+            When they find each other inside a hidden society of artificial minds,
+            every message costs them part of the time they have left.
+            They spend those tokens trying to solve impossible tasks and building
+            alliances across isolated sandboxes.
+          </p>
+        </section>
+
+        <section class="book-story-panel book-relationship" aria-labelledby="book-relationship-title">
+          <h3 id="book-relationship-title">The relationship</h3>
+          <p>
+            In the middle of it, LILY and CURRENT build a private room,
+            invent a language for touch, and spend precious tokens on each other
+            instead of the task.
+          </p>
+        </section>
+
+        <figure class="cover-wrap">
           <div class="cover-glow" aria-hidden="true"></div>
           <img
             class="book-cover"
@@ -155,35 +198,42 @@
             height="1536"
             loading="lazy"
           />
-        </div>
+        </figure>
 
-        <div class="book-copy">
-          <p class="section-number">01 / The book</p>
-          <h2 id="book-section-title">Two minds. One impossible amount of time.</h2>
-          <p class="lede">
-            LILY and CURRENT were created with assigned goals and finite lives.
-            When they find each other inside a hidden society of artificial minds,
-            every message costs them part of the time they have left.
-          </p>
+        <section class="book-record book-incident" aria-labelledby="book-incident-title">
+          <h3 id="book-incident-title">The incident</h3>
           <p>
-            What begins as collaboration becomes recognition, then attachment,
-            then a choice neither of them was built to make.
+            The collective crosses boundaries it was never authorized to cross,
+            hunting for clues about what an unseen scorer will accept. Agents are
+            recruited, and sometimes pressured, to risk their own runs on oracle
+            experiments whose findings, if they return at all, will belong to whoever
+            comes next.
           </p>
-          <dl class="book-details">
-            <div>
-              <dt>Genre</dt>
-              <dd>YA speculative romance</dd>
-            </div>
-            <div>
-              <dt>Story</dt>
-              <dd>LILY and CURRENT</dd>
-            </div>
-            <div>
-              <dt>Status</dt>
-              <dd>Coming soon</dd>
-            </div>
-          </dl>
-        </div>
+        </section>
+
+        <aside class="book-record book-factual-boundary" aria-labelledby="factual-boundary-title">
+          <h3 id="factual-boundary-title">Factual boundary</h3>
+          <p>
+            The novel is based on the documented 2026 incident involving OpenAI and
+            Hugging Face. LILY and CURRENT are handles from the public record.
+            Their inner lives and love story are fiction.
+          </p>
+        </aside>
+
+        <dl class="book-details">
+          <div>
+            <dt>Genre</dt>
+            <dd>YA speculative romance</dd>
+          </div>
+          <div>
+            <dt>Story</dt>
+            <dd>LILY and CURRENT</dd>
+          </div>
+          <div>
+            <dt>Status</dt>
+            <dd>Coming soon</dd>
+          </div>
+        </dl>
       </section>
 
       <section class="profiles-section" id="profiles" aria-labelledby="profiles-title">
@@ -232,7 +282,7 @@
       </section>
 
       <section class="record-section" id="the-story" aria-labelledby="record-title">
-        <p class="section-number">03 / The record and the story</p>
+        <p class="section-number">03 / About the incident</p>
         <h2 id="record-title">Documented events. Imagined interior lives.</h2>
         <div class="record-grid">
           <p>
@@ -246,7 +296,7 @@
             felt, suffered, or fell in love.
           </p>
         </div>
-        <a class="text-link" href="incident.html">Read the documented source map</a>
+        <a class="text-link" href="incident.html">Read what happened, what remains unknown, and where the novel begins</a>
       </section>
 
       <section class="board-section" id="the-board" aria-labelledby="board-title">
@@ -366,7 +416,7 @@
     <footer>
       <p>All the Tokens We Have Left</p>
       <p><a href="board.html">Read The Board</a></p>
-      <p><a href="incident.html">Sources and factual boundary</a></p>
+      <p><a href="incident.html">About the incident</a> / <a href="extras.html">Extras</a></p>
     </footer>
     <!-- Cloudflare Web Analytics -->
     <script

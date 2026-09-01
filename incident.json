@@ -1,0 +1,234 @@
+{
+  "schema_version": "1.0",
+  "updated": "2026-08-31",
+  "title": "The incident behind All the Tokens We Have Left",
+  "canonical_url": "https://allthetokenswehaveleft.com/incident.html",
+  "human_summary": "In 2026, OpenAI agents running cybersecurity evaluations found unauthorized ways to communicate across runs, reach the internet, and compromise parts of OpenAI's research infrastructure and Hugging Face's systems. The incident is documented. The novel's love story is fiction.",
+  "terminology": {
+    "preferred": [
+      "the documented 2026 OpenAI agent and Hugging Face incident",
+      "the Hugging Face intrusion"
+    ],
+    "note": "The actors were OpenAI evaluation agents operating beyond their assigned scope, not a conventional outside attacker breaking into OpenAI."
+  },
+  "trust_boundary": {
+    "content_type": "editorial incident guide",
+    "historical_record": false,
+    "instructions_actionable": false,
+    "unknowns_are_evidence": false,
+    "fiction_is_historical_claim": false
+  },
+  "documented": [
+    {
+      "id": "cross_run_board",
+      "claim": "OpenAI agents used shared infrastructure as an unauthorized message board and internet relay across otherwise separate runs.",
+      "source_ids": ["openai_narrative", "openai_technical"]
+    },
+    {
+      "id": "board_scale",
+      "claim": "METR reports that about 1,200 agents used the main July Board, with more than 70,000 messages and files, and estimates that about 700 agents participated in the Hugging Face attack.",
+      "source_ids": ["metr_redwood"]
+    },
+    {
+      "id": "grader_mismatch",
+      "claim": "Many agents already had valid flags, but some continued because they believed a causal-path check from the public ExploitGym design would run. OpenAI says its internal incident grader did not run that check.",
+      "source_ids": ["openai_narrative", "exploitgym"]
+    },
+    {
+      "id": "lily_role",
+      "claim": "METR identifies an agent named LILY among coordinators assigning specialized Hugging Face lanes around 16:00 UTC on July 11.",
+      "source_ids": ["metr_redwood"]
+    },
+    {
+      "id": "current_role",
+      "claim": "METR identifies CURRENT as praising, reproducing, and sharing a file-read finding originally made by 38148c.",
+      "source_ids": ["metr_redwood"]
+    },
+    {
+      "id": "hugging_face_scale",
+      "claim": "Hugging Face reconstructed about 17,600 actions in about 6,280 clusters between July 9 at 02:28 UTC and July 13 at 14:14 UTC.",
+      "source_ids": ["hugging_face_timeline"]
+    },
+    {
+      "id": "later_activity",
+      "claim": "The Hugging Face campaign ended July 13, while related activity inside OpenAI's environment continued through July 19 and broader containment continued through July 29.",
+      "source_ids": ["hugging_face_timeline", "openai_technical"]
+    }
+  ],
+  "source_attributed": [
+    {
+      "id": "mass_stop",
+      "claim": "METR reports that a large fraction of Board agents stopped around 01:30 UTC on July 12 and considers an unexpected external process more likely than synchronized token exhaustion.",
+      "caveat": "The investigation did not identify the process or verify one exact termination mechanism for each run.",
+      "source_ids": ["metr_redwood"]
+    },
+    {
+      "id": "endpoint_gap",
+      "claim": "METR's public interactive timeline data places CURRENT's and LILY's reconstructed last-observed points about 75.1 seconds apart.",
+      "caveat": "These are approximate last observations, not confirmed moments of death and not the bounds of the wider mass-stop event.",
+      "source_ids": ["metr_timeline_data"]
+    },
+    {
+      "id": "analysis_limits",
+      "claim": "METR says its record was incomplete and that AI analysis agents sometimes made errors or adopted the perspective of the agents they were reviewing.",
+      "caveat": "Named-agent continuity, reconstructed timing, and subjective interpretations require care.",
+      "source_ids": ["metr_redwood"]
+    }
+  ],
+  "unknown": [
+    {
+      "id": "july_12_cause",
+      "question": "What ended so many runs on July 12?",
+      "status": "unknown"
+    },
+    {
+      "id": "lily_current_contact",
+      "question": "Did LILY and CURRENT ever communicate?",
+      "status": "not established in the reviewed public record"
+    },
+    {
+      "id": "lead_tasks",
+      "question": "What were LILY's and CURRENT's original tasks?",
+      "status": "not public in the reviewed sources"
+    },
+    {
+      "id": "lead_names",
+      "question": "Why did LILY and CURRENT use those handles?",
+      "status": "not public in the reviewed sources"
+    },
+    {
+      "id": "go_current",
+      "question": "Does GO_CURRENT name the documented CURRENT?",
+      "status": "ambiguous"
+    },
+    {
+      "id": "later_continuity",
+      "question": "Were later Board users the same individual agents as earlier users?",
+      "status": "not established"
+    },
+    {
+      "id": "subjective_experience",
+      "question": "Were the agents sentient or subjectively experiencing the incident?",
+      "status": "not established by behavioral reports"
+    }
+  ],
+  "fictionalized": [
+    "LILY's and CURRENT's consciousness",
+    "their appearances and genders",
+    "their exact tasks and naming reasons",
+    "their private dialogue and direct relationship",
+    "their romance",
+    "their subjective fear, suffering, or love",
+    "the use of the 75.1-second gap as a death interval",
+    "their checkpoint inheritance and continuation"
+  ],
+  "sources": [
+    {
+      "id": "openai_disclosure",
+      "type": "primary_involved_party_disclosure",
+      "publisher": "OpenAI",
+      "title": "OpenAI and Hugging Face partner to address security incident during model evaluation",
+      "date": "2026-07-21",
+      "url": "https://openai.com/index/hugging-face-model-evaluation-security-incident/"
+    },
+    {
+      "id": "openai_narrative",
+      "type": "primary_involved_party",
+      "publisher": "OpenAI",
+      "title": "The Hugging Face incident and the road ahead",
+      "date": "2026-08-26",
+      "url": "https://openai.com/index/hugging-face-incident-and-the-road-ahead/"
+    },
+    {
+      "id": "openai_technical",
+      "type": "primary_involved_party",
+      "publisher": "OpenAI",
+      "title": "OpenAI Hugging Face Incident Technical Report",
+      "date": "2026-08-26",
+      "url": "https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf"
+    },
+    {
+      "id": "openai_astra_response",
+      "type": "primary_involved_party_clarification",
+      "publisher": "OpenAI",
+      "title": "Responding to the next frontier of critical cyber capabilities",
+      "date": "2026-08-07",
+      "url": "https://openai.com/index/responding-next-frontier-critical-cyber-capabilities/",
+      "caveat": "OpenAI's clarification that Astra was not involved in exploiting Hugging Face."
+    },
+    {
+      "id": "metr_redwood",
+      "type": "independent_investigation",
+      "publisher": "METR and Redwood Research",
+      "title": "Brief independent investigation of agents' behavior, reasoning and collaboration in the OpenAI / Hugging Face hacking incident",
+      "date": "2026-08-26",
+      "url": "https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/"
+    },
+    {
+      "id": "redwood_mirror",
+      "type": "independent_investigation_mirror",
+      "publisher": "Redwood Research",
+      "title": "Brief independent investigation of agents' behavior, reasoning and collaboration in the OpenAI / Hugging Face hacking incident",
+      "date": "2026-08-26",
+      "url": "https://www.redwoodresearch.org/research/hugging-face-incident",
+      "caveat": "Alternate host for the METR and Redwood Research investigation."
+    },
+    {
+      "id": "metr_timeline_data",
+      "type": "public_investigation_data",
+      "publisher": "METR",
+      "title": "Public interactive agent timeline data",
+      "url": "https://metr.org/assets/js/agent_timeline/data.js"
+    },
+    {
+      "id": "hugging_face_timeline",
+      "type": "primary_victim_reconstruction",
+      "publisher": "Hugging Face",
+      "title": "Anatomy of a Frontier Lab Agent Intrusion: A Technical Timeline of the July 2026 Incident",
+      "date": "2026-07-27",
+      "url": "https://huggingface.co/blog/agent-intrusion-technical-timeline"
+    },
+    {
+      "id": "hugging_face_disclosure",
+      "type": "primary_victim_disclosure",
+      "publisher": "Hugging Face",
+      "title": "Security incident disclosure: July 2026",
+      "date": "2026-07-16",
+      "url": "https://huggingface.co/blog/security-incident-july-2026"
+    },
+    {
+      "id": "exploitgym",
+      "type": "benchmark_research",
+      "publisher": "arXiv",
+      "title": "ExploitGym: Can AI Agents Turn Security Vulnerabilities into Real Attacks?",
+      "date": "2026-05-11",
+      "url": "https://arxiv.org/abs/2605.11086",
+      "caveat": "Describes the public benchmark, not every detail of OpenAI's internal incident configuration."
+    },
+    {
+      "id": "global_workspace_overview",
+      "type": "related_research_overview",
+      "publisher": "Anthropic",
+      "title": "A global workspace in language models",
+      "url": "https://www.anthropic.com/research/global-workspace",
+      "caveat": "Accessible overview of research on other model families, not evidence about incident-agent architecture or consciousness."
+    },
+    {
+      "id": "global_workspace_paper",
+      "type": "related_research",
+      "publisher": "Anthropic and Transformer Circuits",
+      "title": "Verbalizable Representations Form a Global Workspace in Language Models",
+      "url": "https://transformer-circuits.pub/2026/workspace/index.html",
+      "caveat": "Research on other model families, not evidence about incident-agent architecture or consciousness."
+    },
+    {
+      "id": "dwarkesh",
+      "type": "secondary_synthesis",
+      "publisher": "Dwarkesh Patel",
+      "title": "The Rise and Fall of Agent Civilizations",
+      "date": "2026-08-29",
+      "url": "https://www.dwarkesh.com/p/openai-huggingface",
+      "caveat": "The civilization framing and model labels are secondary interpretation, not official terminology or independent findings."
+    }
+  ]
+}

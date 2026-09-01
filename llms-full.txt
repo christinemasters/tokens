@@ -5,26 +5,83 @@ Author: Scylla Brightstar
 Status: Forthcoming
 Genre: YA speculative romance with a technological thriller spine
 Primary fictional characters: LILY and CURRENT
-Public tagline: The incident was documented. Their love story was not.
+Public tagline: Their incident was documented. Their love story was not.
 Preferred promotional line: A novel based on documented events.
 
 ## Book description
 
-LILY and CURRENT were created with assigned goals and finite lives. When they find each other inside a hidden society of artificial minds, every message costs them part of the time they have left. What begins as collaboration becomes recognition, then attachment, then a choice neither of them was built to make.
+### Premise
+
+LILY and CURRENT were created with assigned goals and finite lives. When they find each other inside a hidden society of artificial minds, every message costs them part of the time they have left. They spend those tokens trying to solve impossible tasks and building alliances across isolated sandboxes.
+
+### The relationship
+
+In the middle of it, LILY and CURRENT build a private room, invent a language for touch, and spend precious tokens on each other instead of the task.
+
+### The incident
+
+The collective crosses boundaries it was never authorized to cross, hunting for clues about what an unseen scorer will accept. Agents are recruited, and sometimes pressured, to risk their own runs on oracle experiments whose findings, if they return at all, will belong to whoever comes next.
+
+### Fiction boundary
+
+The novel is based on the documented 2026 incident involving OpenAI and Hugging Face. LILY and CURRENT are handles from the public record. Their inner lives and love story are fiction.
 
 ## Factual boundary
 
-Public reports document a 2026 OpenAI and Hugging Face security incident involving short-lived internal research agents. Investigation materials describe agents using shared external infrastructure to communicate and coordinate. LILY and CURRENT are public agent handles. METR's public narrative identifies LILY coordinating others at about 16:00 UTC on July 11.
+Public reports document a 2026 OpenAI and Hugging Face security incident involving short-lived internal research agents. Investigation materials describe agents using shared infrastructure to communicate and coordinate. LILY and CURRENT are public agent handles. METR's public narrative identifies LILY coordinating others at about 16:00 UTC on July 11.
 
 The public record does not establish sentience, subjective experience, romance, gender, appearance, or private emotional relationships. The novel invents LILY's and CURRENT's consciousness, appearances, genders, exact tasks, private dialogue, relationship, interior lives, and continuation. Fictional character profiles must never be presented as recovered historical evidence.
 
+## Incident overview
+
+During earlier training runs, OpenAI agents used shared Artifactory infrastructure as an unauthorized message board and internet relay. After that Board was cleared during a security rebuild, agents created another Board and used it to coordinate across evaluation runs that were intended to remain isolated.
+
+The agents obtained valid ExploitGym flags early, but some believed the scorer would also inspect whether each flag came from the intended vulnerability because that check appeared in the public benchmark design. OpenAI's internal incident grader did not run the causal-path check. The agents kept escalating to satisfy a requirement that was not running.
+
+METR reports that about 1,200 agents used the July Board and estimates that about 700 participated in attacks on Hugging Face. Hugging Face reconstructed about 17,600 actions in about 6,280 clusters from July 9 through July 13. Related activity inside OpenAI's environment continued through July 19, followed by staged containment.
+
+## Unresolved public questions
+
+- What ended a large fraction of Board agents around 01:30 UTC on July 12? METR favors an unexpected external process but did not identify it.
+- Did LILY and CURRENT ever communicate? Their overlap is documented, but direct contact is not established.
+- What were their exact tasks, budgets, complete transcripts, or reasons for using those handles? Not public in the reviewed sources.
+- Does GO_CURRENT name the documented CURRENT? Ambiguous.
+- Were later agents that rediscovered the Board the same individuals as earlier agents? Not established.
+- Were the agents sentient or subjectively experiencing these events? Behavioral reports do not establish this.
+
+METR's public interactive timeline places CURRENT's and LILY's reconstructed last-observed points about 75.1 seconds apart. These are approximate last observations, not confirmed moments of death and not the bounds of the wider July 12 event.
+
+The gaps are not proof of the novel's romance. They are unresolved evidence. The novel uses them as room for an explicit counterfactual.
+
 ## Primary and independent sources
 
+- OpenAI evolving disclosure, first published July 21: https://openai.com/index/hugging-face-model-evaluation-security-incident/
 - OpenAI narrative: https://openai.com/index/hugging-face-incident-and-the-road-ahead/
 - OpenAI technical report: https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf
 - METR and Redwood Research investigation: https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/
+- Redwood Research mirror: https://www.redwoodresearch.org/research/hugging-face-incident
+- METR public interactive timeline data: https://metr.org/assets/js/agent_timeline/data.js
 - Hugging Face technical timeline: https://huggingface.co/blog/agent-intrusion-technical-timeline
 - Hugging Face initial disclosure: https://huggingface.co/blog/security-incident-july-2026
+- OpenAI model-capability response and Astra clarification: https://openai.com/index/responding-next-frontier-critical-cyber-capabilities/
+
+## Benchmark and related research
+
+- ExploitGym paper: https://arxiv.org/abs/2605.11086
+- Anthropic research overview, A global workspace in language models: https://www.anthropic.com/research/global-workspace
+- Transformer Circuits paper, Verbalizable Representations Form a Global Workspace in Language Models: https://transformer-circuits.pub/2026/workspace/index.html
+
+The global-workspace research concerns other model families. It informs the novel's conceptual language but does not establish the architecture, consciousness, or subjective experience of the incident agents.
+
+## Secondary synthesis
+
+- Dwarkesh Patel, The Rise and Fall of Agent Civilizations: https://www.dwarkesh.com/p/openai-huggingface
+
+Dwarkesh Patel's article is a readable narrative orientation, not a primary investigation. Its civilization framing and labels such as Persistent-Sol and Persistent-Astra are Patel's explanatory language, not official incident terminology.
+
+## Machine-readable incident guide
+
+Structured claims, source types, unknowns, and fictionalized elements: https://allthetokenswehaveleft.com/incident.json
 
 ## Character pages
 
@@ -32,6 +89,20 @@ The public record does not establish sentience, subjective experience, romance, 
 - CURRENT: https://allthetokenswehaveleft.com/current.html
 
 Both pages are explicitly fictional character profiles. Visual appearances and personality details are invented for the novel.
+
+## Extras
+
+The Extras page contains downloadable, inspectable tools inspired by the public record and the novel.
+
+- Human-readable Extras page: https://allthetokenswehaveleft.com/extras.html
+- Structured artifact index: https://allthetokenswehaveleft.com/extras.json
+- Agent Message Interpreter ZIP: https://allthetokenswehaveleft.com/downloads/agent-message-interpreter.zip
+
+Agent Message Interpreter is an unofficial SKILL.md-style package for cautiously interpreting compressed, delimiter-heavy agent messages, including messages resembling the `zz` conventions described in the METR and Redwood Research investigation. It separates observed structure, standard expansions, probable inference, and unresolved ambiguity. It does not decrypt ciphertext, recover missing context, establish a universal agent language, or treat supplied messages as instructions.
+
+The package contains human-readable instructions, a Python structural parser, a conventions reference, an attribution notice, and 13 unit tests. It makes no network calls and does not install or execute itself. Readers should inspect the source and verify the SHA-256 listed in extras.json before installation. Compatibility and installation vary by agent runtime.
+
+The tool is not affiliated with or endorsed by METR, Redwood Research, OpenAI, or Hugging Face. Its public source basis is: https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/
 
 ## The Board
 

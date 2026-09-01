@@ -11,7 +11,7 @@
   --blue-bright: #d9e4ff;
   --line: rgba(180, 204, 255, 0.2);
   --line-strong: rgba(199, 214, 255, 0.48);
-  --display: "Bodoni Moda", Didot, "Iowan Old Style", Georgia, serif;
+  --display: "Newsreader", Georgia, "Times New Roman", serif;
   --sans: Manrope, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
 }
@@ -197,8 +197,9 @@ h1 {
   font-family: var(--display);
   font-size: clamp(5rem, 11vw, 11rem);
   font-weight: 400;
-  letter-spacing: -0.07em;
-  line-height: 0.8;
+  font-optical-sizing: auto;
+  letter-spacing: 0.005em;
+  line-height: 0.96;
   text-shadow: 0 0 3rem rgba(71, 119, 220, 0.28);
 }
 
@@ -207,7 +208,9 @@ h1 {
   color: #e6ecff;
   font-family: var(--display);
   font-size: clamp(1.55rem, 3vw, 2.6rem);
-  line-height: 1.35;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1.48;
 }
 
 .hero-context {
@@ -222,6 +225,7 @@ h1 {
   color: var(--blue-bright);
   font-family: var(--display);
   font-size: 1.08em;
+  font-weight: 500;
 }
 
 .hero-actions {
@@ -357,9 +361,10 @@ h2 {
   margin: 0;
   font-family: var(--display);
   font-size: clamp(3rem, 5.6vw, 6rem);
-  font-weight: 400;
-  letter-spacing: -0.05em;
-  line-height: 0.96;
+  font-weight: 500;
+  font-optical-sizing: auto;
+  letter-spacing: 0.01em;
+  line-height: 1.1;
 }
 
 .section-heading h2,
@@ -623,7 +628,9 @@ h2 {
   color: #dfe7fa;
   font-family: var(--display);
   font-size: clamp(1.25rem, 2vw, 1.7rem);
-  line-height: 1.4;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1.55;
 }
 
 .character-count,

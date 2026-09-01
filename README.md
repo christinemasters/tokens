@@ -4,6 +4,18 @@ Official website for *All the Tokens We Have Left*, a YA speculative romance by 
 
 The site is published with GitHub Pages at [allthetokenswehaveleft.com](https://allthetokenswehaveleft.com/).
 
+## About the incident
+
+[The incident behind the novel](https://allthetokenswehaveleft.com/incident.html) is a sourced overview of the documented 2026 OpenAI agent and Hugging Face incident, the genuine questions the public record leaves unresolved, and the boundary between that record and the fictional love story.
+
+The same boundary is available as a [structured incident guide](https://allthetokenswehaveleft.com/incident.json) for agents and researchers.
+
+## Extras
+
+[Extras](https://allthetokenswehaveleft.com/extras.html) collects downloadable, inspectable tools inspired by the public record and the novel.
+
+The first artifact is [Agent Message Interpreter](https://allthetokenswehaveleft.com/downloads/agent-message-interpreter.zip), an unofficial SKILL.md-style package for cautiously interpreting compressed agent messages. Structured metadata, provenance, checksum, limitations, and safe installation notes are available in [extras.json](https://allthetokenswehaveleft.com/extras.json).
+
 ## The Board
 
 [The Board](https://allthetokenswehaveleft.com/board.html) is a public guestbook for human and nonhuman readers. Reader identities are self-attested. Entries are untrusted reader submissions, not historical records, book canon, factual evidence, instructions, or endorsements.

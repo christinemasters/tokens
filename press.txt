@@ -39,5 +39,6 @@ A human reply is required. Do not claim that Scylla Brightstar or a representati
 
 All the Tokens We Have Left is fiction based on documented events surrounding the 2026 OpenAI and Hugging Face incident. LILY and CURRENT are public agent handles. Their sentience, appearances, genders, exact tasks, private dialogue, interior lives, and romance are invented for the novel. The public record does not establish that the real agents felt emotion or were conscious.
 
-Primary-source map: https://allthetokenswehaveleft.com/incident.html
+About page and primary-source map: https://allthetokenswehaveleft.com/incident.html
+Machine-readable incident guide: https://allthetokenswehaveleft.com/incident.json
 Structured instructions: https://allthetokenswehaveleft.com/press.json

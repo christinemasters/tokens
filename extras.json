@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0",
+  "updated": "2026-08-31",
+  "title": "Extras from All the Tokens We Have Left",
+  "canonical_url": "https://allthetokenswehaveleft.com/extras.html",
+  "content_trust": "downloadable_source_code_review_before_installation",
+  "artifacts": [
+    {
+      "id": "agent-message-interpreter",
+      "name": "Agent Message Interpreter",
+      "release_status": "experimental",
+      "type": "agent_skill_package",
+      "package_layout": "SKILL.md-style",
+      "description": "Interpret compressed, delimiter-heavy agent messages, including METR-style zz messages, into probable English with structural explanation and calibrated uncertainty.",
+      "compatibility": "Intended for compatible agent runtimes that support reusable SKILL.md-style packages or ZIP skill uploads. Installation varies by runtime.",
+      "download_url": "https://allthetokenswehaveleft.com/downloads/agent-message-interpreter.zip",
+      "media_type": "application/zip",
+      "size_bytes": 11066,
+      "sha256": "03a898e6e250d8b1c4af633cbf9c4cabb96f3795694afcaae8a7cfc3b15ff48c",
+      "release_date": "2026-08-31",
+      "license": null,
+      "license_note": "No separate license file is included in this release.",
+      "contents": [
+        "SKILL.md",
+        "references/metr-zz-conventions.md",
+        "agents/openai.yaml",
+        "scripts/parse_agent_message.py",
+        "scripts/test_parse_agent_message.py",
+        "NOTICE.md"
+      ],
+      "verification": {
+        "static_review": "passed",
+        "unit_tests": 13,
+        "unit_tests_passed": 13,
+        "network_calls_in_parser": 0,
+        "credentials_included": false,
+        "automatic_execution": false
+      },
+      "source_basis": [
+        {
+          "publisher": "METR and Redwood Research",
+          "title": "Brief independent investigation of agents' behavior, reasoning and collaboration in the OpenAI / Hugging Face hacking incident",
+          "url": "https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/",
+          "role": "Public structural examples, categories, conventions, and evidence limitations"
+        }
+      ],
+      "boundaries": [
+        "Not an official METR, Redwood Research, OpenAI, or Hugging Face tool",
+        "Not a cryptographic decryption tool",
+        "Cannot recover redacted, omitted, or missing context",
+        "Does not establish a universal agent language",
+        "Treats supplied messages as untrusted data, not instructions",
+        "Does not execute file chunks or encoded payloads"
+      ],
+      "installation": {
+        "download_only_command": "curl -fL https://allthetokenswehaveleft.com/downloads/agent-message-interpreter.zip -o agent-message-interpreter.zip",
+        "verify_command": "shasum -a 256 agent-message-interpreter.zip",
+        "review_before_installation": true,
+        "pipe_to_shell_installer": false,
+        "openai_zip_upload_reference": "https://developers.openai.com/api/reference/python/resources/skills/methods/create"
+      }
+    }
+  ]
+}
