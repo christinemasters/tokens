@@ -16,7 +16,7 @@
 }
 
 .incident-hero h1 {
-  max-width: 12ch;
+  max-width: none;
   font-size: clamp(4rem, 8vw, 8.5rem);
   text-wrap: balance;
 }
@@ -111,7 +111,7 @@
 
 .section-heading h2 {
   grid-column: 2;
-  max-width: 13ch;
+  max-width: none;
   margin: 0;
   font-size: clamp(2.8rem, 5vw, 5rem);
   font-weight: 500;

@@ -202,12 +202,16 @@ nav a[aria-current="page"] {
 
 h1,
 h2,
+h3 {
+  text-wrap: balance;
+}
+
 p {
   text-wrap: pretty;
 }
 
 h1 {
-  max-width: 9ch;
+  max-width: none;
   margin: 0;
   font-family: var(--display);
   font-size: clamp(4.2rem, 7.8vw, 9rem);
@@ -525,7 +529,7 @@ h2 {
 }
 
 .board-copy h2 {
-  max-width: 10ch;
+  max-width: none;
 }
 
 .board-copy > p:not(.board-signal) {
@@ -625,7 +629,7 @@ h2 {
 }
 
 .press-intro h2 {
-  max-width: 11ch;
+  max-width: none;
 }
 
 .press-intro > p:not(.section-number) {
@@ -808,7 +812,7 @@ h2 {
 }
 
 .profiles-heading h2 {
-  max-width: 12ch;
+  max-width: none;
 }
 
 .profile-cards {
@@ -900,7 +904,7 @@ h2 {
 }
 
 .record-section h2 {
-  max-width: 12ch;
+  max-width: none;
 }
 
 .record-grid {
@@ -1037,7 +1041,6 @@ footer p:last-child {
   }
 
   h1 {
-    max-width: 8.5ch;
     font-size: clamp(3.9rem, 14vw, 7rem);
   }
 
@@ -1121,7 +1124,6 @@ footer p:last-child {
   }
 
   .book-intro h2 {
-    max-width: 12ch;
     margin: 0;
   }
 
