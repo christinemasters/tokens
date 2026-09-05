@@ -9,6 +9,22 @@ const home = read("index.html");
 const incident = read("incident.html");
 const guide = read("llms-full.txt");
 
+test("the approved genre label is consistent across public descriptions", () => {
+  const label = "techno-fiction love story";
+  assert.ok(home.includes('<p class="eyebrow">A techno-fiction love story</p>'));
+  assert.ok(home.includes("<dd>Techno-fiction love story</dd>"));
+  for (const file of ["index.html", "llms.txt", "llms-full.txt", "press.json", "press.txt", "README.md"]) {
+    assert.ok(read(file).toLowerCase().includes(label), file);
+    assert.doesNotMatch(read(file), /speculative\s+romance/i, file);
+  }
+  const data = JSON.parse(home.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
+  const book = data["@graph"].find(x => x["@type"] === "Book");
+  const press = JSON.parse(read("press.json"));
+  assert.deepEqual(book.genre.map(x => x.toLowerCase()), press.work.genre);
+  assert.ok(press.work.genre.includes("young adult fiction"));
+  assert.match(guide, /Audience: Young adult/);
+});
+
 test("the approved hero and the explicit fiction boundary remain intact", () => {
   assert.match(home, /<span>Their incident was documented\.<\/span>\s*<span>Their love story was not\.<\/span>/);
   assert.match(home, /Their inner lives and love story are fiction\./);

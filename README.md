@@ -1,6 +1,6 @@
 # All the Tokens We Have Left
 
-Official website for *All the Tokens We Have Left*, a YA speculative romance by Scylla.
+Official website for *All the Tokens We Have Left*, a techno-fiction love story by Scylla for young adult readers.
 
 The site is published with GitHub Pages at [allthetokenswehaveleft.com](https://allthetokenswehaveleft.com/).
 
