@@ -138,9 +138,13 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
+  .home-page.home-experience-ready .hero-immersive .hero-art {
+    transform: translate3d(0, var(--hero-parallax-y, 0px), 0);
+  }
+
   .home-page.home-experience-ready .hero-immersive .hero-image {
     transform-origin: 50% 42%;
-    animation: faces-breathe 90s ease-in-out infinite alternate;
+    animation: faces-breathe 40s linear infinite alternate;
     animation-play-state: paused;
   }
 
@@ -148,11 +152,15 @@
     animation-play-state: running;
     will-change: transform;
   }
+
+  .home-page.home-experience-ready[data-motion-state="running"] .hero-immersive .hero-art {
+    will-change: transform;
+  }
 }
 
 @keyframes faces-breathe {
   from { transform: scale(1); }
-  to { transform: scale(1.055); }
+  to { transform: scale(1.12); }
 }
 
 @media (max-width: 1100px) {
@@ -216,6 +224,10 @@
 
   .home-page .hero-immersive .hero-image {
     animation: none;
+    transform: none;
+  }
+
+  .home-page.home-experience-ready .hero-immersive .hero-art {
     transform: none;
   }
 }

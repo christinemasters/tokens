@@ -29,6 +29,30 @@
     var hideTimer = null;
     var introDelay = null;
     var introLinger = null;
+    var parallaxFrame = null;
+    var supportsParallax = typeof window.requestAnimationFrame === "function" &&
+      typeof window.cancelAnimationFrame === "function";
+
+    function updateParallax() {
+      if (!supportsParallax || document.visibilityState === "hidden") return;
+      var offset = 0;
+      if (!reducedMotion && !manuallyPaused) {
+        var rect = hero.getBoundingClientRect();
+        var distance = Math.max(0, Math.min(-rect.top, rect.height));
+        // The words scroll normally; the faces travel at 68% of their speed.
+        offset = Math.round(distance * 0.32 * 100) / 100;
+      }
+      body.style.setProperty("--hero-parallax-y", offset + "px");
+    }
+
+    function queueParallax() {
+      if (!supportsParallax || parallaxFrame !== null || reducedMotion || manuallyPaused ||
+          document.visibilityState === "hidden") return;
+      parallaxFrame = window.requestAnimationFrame(function () {
+        parallaxFrame = null;
+        updateParallax();
+      });
+    }
 
     function headerEdge() {
       var height = Math.max(0, header.getBoundingClientRect().height);
@@ -77,6 +101,9 @@
       motionToggle.setAttribute("aria-label", reducedMotion ? "Motion reduced" :
         manuallyPaused ? "Resume background motion" : "Pause background motion");
       motionToggle.textContent = reducedMotion ? "Motion reduced" : manuallyPaused ? "Resume motion" : "Pause motion";
+      if (parallaxFrame !== null) window.cancelAnimationFrame(parallaxFrame);
+      parallaxFrame = null;
+      updateParallax();
     }
 
     function scheduleHide() {
@@ -218,6 +245,9 @@
       }
       updateMotion();
     });
+
+    // Scroll events schedule at most one paint update, never a continuous JS loop.
+    if (supportsParallax) window.addEventListener("scroll", queueParallax, { passive: true });
 
     window.addEventListener("resize", function () {
       try {

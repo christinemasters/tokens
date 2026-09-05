@@ -11,7 +11,7 @@ class Events {
   constructor() { this.listeners = new Map(); }
   addEventListener(type, fn, options) {
     const listeners = this.listeners.get(type) || [];
-    listeners.push({ fn, once: Boolean(options && options.once) });
+    listeners.push({ fn, once: Boolean(options && options.once), passive: Boolean(options && options.passive) });
     this.listeners.set(type, listeners);
   }
   fire(type, details = {}) {
@@ -34,7 +34,11 @@ function browser(options = {}) {
       this.id = id;
       this.attributes = {};
       this.dataset = {};
-      this.style = { setProperty() {} };
+      const properties = new Map();
+      this.style = {
+        setProperty(name, value) { properties.set(name, String(value)); },
+        getPropertyValue(name) { return properties.get(name) || ""; },
+      };
       this.disabled = false;
       this.textContent = "";
       this.inert = false;
@@ -82,6 +86,7 @@ function browser(options = {}) {
   document.querySelector = (selector) => selector === ".hero-immersive" && !options.noHero ? el("hero") : null;
 
   const timers = new Map();
+  const frames = new Map();
   let time = 0;
   let nextId = 0;
   const window = new Events();
@@ -89,6 +94,10 @@ function browser(options = {}) {
   window.scrollY = options.scrollY || 0;
   window.setTimeout = (fn, delay) => { const id = ++nextId; timers.set(id, { fn, at: time + delay }); return id; };
   window.clearTimeout = (id) => timers.delete(id);
+  if (!options.noAnimationFrame) {
+    window.requestAnimationFrame = (fn) => { const id = ++nextId; frames.set(id, fn); return id; };
+    if (!options.noCancelAnimationFrame) window.cancelAnimationFrame = (id) => frames.delete(id);
+  }
   const preference = new Events();
   preference.matches = Boolean(options.reduced);
   if (options.legacyPreference) {
@@ -115,7 +124,12 @@ function browser(options = {}) {
   const run = () => vm.runInNewContext(script, { document, window }, { filename: "hero-motion.js" });
   if (options.run !== false) run();
   return {
-    body, el, document, window, preference, timers, observers, run,
+    body, el, document, window, preference, timers, frames, observers, run,
+    flushFrames() {
+      const pending = [...frames];
+      frames.clear();
+      for (const [, fn] of pending) fn(time);
+    },
     tick(milliseconds) {
       const end = time + milliseconds;
       let iterations = 0;
@@ -430,3 +444,174 @@ test("an observer failure during resize opens navigation and pauses unseen motio
   view.tick(10000);
   assertHeader(view, "shown");
 });
+
+function parallax(view) {
+  return view.body.style.getPropertyValue("--hero-parallax-y");
+}
+
+function positionHero(view, top, height = 900) {
+  view.el("hero").rect = { top, bottom: top + height, height };
+}
+
+test("parallax initializes from hero geometry and clamps overscroll at both ends", () => {
+  for (const [top, expected] of [[0, 0], [120, 0], [-300, 96], [-1200, 288]]) {
+    const view = browser({ run: false });
+    positionHero(view, top);
+    view.run();
+    assert.equal(parallax(view), `${expected}px`, `Initial hero top ${top}`);
+    assert.equal(view.frames.size, 0, "Initialization must not start a rendering loop");
+  }
+});
+
+test("passive scroll events share one frame and use the latest position without looping", () => {
+  const view = browser();
+  const listeners = view.window.listeners.get("scroll") || [];
+  assert.equal(listeners.length, 1);
+  assert.equal(listeners[0].passive, true);
+  for (const top of [-100, -200, -300]) {
+    positionHero(view, top);
+    view.window.fire("scroll");
+  }
+  assert.equal(view.frames.size, 1, "A burst of scrolling schedules one update");
+  assert.equal(parallax(view), "0px", "Scroll work waits for the queued frame");
+  view.flushFrames();
+  assert.equal(parallax(view), "96px");
+  assert.equal(view.frames.size, 0, "The frame must not recursively request another frame");
+  view.flushFrames();
+  assert.equal(parallax(view), "96px");
+  assert.equal(view.frames.size, 0);
+});
+
+test("scroll parallax follows both directions and remains clamped beyond the hero", () => {
+  const view = browser();
+  for (const [top, expected] of [[-450, 144], [-1000, 288], [-200, 64], [80, 0]]) {
+    positionHero(view, top);
+    view.window.fire("scroll");
+    view.flushFrames();
+    assert.equal(parallax(view), `${expected}px`);
+  }
+});
+
+test("manual pause cancels queued parallax, resets its offset, and resume uses current geometry", () => {
+  const view = browser();
+  positionHero(view, -300);
+  view.window.fire("scroll");
+  view.flushFrames();
+  assert.equal(parallax(view), "96px");
+  positionHero(view, -400);
+  view.window.fire("scroll");
+  assert.equal(view.frames.size, 1);
+  view.el("hero-motion-toggle").fire("click");
+  assert.equal(parallax(view), "0px");
+  assert.equal(view.frames.size, 0);
+  positionHero(view, -500);
+  view.window.fire("scroll");
+  view.flushFrames();
+  assert.equal(parallax(view), "0px");
+  view.el("hero-motion-toggle").fire("click");
+  assert.equal(parallax(view), "160px");
+  assert.equal(view.frames.size, 0);
+});
+
+test("reduced motion resets parallax immediately and reenabling uses current geometry", () => {
+  const view = browser();
+  positionHero(view, -200);
+  view.window.fire("scroll");
+  view.flushFrames();
+  assert.equal(parallax(view), "64px");
+  positionHero(view, -400);
+  view.window.fire("scroll");
+  view.reduce(true);
+  assert.equal(parallax(view), "0px");
+  assert.equal(view.frames.size, 0);
+  view.window.fire("scroll");
+  view.flushFrames();
+  assert.equal(parallax(view), "0px");
+  view.reduce(false);
+  assert.equal(parallax(view), "128px");
+});
+
+test("reduced-motion initial landing never adds a parallax offset", () => {
+  const view = browser({ run: false, reduced: true });
+  positionHero(view, -300);
+  view.run();
+  assert.equal(parallax(view), "0px");
+  assert.equal(view.frames.size, 0);
+});
+
+test("a hidden document cancels pending parallax while preserving its last visible offset", () => {
+  const view = browser();
+  positionHero(view, -300);
+  view.window.fire("scroll");
+  view.flushFrames();
+  assert.equal(parallax(view), "96px");
+  positionHero(view, -450);
+  view.window.fire("scroll");
+  assert.equal(view.frames.size, 1);
+  view.visibility("hidden");
+  assert.equal(view.frames.size, 0);
+  assert.equal(parallax(view), "96px");
+  positionHero(view, -600);
+  view.window.fire("scroll");
+  view.flushFrames();
+  assert.equal(parallax(view), "96px");
+  view.visibility("visible");
+  assert.equal(parallax(view), "192px");
+  assert.equal(view.frames.size, 0);
+});
+
+test("resize recalculates parallax with the resized hero height", () => {
+  const view = browser();
+  positionHero(view, -750);
+  view.window.fire("scroll");
+  view.flushFrames();
+  assert.equal(parallax(view), "240px");
+  positionHero(view, -750, 600);
+  view.window.fire("resize");
+  assert.equal(parallax(view), "192px");
+  positionHero(view, -200, 600);
+  view.window.fire("resize");
+  assert.equal(parallax(view), "64px");
+  assert.equal(view.frames.size, 0);
+});
+
+test("the header observer boundary does not reset parallax while artwork is still visible", () => {
+  const view = browser();
+  positionHero(view, -810);
+  view.window.fire("scroll");
+  view.flushFrames();
+  const offset = parallax(view);
+  assert.notEqual(offset, "0px");
+  const hero = view.el("hero");
+  view.observers.at(-1).callback([{ target: hero, isIntersecting: false, boundingClientRect: hero.rect }]);
+  assert.equal(view.body.dataset.heroVisible, "false");
+  assert.equal(view.body.dataset.motionState, "paused");
+  assert.equal(parallax(view), offset, "Header visibility must not cause an artwork jump");
+  view.intersection(false);
+  assert.equal(parallax(view), "288px");
+});
+
+for (const [name, options] of [
+  ["requestAnimationFrame", { noAnimationFrame: true }],
+  ["cancelAnimationFrame", { noCancelAnimationFrame: true }],
+]) {
+  test(`missing ${name} disables only parallax and retains navigation and zoom`, () => {
+    const view = browser(options);
+    assert.equal(view.body.classList.contains("home-experience-ready"), true);
+    assert.equal(view.body.dataset.motionState, "running");
+    assertHeader(view, "hidden");
+    positionHero(view, -300);
+    view.window.fire("scroll");
+    view.flushFrames();
+    assert.ok(["", "0px"].includes(parallax(view)));
+    assert.equal(view.frames.size, 0);
+    view.tick(3000);
+    assertHeader(view, "shown");
+    view.tick(4000);
+    assertHeader(view, "hidden");
+    view.el("header-reveal").fire("click");
+    assertHeader(view, "shown");
+    view.el("hero-motion-toggle").fire("click");
+    assert.equal(view.body.dataset.motionState, "paused");
+  });
+}
