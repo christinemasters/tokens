@@ -39,8 +39,8 @@
       if (!reducedMotion && !manuallyPaused) {
         var rect = hero.getBoundingClientRect();
         var distance = Math.max(0, Math.min(-rect.top, rect.height));
-        // The words scroll normally; the faces travel at 68% of their speed.
-        offset = Math.round(distance * 0.32 * 100) / 100;
+        // The words scroll normally; the faces travel at 36% of their speed.
+        offset = Math.round(distance * 0.64 * 100) / 100;
       }
       body.style.setProperty("--hero-parallax-y", offset + "px");
     }

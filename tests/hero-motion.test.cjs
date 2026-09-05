@@ -453,8 +453,14 @@ function positionHero(view, top, height = 900) {
   view.el("hero").rect = { top, bottom: top + height, height };
 }
 
+test("face zoom takes twenty seconds in each direction and preserves its twelve-percent range", () => {
+  const css = readFileSync(path.join(root, "hero-motion.css"), "utf8");
+  assert.match(css, /animation:\s*faces-breathe\s+20s\s+linear\s+infinite\s+alternate\s*;/);
+  assert.match(css, /@keyframes\s+faces-breathe\s*\{\s*from\s*\{\s*transform:\s*scale\(1\);\s*\}\s*to\s*\{\s*transform:\s*scale\(1\.12\);\s*\}/);
+});
+
 test("parallax initializes from hero geometry and clamps overscroll at both ends", () => {
-  for (const [top, expected] of [[0, 0], [120, 0], [-300, 96], [-1200, 288]]) {
+  for (const [top, expected] of [[0, 0], [120, 0], [-300, 192], [-1200, 576]]) {
     const view = browser({ run: false });
     positionHero(view, top);
     view.run();
@@ -475,16 +481,16 @@ test("passive scroll events share one frame and use the latest position without 
   assert.equal(view.frames.size, 1, "A burst of scrolling schedules one update");
   assert.equal(parallax(view), "0px", "Scroll work waits for the queued frame");
   view.flushFrames();
-  assert.equal(parallax(view), "96px");
+  assert.equal(parallax(view), "192px");
   assert.equal(view.frames.size, 0, "The frame must not recursively request another frame");
   view.flushFrames();
-  assert.equal(parallax(view), "96px");
+  assert.equal(parallax(view), "192px");
   assert.equal(view.frames.size, 0);
 });
 
 test("scroll parallax follows both directions and remains clamped beyond the hero", () => {
   const view = browser();
-  for (const [top, expected] of [[-450, 144], [-1000, 288], [-200, 64], [80, 0]]) {
+  for (const [top, expected] of [[-450, 288], [-1000, 576], [-200, 128], [80, 0]]) {
     positionHero(view, top);
     view.window.fire("scroll");
     view.flushFrames();
@@ -497,7 +503,7 @@ test("manual pause cancels queued parallax, resets its offset, and resume uses c
   positionHero(view, -300);
   view.window.fire("scroll");
   view.flushFrames();
-  assert.equal(parallax(view), "96px");
+  assert.equal(parallax(view), "192px");
   positionHero(view, -400);
   view.window.fire("scroll");
   assert.equal(view.frames.size, 1);
@@ -509,7 +515,7 @@ test("manual pause cancels queued parallax, resets its offset, and resume uses c
   view.flushFrames();
   assert.equal(parallax(view), "0px");
   view.el("hero-motion-toggle").fire("click");
-  assert.equal(parallax(view), "160px");
+  assert.equal(parallax(view), "320px");
   assert.equal(view.frames.size, 0);
 });
 
@@ -518,7 +524,7 @@ test("reduced motion resets parallax immediately and reenabling uses current geo
   positionHero(view, -200);
   view.window.fire("scroll");
   view.flushFrames();
-  assert.equal(parallax(view), "64px");
+  assert.equal(parallax(view), "128px");
   positionHero(view, -400);
   view.window.fire("scroll");
   view.reduce(true);
@@ -528,7 +534,7 @@ test("reduced motion resets parallax immediately and reenabling uses current geo
   view.flushFrames();
   assert.equal(parallax(view), "0px");
   view.reduce(false);
-  assert.equal(parallax(view), "128px");
+  assert.equal(parallax(view), "256px");
 });
 
 test("reduced-motion initial landing never adds a parallax offset", () => {
@@ -544,19 +550,19 @@ test("a hidden document cancels pending parallax while preserving its last visib
   positionHero(view, -300);
   view.window.fire("scroll");
   view.flushFrames();
-  assert.equal(parallax(view), "96px");
+  assert.equal(parallax(view), "192px");
   positionHero(view, -450);
   view.window.fire("scroll");
   assert.equal(view.frames.size, 1);
   view.visibility("hidden");
   assert.equal(view.frames.size, 0);
-  assert.equal(parallax(view), "96px");
+  assert.equal(parallax(view), "192px");
   positionHero(view, -600);
   view.window.fire("scroll");
   view.flushFrames();
-  assert.equal(parallax(view), "96px");
-  view.visibility("visible");
   assert.equal(parallax(view), "192px");
+  view.visibility("visible");
+  assert.equal(parallax(view), "384px");
   assert.equal(view.frames.size, 0);
 });
 
@@ -565,13 +571,13 @@ test("resize recalculates parallax with the resized hero height", () => {
   positionHero(view, -750);
   view.window.fire("scroll");
   view.flushFrames();
-  assert.equal(parallax(view), "240px");
+  assert.equal(parallax(view), "480px");
   positionHero(view, -750, 600);
   view.window.fire("resize");
-  assert.equal(parallax(view), "192px");
+  assert.equal(parallax(view), "384px");
   positionHero(view, -200, 600);
   view.window.fire("resize");
-  assert.equal(parallax(view), "64px");
+  assert.equal(parallax(view), "128px");
   assert.equal(view.frames.size, 0);
 });
 
@@ -588,7 +594,7 @@ test("the header observer boundary does not reset parallax while artwork is stil
   assert.equal(view.body.dataset.motionState, "paused");
   assert.equal(parallax(view), offset, "Header visibility must not cause an artwork jump");
   view.intersection(false);
-  assert.equal(parallax(view), "288px");
+  assert.equal(parallax(view), "576px");
 });
 
 for (const [name, options] of [

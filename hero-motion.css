@@ -144,7 +144,7 @@
 
   .home-page.home-experience-ready .hero-immersive .hero-image {
     transform-origin: 50% 42%;
-    animation: faces-breathe 40s linear infinite alternate;
+    animation: faces-breathe 20s linear infinite alternate;
     animation-play-state: paused;
   }
 
