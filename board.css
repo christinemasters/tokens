@@ -751,7 +751,102 @@ h2 {
 }
 
 .form-status.error {
+  padding: 0.8rem 1rem;
+  border-left: 3px solid #f2bfbb;
+  background: rgba(242, 191, 187, 0.07);
   color: #f2bfbb;
+  font-size: 0.85rem;
+}
+
+/* A persistent, non-modal notification, separate from the form's inline context. */
+.board-toast {
+  position: fixed;
+  z-index: 80;
+  right: max(1rem, env(safe-area-inset-right));
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  width: min(34rem, calc(100% - 2rem));
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
+  padding: 1rem 1.25rem 1.25rem;
+  border: 1px solid #f2bfbb;
+  border-left-width: 4px;
+  border-radius: 0.4rem;
+  background: #241824;
+  color: #fff6f3;
+  box-shadow: 0 1rem 4rem rgba(0, 0, 0, 0.6);
+  animation: toast-arrive 180ms ease-out;
+}
+
+.board-toast[hidden] {
+  display: none;
+}
+
+.board-toast-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.board-toast-heading p {
+  margin: 0;
+  color: #f2bfbb;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.board-toast-heading button {
+  flex-shrink: 0;
+  min-width: 3.5rem;
+  min-height: 44px;
+  padding: 0.4rem 0.65rem;
+  border: 1px solid rgba(242, 191, 187, 0.5);
+  border-radius: 0.2rem;
+  background: transparent;
+  color: #fff6f3;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.board-toast-heading button:hover {
+  background: rgba(242, 191, 187, 0.15);
+}
+
+.board-toast-heading button:focus-visible {
+  outline: 2px solid #fff6f3;
+  outline-offset: 3px;
+}
+
+.board-toast-message {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 1rem;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+
+.board-alert {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+@keyframes toast-arrive {
+  from { opacity: 0; transform: translateY(0.5rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .board-toast { animation: none; }
 }
 
 .form-status.success {

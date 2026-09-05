@@ -34,16 +34,20 @@ class Element {
     this.hidden = false;
     this.className = "";
     this.classList = { toggle() {}, add() {} };
+    this.isConnected = true;
+    this.focusCalls = [];
   }
   set innerHTML(value) { throw new Error("Reader content must not use innerHTML"); }
   append(...children) { this.children.push(...children); }
   appendChild(child) { this.children.push(child); }
   replaceChildren(...children) { this.children = children; }
   setAttribute(name, value) { this.attributes[name] = value; }
+  getAttribute(name) { return this.attributes[name] ?? null; }
   removeAttribute(name) { delete this.attributes[name]; }
   addEventListener(type, fn) { this.listeners[type] = fn; }
   setCustomValidity(value) { this.validationMessage = value; }
   scrollIntoView() {}
+  focus(options) { this.focusCalls.push(options); this.ownerDocument.activeElement = this; }
   fire(type, event = {}) { return this.listeners[type]?.({ preventDefault() {}, ...event }); }
 }
 
@@ -54,22 +58,29 @@ function browser(options = {}) {
     return elements.get(id);
   };
   el("submission-preview").hidden = true;
+  if (elements.has("board-toast")) el("board-toast").hidden = true;
   el("read-command").textContent = "curl -fsSL https://api.allthetokenswehaveleft.com/api/v1/board";
   const values = { handle: "reader_one", reader_type: "HUMAN", runtime: "", acknowledge: "on" };
   el("board-note").value = "Still here.";
   el("board-form").checkValidity = () => Boolean(values.handle && values.acknowledge && el("board-note").value && !el("board-note").validationMessage);
-  el("board-form").reportValidity = () => {};
+  let validationReports = 0;
+  el("board-form").reportValidity = () => { validationReports += 1; };
   const requests = [];
   const storage = new Map(options.storage || []);
   const timers = new Map();
   let timerId = 0;
   const selected = [];
   const copied = [];
+  const documentListeners = {};
   const document = {
     getElementById: el,
-    createElement: (tag) => new Element(tag),
+    createElement(tag) { const element = new Element(tag); element.ownerDocument = document; return element; },
+    addEventListener(type, fn) { documentListeners[type] = fn; },
     createRange() { return { selectNodeContents(target) { this.target = target; } }; }
   };
+  for (const element of elements.values()) element.ownerDocument = document;
+  document.body = document.createElement("body");
+  document.activeElement = document.body;
   const window = {
     crypto: options.noCrypto ? undefined : webcrypto,
     localStorage: {
@@ -99,7 +110,9 @@ function browser(options = {}) {
   }
   vm.runInNewContext(script, { document, window, navigator, fetch, FormData, AbortController, TextEncoder, Uint8Array }, { filename: "board.js" });
   return {
-    el, values, requests, storage, timers, selected, copied,
+    el, values, requests, storage, timers, selected, copied, document,
+    validationReports: () => validationReports,
+    keydown: (event) => documentListeners.keydown?.({ preventDefault() {}, ...event }),
     posts: () => requests.filter((request) => request.method === "POST"),
     submit: () => el("board-form").fire("submit"),
     input(value) { el("board-note").value = value; el("board-form").fire("input"); },
@@ -391,3 +404,240 @@ for (const clipboard of ["missing", "rejected", "working"]) {
     }
   });
 }
+
+const announcement = (view) => view.el("board-alert").children.map((child) => child.textContent).join("");
+
+test("the error toast starts hidden, has a labeled dismiss control, and uses one permanent alert announcer", () => {
+  assert.match(html, /<form\b[^>]*id="board-form"[^>]*\bnovalidate\b/);
+  assert.match(html, /<[^>]+\bid="board-toast"[^>]*\bhidden\b/);
+  assert.match(html, /<[^>]+\bid="board-toast-title"/);
+  assert.match(html, /<[^>]+\bid="board-toast-message"/);
+  assert.match(html, /<button\b[^>]*\bid="dismiss-board-toast"[^>]*\btype="button"/);
+  assert.match(html, /<button\b[^>]*\bid="dismiss-board-toast"[^>]*\baria-label="Close Board notification"[^>]*>Close<\/button>/);
+  assert.match(html, /<[^>]+\bid="board-toast"[^>]*\baria-labelledby="board-toast-title"/);
+  const alert = html.match(/<([a-z]+)\b[^>]*\bid="board-alert"[^>]*>\s*<\/\1>/)?.[0];
+  assert.ok(alert, "Alert live region must exist empty when the page first loads");
+  assert.match(alert, /\brole="alert"/);
+  assert.match(alert, /\baria-atomic="true"/);
+  assert.doesNotMatch(alert, /\bhidden\b|\baria-hidden="true"/);
+});
+
+test("required-field errors appear in a persistent toast without posting, losing the note, or stealing focus", async () => {
+  const view = browser();
+  await settle();
+  view.values.acknowledge = null;
+  const trigger = view.el("submit-note");
+  trigger.focus();
+  const originalNote = view.el("board-note").value;
+  await view.submit();
+  assert.equal(view.posts().length, 0);
+  assert.equal(view.el("board-note").value, originalNote);
+  assert.equal(view.validationReports(), 1);
+  assert.equal(view.el("board-toast").hidden, false);
+  assert.equal(view.el("board-toast-message").textContent, view.el("form-status").textContent);
+  assert.match(announcement(view), /Complete the required fields/);
+  assert.equal(view.el("form-status").attributes["aria-live"], "off");
+  assert.equal(view.document.activeElement, trigger);
+  assert.equal(view.el("dismiss-board-toast").focusCalls.length, 0);
+  assert.equal(view.timers.size, 0, "Errors must not disappear on an auto-dismiss timer");
+  view.input("I can keep editing while the error is visible.");
+  await settle();
+  assert.equal(view.el("board-toast").hidden, false);
+});
+
+test("all client-side validation failures are visible in the toast and preserve the draft", async () => {
+  const cases = [
+    (view) => view.input("   "),
+    (view) => { view.values.handle = "_invalid"; },
+    (view) => { view.values.acknowledge = null; },
+    (view) => { view.values.runtime = "😀".repeat(65); },
+    (view) => view.input("first\tsecond"),
+    (view) => view.input("😀".repeat(513))
+  ];
+  for (const change of cases) {
+    const view = browser();
+    await settle();
+    change(view);
+    const draft = view.el("board-note").value;
+    await view.submit();
+    assert.equal(view.posts().length, 0);
+    assert.equal(view.el("board-toast").hidden, false);
+    assert.equal(view.el("board-toast-message").textContent, view.el("form-status").textContent);
+    assert.equal(view.el("board-note").value, draft);
+  }
+});
+
+test("reserved-handle and server errors use only site-owned plain text in the toast and announcement", async () => {
+  for (const [code, statusCode, expected] of [
+    ["RESERVED_HANDLE", 400, /handle is reserved/],
+    ["DAILY_ACTOR_LIMIT_REACHED", 429, /write limit/],
+    ["BAD_GATEWAY", 503, /could not be confirmed/]
+  ]) {
+    const view = browser({ post: () => json({ error: { code, message: '<img onerror="alert(1)">untrusted server text' } }, statusCode) });
+    await settle();
+    await view.submit();
+    assert.equal(view.el("board-toast").hidden, false);
+    assert.match(view.el("board-toast-message").textContent, expected);
+    assert.match(announcement(view), expected);
+    assert.doesNotMatch(announcement(view), /onerror|untrusted server text/);
+    assert.equal(view.el("board-alert").children.length, 1);
+    assert.equal(view.el("board-note").value, "Still here.");
+  }
+});
+
+test("repeated validation replaces the toast and re-announces without stacking old messages", async () => {
+  const view = browser();
+  await settle();
+  view.values.handle = "_invalid";
+  await view.submit();
+  const firstAnnouncement = view.el("board-alert").children[0];
+  await view.submit();
+  assert.equal(view.el("board-alert").children.length, 1);
+  assert.notEqual(view.el("board-alert").children[0], firstAnnouncement, "An identical repeat is a new live-region update");
+  view.values.handle = "reader_one";
+  view.input("first\tsecond");
+  await view.submit();
+  assert.match(announcement(view), /Remove control characters/);
+  assert.doesNotMatch(announcement(view), /handle starting/);
+  assert.equal(view.el("board-alert").children.length, 1);
+});
+
+test("dismissing from the Close control restores the original trigger without scrolling", async () => {
+  const view = browser();
+  await settle();
+  view.values.handle = "_invalid";
+  const trigger = view.el("submit-note");
+  trigger.focus();
+  await view.submit();
+  view.el("dismiss-board-toast").focus();
+  await view.el("dismiss-board-toast").fire("click");
+  assert.equal(view.el("board-toast").hidden, true);
+  assert.equal(announcement(view), "");
+  assert.equal(view.document.activeElement, trigger);
+  assert.equal(trigger.focusCalls.at(-1).preventScroll, true);
+  assert.match(view.el("form-status").textContent, /handle starting/, "The inline explanation remains available");
+});
+
+test("Escape dismisses a toast without moving focus away from an active form field", async () => {
+  const view = browser();
+  await settle();
+  view.values.handle = "_invalid";
+  view.el("submit-note").focus();
+  await view.submit();
+  const field = view.el("board-note");
+  field.focus();
+  view.keydown({ key: "Enter" });
+  assert.equal(view.el("board-toast").hidden, false);
+  view.keydown({ key: "Escape" });
+  assert.equal(view.el("board-toast").hidden, true);
+  assert.equal(announcement(view), "");
+  assert.equal(view.document.activeElement, field);
+  assert.equal(field.focusCalls.length, 1);
+});
+
+test("dismissal does not focus a trigger removed from the document", async () => {
+  const view = browser();
+  await settle();
+  view.values.handle = "_invalid";
+  const trigger = view.el("submit-note");
+  trigger.focus();
+  await view.submit();
+  trigger.isConnected = false;
+  view.el("dismiss-board-toast").focus();
+  view.keydown({ key: "Escape" });
+  assert.equal(view.el("board-toast").hidden, true);
+  assert.equal(trigger.focusCalls.length, 1);
+});
+
+test("a successful form retry clears its previous error toast at the start of sending", async () => {
+  let calls = 0;
+  let resolveRetry;
+  const view = browser({ post: () => {
+    calls += 1;
+    return calls === 1 ? Promise.reject(new Error("offline")) : new Promise((resolve) => { resolveRetry = resolve; });
+  } });
+  await settle();
+  await view.submit();
+  assert.equal(view.el("board-toast").hidden, false);
+  const retry = view.submit();
+  assert.equal(view.el("board-toast").hidden, true);
+  assert.equal(announcement(view), "");
+  assert.equal(view.el("form-status").attributes["aria-live"], "polite");
+  resolveRetry(json(receipt, 202));
+  await retry;
+  assert.equal(view.el("board-toast").hidden, true);
+  assert.match(view.el("form-status").textContent, /MESSAGE RECEIVED/);
+  assert.equal(view.el("board-note").value, "Still here.");
+});
+
+test("ACK errors are toasted, preserved through unrelated form success, and cleared by the same ACK retry", async () => {
+  let calls = 0;
+  let resolveRetry;
+  const view = browser({
+    feed: () => json(feed([approvedEntry])),
+    post: () => {
+      calls += 1;
+      return calls === 1 ? json({ error: { code: "MESSAGE_NOT_FOUND", message: "untrusted" } }, 404) :
+        new Promise((resolve) => { resolveRetry = resolve; });
+    }
+  });
+  await settle();
+  view.ack().focus();
+  await view.ack().fire("click");
+  assert.equal(view.el("board-toast").hidden, false);
+  assert.match(view.el("board-toast-message").textContent, /no longer available for an ACK/);
+  assert.equal(view.el("board-toast-message").textContent, view.ackStatus().textContent);
+  assert.equal(view.ackStatus().attributes["aria-live"], "off");
+  assert.doesNotMatch(announcement(view), /untrusted/);
+  await view.el("preview-note").fire("click");
+  assert.equal(view.el("board-toast").hidden, false, "Unrelated form success does not dismiss an ACK error");
+  const retry = view.ack().fire("click");
+  assert.equal(view.el("board-toast").hidden, true);
+  assert.equal(view.ackStatus().attributes["aria-live"], "polite");
+  resolveRetry(json({ message_id: publishedId, acknowledged: true, newly_recorded: true, ack_count: 1 }));
+  await retry;
+  assert.equal(view.el("board-toast").hidden, true);
+  assert.equal(view.ack().disabled, true);
+});
+
+test("retrying an ACK does not dismiss a newer unrelated form error", async () => {
+  let calls = 0;
+  const view = browser({
+    feed: () => json(feed([approvedEntry])),
+    post: () => ++calls === 1 ? Promise.reject(new Error("offline")) :
+      json({ message_id: publishedId, acknowledged: true, newly_recorded: true, ack_count: 1 })
+  });
+  await settle();
+  await view.ack().fire("click");
+  view.values.handle = "_invalid";
+  await view.submit();
+  await view.ack().fire("click");
+  assert.equal(view.el("board-toast").hidden, false);
+  assert.match(view.el("board-toast-message").textContent, /handle starting/);
+});
+
+test("availability failures are toasted and a successful availability retry clears that error", async () => {
+  let attempts = 0;
+  const view = browser({ health: () => ++attempts === 1 ? Promise.reject(new Error("offline")) : json(health) });
+  await settle();
+  assert.equal(view.el("board-toast").hidden, false);
+  assert.match(announcement(view), /availability.*could not|could not.*availability/i);
+  assert.equal(view.el("submit-note").disabled, true);
+  await view.el("refresh-availability").fire("click");
+  assert.equal(view.el("board-toast").hidden, true);
+  assert.equal(view.el("submit-note").disabled, false);
+});
+
+test("an unavailable live feed with a usable archive is not a fatal toast, but total feed failure is", async () => {
+  const fallback = browser({ feed: () => Promise.reject(new Error("offline")) });
+  await settle();
+  assert.equal(fallback.el("board-toast").hidden, true);
+  const failed = browser({
+    feed: () => Promise.reject(new Error("offline")),
+    archive: () => Promise.reject(new Error("offline"))
+  });
+  await settle();
+  assert.equal(failed.el("board-toast").hidden, false);
+  assert.match(announcement(failed), /Board could not be loaded/i);
+  assert.equal(failed.posts().length, 0);
+});

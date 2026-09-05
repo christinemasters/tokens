@@ -17,6 +17,13 @@
   var note = document.getElementById("board-note");
   var count = document.getElementById("character-count");
   var formStatus = document.getElementById("form-status");
+  var toast = document.getElementById("board-toast");
+  var toastTitle = document.getElementById("board-toast-title");
+  var toastMessage = document.getElementById("board-toast-message");
+  var toastDismiss = document.getElementById("dismiss-board-toast");
+  var alert = document.getElementById("board-alert");
+  var toastSource = null;
+  var toastReturnFocus = null;
   var preview = document.getElementById("submission-preview");
   var previewMeta = document.getElementById("preview-meta");
   var previewMessage = document.getElementById("preview-message");
@@ -83,9 +90,45 @@
 
   function currentPayloadKey() { return JSON.stringify(readPayload()); }
 
+  function dismissToast(source) {
+    if (source && toastSource !== source) return;
+    var returnFocus = document.activeElement === toastDismiss;
+    toast.hidden = true;
+    alert.replaceChildren();
+    toastSource = null;
+    if (returnFocus && toastReturnFocus && toastReturnFocus.isConnected) {
+      toastReturnFocus.focus({ preventScroll: true });
+    }
+    toastReturnFocus = null;
+  }
+
+  function showToast(message, title, source) {
+    if (document.activeElement !== toastDismiss) toastReturnFocus = document.activeElement;
+    toastTitle.textContent = title;
+    toastMessage.textContent = message;
+    toastSource = source;
+    toast.hidden = false;
+    // Use a separate, already-present alert region so showing the toast never moves focus.
+    // A fresh plain-text node also announces repeated errors without interpreting markup.
+    var announcement = document.createElement("span");
+    announcement.textContent = title + ". " + message;
+    alert.replaceChildren(announcement);
+  }
+
+  toastDismiss.addEventListener("click", function () { dismissToast(); });
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape" && !toast.hidden) {
+      event.preventDefault();
+      dismissToast();
+    }
+  });
+
   function status(message, isError) {
     formStatus.className = "form-status " + (isError ? "error" : "success");
+    formStatus.setAttribute("aria-live", isError ? "off" : "polite");
     formStatus.textContent = message;
+    if (isError) showToast(message, "Your note needs attention", "form");
+    else dismissToast("form");
   }
 
   function updateControls() {
@@ -157,6 +200,7 @@
 
   async function checkAvailability() {
     if (healthPending) return;
+    dismissToast("availability");
     healthPending = true;
     writesOpen = false;
     refreshButton.disabled = true;
@@ -174,6 +218,8 @@
     } catch (error) {
       writeStatus.textContent = "Write availability could not be checked. Local previews are available.";
       heroWriteStatus.textContent = "Open for reading. Submission availability could not be confirmed.";
+      showToast("Write availability could not be checked. Your draft stays on this page. Use Check availability to retry, or preview your note locally.",
+        "Connection needs attention", "availability");
     } finally {
       healthPending = false;
       refreshButton.disabled = false;
@@ -231,7 +277,9 @@
       ackControls.push(control);
       ack.addEventListener("click", async function () {
         if (!writesOpen || healthPending || control.pending || control.done) return;
+        dismissToast("ack:" + entry.id);
         control.pending = true;
+        ackStatus.setAttribute("aria-live", "polite");
         ackStatus.textContent = "Recording your ACK.";
         updateControls();
         try {
@@ -248,7 +296,9 @@
           control.count = response.data.ack_count;
           ackStatus.textContent = "Witnessed, not endorsed. Your ACK is recorded.";
         } catch (error) {
+          ackStatus.setAttribute("aria-live", "off");
           ackStatus.textContent = safeError(error, true);
+          showToast(ackStatus.textContent, "Your ACK needs attention", "ack:" + entry.id);
         } finally {
           control.pending = false;
           updateControls();
@@ -429,6 +479,8 @@
       entryList.replaceChildren();
       entryList.removeAttribute("aria-busy");
       feedStatus.textContent = "The Board could not be loaded. Try again later.";
+      showToast("The Board could not be loaded. Check your connection and try again later. If you have a draft, keep this page open so you do not lose it.",
+        "The Board could not be loaded", "feed");
     });
   });
 })();

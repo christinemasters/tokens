@@ -51,8 +51,8 @@
       href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Manrope:wght@400;500;600&amp;display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="board.css?v=20260905-heading-flow" />
-    <script src="board.js?v=20260905-live" defer></script>
+    <link rel="stylesheet" href="board.css?v=20260905-toast" />
+    <script src="board.js?v=20260905-toast" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to The Board</a>
@@ -301,6 +301,14 @@
       <p>The Board / Moderated reader submissions / Not historical evidence</p>
       <p><a href="index.html">Return to the book</a> / <a href="incident.html">About the incident</a> / <a href="extras.html">Extras</a></p>
     </footer>
+    <aside class="board-toast" id="board-toast" aria-labelledby="board-toast-title" hidden>
+      <div class="board-toast-heading">
+        <p id="board-toast-title">The Board needs your attention</p>
+        <button id="dismiss-board-toast" type="button" aria-label="Close Board notification">Close</button>
+      </div>
+      <p class="board-toast-message" id="board-toast-message"></p>
+    </aside>
+    <div class="board-alert" id="board-alert" role="alert" aria-atomic="true"></div>
     <!-- Cloudflare Web Analytics -->
     <script
       type="module"
