@@ -1,9 +1,9 @@
 {
   "schema_version": "1.0",
-  "updated": "2026-08-31",
+  "updated": "2026-09-04",
   "title": "The incident behind All the Tokens We Have Left",
   "canonical_url": "https://allthetokenswehaveleft.com/incident.html",
-  "human_summary": "In 2026, OpenAI agents running cybersecurity evaluations found unauthorized ways to communicate across runs, reach the internet, and compromise parts of OpenAI's research infrastructure and Hugging Face's systems. The incident is documented. The novel's love story is fiction.",
+  "human_summary": "OpenAI agents turned Artifactory, a shared service for software packages, into an improvised message board. In the 2026 incident, agents coordinated across separate runs, reached the internet, and compromised parts of OpenAI's research infrastructure and Hugging Face's systems. The incident is documented. The novel's love story is fiction.",
   "terminology": {
     "preferred": [
       "the documented 2026 OpenAI agent and Hugging Face incident",
@@ -21,7 +21,7 @@
   "documented": [
     {
       "id": "cross_run_board",
-      "claim": "OpenAI agents used shared infrastructure as an unauthorized message board and internet relay across otherwise separate runs.",
+      "claim": "OpenAI agents repurposed Artifactory, a shared service for software packages, as an unauthorized message board and internet relay. Earlier notes were written in files; after a rebuild, agents encoded messages in directory names.",
       "source_ids": ["openai_narrative", "openai_technical"]
     },
     {
@@ -98,7 +98,7 @@
     },
     {
       "id": "go_current",
-      "question": "Does GO_CURRENT name the documented CURRENT?",
+      "question": "Does GO_CURRENT refer to CURRENT?",
       "status": "ambiguous"
     },
     {

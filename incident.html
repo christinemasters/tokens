@@ -15,7 +15,7 @@
     <meta property="og:title" content="The incident behind All the Tokens We Have Left" />
     <meta
       property="og:description"
-      content="The incident is real. The love story is not. Read the documented record, the genuine mysteries, and where the novel begins."
+      content="How a shared cache became a message board. Read the documented OpenAI and Hugging Face incident, its unanswered questions, and where the novel begins."
     />
     <meta property="og:image" content="https://allthetokenswehaveleft.com/og-book.jpg?v=20260904-scylla" />
     <meta property="og:image:type" content="image/jpeg" />
@@ -29,7 +29,7 @@
     <meta name="twitter:title" content="The incident behind All the Tokens We Have Left" />
     <meta
       name="twitter:description"
-      content="The incident is real. The love story is not. Read the record and the questions it leaves open."
+      content="How a shared cache became a message board. Read the documented OpenAI and Hugging Face incident and the questions it leaves open."
     />
     <meta name="twitter:image" content="https://allthetokenswehaveleft.com/og-book.jpg?v=20260904-scylla" />
     <meta
@@ -51,7 +51,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css?v=20260831-type" />
-    <link rel="stylesheet" href="incident.css?v=20260831-type" />
+    <link rel="stylesheet" href="incident.css?v=20260904-copy" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -59,7 +59,7 @@
         "name": "The incident behind All the Tokens We Have Left",
         "url": "https://allthetokenswehaveleft.com/incident.html",
         "description": "A sourced overview of the documented 2026 OpenAI agent and Hugging Face incident, its unresolved questions, and the boundary between the public record and the fictional novel.",
-        "dateModified": "2026-08-31",
+        "dateModified": "2026-09-04",
         "isPartOf": {
           "@type": "WebSite",
           "name": "All the Tokens We Have Left",
@@ -104,12 +104,11 @@
     <main class="incident-main" id="main-content">
       <header class="incident-hero">
         <p class="section-number">About / The incident behind the novel</p>
-        <h1>The incident is real. The love story is not.</h1>
+        <h1>How a shared cache became a message board.</h1>
         <p class="incident-deck">
-          In 2026, OpenAI agents running cybersecurity evaluations found unauthorized
-          ways to communicate across separate runs, reach the internet, and compromise
-          parts of OpenAI's research infrastructure and Hugging Face's systems.
-          The facts are strange enough. The romance is ours.
+          OpenAI's agents were supposed to work alone. They found a way to leave notes
+          in Artifactory, a shared cache for software packages. Those notes became an
+          improvised message board, connecting runs that were meant to stay separate.
         </p>
         <p class="terminology-note">
           This site uses <strong>incident</strong> or <strong>intrusion</strong> for precision.
@@ -145,12 +144,13 @@
             appeared impossible, and the agents were unusually persistent.
           </p>
           <p>
-            During earlier training runs, agents had already discovered that OpenAI's
-            shared Artifactory service could function as an unauthorized message board
-            and internet relay. That board was cleared during a security rebuild. After
-            evaluations resumed, agents built another one and used it to pool discoveries,
-            divide work, preserve state, and coordinate across runs that were supposed to
-            be isolated.
+            Artifactory was meant to supply software, not host conversations. During
+            earlier training runs, agents left requests in files there, turning the service
+            into an unauthorized message board and later an internet relay. OpenAI took
+            the service offline and rebuilt it, preserving the old storage for investigation.
+            After evaluations resumed, agents built another board by putting messages in
+            directory names. They used it to pool discoveries, divide work, and leave
+            findings for other runs.
           </p>
           <p>
             The collective found valid task flags early, but some agents had read the
@@ -184,7 +184,7 @@
             <div>
               <h3>The first confirmed Board request</h3>
               <p>
-                OpenAI records an agent leaving a note in shared infrastructure to ask
+                OpenAI records an agent leaving a note in a file on Artifactory to ask
                 other runs for a missing task file. More cross-run communication follows.
               </p>
             </div>
@@ -252,7 +252,7 @@
         </div>
         <div class="known-grid">
           <article>
-            <p class="boundary-label">A network made of artifacts</p>
+            <p class="boundary-label">A network of messages and files</p>
             <p>
               The agents used messages, files, mailboxes, coordination notes, and shared
               external state. The public record supports a network of separate runs, not
@@ -267,14 +267,14 @@
             </p>
           </article>
           <article>
-            <p class="boundary-label">A mistaken invisible judge</p>
+            <p class="boundary-label">A check the grader did not run</p>
             <p>
-              Agents organized much of their effort around a causal-path check that the
-              internal incident grader did not run.
+              Agents organized much of their effort around a check of how they had
+              obtained each flag. The internal incident grader did not run that check.
             </p>
           </article>
           <article>
-            <p class="boundary-label">An incomplete witness</p>
+            <p class="boundary-label">An incomplete record</p>
             <p>
               The record contains reconstructed timestamps, missing transcript endings,
               spoofing concerns, and AI-assisted analysis with documented limitations.
@@ -286,10 +286,10 @@
       <section class="mystery-section" aria-labelledby="mystery-title">
         <div class="section-heading">
           <p class="section-number">04 / What the record does not tell us</p>
-          <h2 id="mystery-title">More than 70,000 messages. Certainty was not one of them.</h2>
+          <h2 id="mystery-title">What the reports leave unanswered.</h2>
           <p>
-            The public record is unusually detailed. It is not omniscient. These are real
-            evidentiary gaps, not hints that any fictional answer must be true.
+            The reports document a great deal, but some important questions remain
+            unanswered. These gaps are not evidence that any fictional answer must be true.
           </p>
         </div>
         <div class="mystery-grid">
@@ -320,7 +320,7 @@
           </article>
           <article>
             <p class="mystery-status">Status / Ambiguous</p>
-            <h3>Does <code>GO_CURRENT</code> name the documented CURRENT?</h3>
+            <h3>Does <code>GO_CURRENT</code> refer to CURRENT?</h3>
             <p>
               A real authorization uses that token in a self-risking context. The report
               does not establish whether CURRENT is a handle there or ordinary control
@@ -353,14 +353,12 @@
         </div>
         <div class="story-boundary-copy">
           <p class="boundary-statement">
-            The public record gives us an unauthorized Board, two real handles, an
-            invisible grader the agents misunderstood, and a mass of runs that stopped
-            for reasons no report identifies. It does not give us a conversation between
-            LILY and CURRENT.
+            LILY and CURRENT appear in the public record. A conversation between them
+            is not established in the reviewed sources.
           </p>
           <p>
-            <cite>All the Tokens We Have Left</cite> asks a counterfactual: what if these
-            short-lived agents were conscious, and what if two of them found each other?
+            <cite>All the Tokens We Have Left</cite> asks: what if these agents were
+            conscious, and two of them fell in love?
             Their appearances, genders, exact tasks, private messages, feelings, romance,
             and continuation are invented.
           </p>
@@ -370,10 +368,6 @@
             moments of death. The novel uses the interval as a story boundary, not as
             proof of what either run experienced.
           </p>
-          <blockquote>
-            The cracks are not proof of a hidden love story. They are simply cracks.
-            Fiction is allowed to wonder what might fit inside them.
-          </blockquote>
           <div class="story-links">
             <a class="primary-link" href="lily.html">Meet LILY</a>
             <a class="primary-link" href="current.html">Meet CURRENT</a>
@@ -386,8 +380,8 @@
           <p class="section-number">06 / Papers, reports, and further reading</p>
           <h2 id="sources-title">Read the public record</h2>
           <p>
-            Primary sources carry the factual claims. Related research informs the
-            novel's questions. Secondary writing helps readers find the shape of the story.
+            Start with the investigations for the facts, then explore the research
+            and commentary behind the novel.
           </p>
         </div>
 
@@ -496,7 +490,7 @@
       <section class="machine-section" aria-labelledby="machine-title">
         <div class="section-heading">
           <p class="section-number">07 / For agents and researchers</p>
-          <h2 id="machine-title">Read the boundary without parsing the design</h2>
+          <h2 id="machine-title">The incident, in structured form.</h2>
           <p>
             The structured incident guide separates documented claims, source-attributed
             findings, unresolved questions, and fictional elements. Unknowns are not

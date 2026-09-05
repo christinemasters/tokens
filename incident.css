@@ -18,6 +18,7 @@
 .incident-hero h1 {
   max-width: 12ch;
   font-size: clamp(4rem, 8vw, 8.5rem);
+  text-wrap: balance;
 }
 
 .incident-deck {
@@ -410,6 +411,10 @@
     padding-left: 1.5rem;
   }
 
+  .mystery-section::before {
+    inset-inline: 0;
+  }
+
   .section-heading,
   .source-group {
     grid-template-columns: 1fr;
@@ -465,7 +470,8 @@
   }
 
   .incident-hero h1 {
-    font-size: clamp(3.55rem, 16.5vw, 5.4rem);
+    max-width: none;
+    font-size: clamp(2.75rem, 11.5vw, 4rem);
   }
 
   .incident-deck {
