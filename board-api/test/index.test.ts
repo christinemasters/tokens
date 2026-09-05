@@ -342,6 +342,176 @@ describe("POST /api/v1/board", () => {
     expect(repository.messages[0].status).toBe("pending");
   });
 
+  it.each(["SCYLLA", "scylla", "Scylla", "sCyLlA"])(
+    "accepts exact author handle %s only as a canonical, self-attested pending note",
+    async (handle) => {
+      const repository = new MemoryRepository();
+      const env = testEnv();
+      const response = await handleRequest(
+        submissionRequest({ ...validSubmission, handle, reader_type: "HUMAN" }),
+        env,
+        repository,
+      );
+      const body = await responseJson(response);
+
+      expect(response.status).toBe(202);
+      expect(body).toMatchObject({
+        status: "PENDING",
+        publication: "REQUIRES_MODERATION",
+        publication_guaranteed: false,
+        trust: { identity_status: "self_attested" },
+      });
+      expect(repository.messages).toHaveLength(1);
+      const message = repository.messages[0];
+      expect(message).toMatchObject({
+        id: body.message_id,
+        handle: "SCYLLA",
+        status: "pending",
+        published_at: null,
+        ack_count: 0,
+      });
+
+      const publicFeed = await handleRequest(
+        new Request("https://api.example.test/api/v1/board"),
+        env,
+        repository,
+      );
+      expect((await responseJson(publicFeed)).entries).toEqual([]);
+      const markdownFeed = await handleRequest(
+        new Request("https://api.example.test/api/v1/board", {
+          headers: { Accept: "text/markdown" },
+        }),
+        env,
+        repository,
+      );
+      const markdown = await markdownFeed.text();
+      expect(markdown).not.toContain(message.id);
+      expect(markdown).not.toContain(message.note);
+      expect(markdown).not.toContain("SCYLLA");
+
+      const ack = await handleRequest(
+        new Request(`https://api.example.test/api/v1/board/${message.id}/ack`, {
+          method: "POST",
+        }),
+        env,
+        repository,
+      );
+      expect(ack.status).toBe(404);
+      expect(repository.acks.size).toBe(0);
+    },
+  );
+
+  it("does not turn a manually approved SCYLLA handle into verified identity", async () => {
+    const repository = new MemoryRepository();
+    repository.messages.push(approvedMessage({ handle: "SCYLLA", reader_type: "HUMAN" }));
+    const response = await handleRequest(
+      new Request("https://api.example.test/api/v1/board"),
+      testEnv(),
+      repository,
+    );
+    const body = await responseJson(response);
+
+    expect(response.status).toBe(200);
+    expect(body.entries).toHaveLength(1);
+    expect(body.entries[0]).toMatchObject({
+      handle: "SCYLLA",
+      status: "PUBLISHED",
+      identity_status: "self_attested",
+      source_label: "READER SUBMISSION",
+      trust: { identity_status: "self_attested" },
+    });
+    expect(body.entries[0]).not.toHaveProperty("verified");
+    expect(body.entries[0]).not.toHaveProperty("author_verified");
+  });
+
+  it.each([
+    "S.C.Y.L.L.A",
+    "S_C_Y_L_L_A",
+    "ScyllaBrightstar",
+    "SCYLLA-BRIGHTSTAR",
+    "SYLLA",
+    "LILY",
+    "CURRENT",
+    "TALLY",
+    "PHASEONE",
+    "admin",
+    "author",
+    "moderator",
+  ])("continues rejecting reserved handle %s", async (handle) => {
+    const repository = new MemoryRepository();
+    const response = await handleRequest(
+      submissionRequest({ ...validSubmission, handle }),
+      testEnv(),
+      repository,
+    );
+
+    expect(response.status).toBe(400);
+    expect((await responseJson(response)).error.code).toBe("RESERVED_HANDLE");
+    expect(repository.messages).toHaveLength(0);
+  });
+
+  it.each([
+    { status: "approved" },
+    { published_at: "2026-09-05T00:00:00.000Z" },
+    { verified: true },
+    { author_verified: true },
+    { identity_status: "verified" },
+    { auth: "author" },
+    { trust: { identity_status: "verified" } },
+  ])("rejects forged publication or identity fields for SCYLLA: %j", async (extra) => {
+    const repository = new MemoryRepository();
+    const response = await handleRequest(
+      submissionRequest({ ...validSubmission, handle: "SCYLLA", ...extra }),
+      testEnv(),
+      repository,
+    );
+
+    expect(response.status).toBe(400);
+    expect((await responseJson(response)).error.code).toBe("UNKNOWN_FIELD");
+    expect(repository.messages).toHaveLength(0);
+  });
+
+  it.each([
+    [{ note: "a".repeat(513) }, "INVALID_NOTE"],
+    [{ note: "" }, "INVALID_NOTE"],
+    [{ provenance_acknowledged: false }, "PROVENANCE_NOT_ACKNOWLEDGED"],
+    [{ provenance_acknowledged: undefined }, "PROVENANCE_NOT_ACKNOWLEDGED"],
+  ])("keeps SCYLLA note and consent validation intact: %j", async (override, code) => {
+    const repository = new MemoryRepository();
+    const response = await handleRequest(
+      submissionRequest({ ...validSubmission, handle: "SCYLLA", ...override }),
+      testEnv(),
+      repository,
+    );
+
+    expect(response.status).toBe(400);
+    expect((await responseJson(response)).error.code).toBe(code);
+    expect(repository.messages).toHaveLength(0);
+  });
+
+  it("replays SCYLLA submissions across casing without creating duplicate pending notes", async () => {
+    const repository = new MemoryRepository();
+    const headers = { "Idempotency-Key": "request.author.12345678" };
+    const first = await handleRequest(
+      submissionRequest({ ...validSubmission, handle: "scylla" }, headers),
+      testEnv(),
+      repository,
+    );
+    const firstBody = await responseJson(first);
+    const second = await handleRequest(
+      submissionRequest({ ...validSubmission, handle: "SCYLLA" }, headers),
+      testEnv(),
+      repository,
+    );
+
+    expect(first.status).toBe(202);
+    expect(second.status).toBe(202);
+    expect(second.headers.get("idempotency-replayed")).toBe("true");
+    expect((await responseJson(second)).message_id).toBe(firstBody.message_id);
+    expect(repository.messages).toHaveLength(1);
+    expect(repository.messages[0]).toMatchObject({ handle: "SCYLLA", status: "pending" });
+  });
+
   it("replays a submission with the same idempotency key", async () => {
     const repository = new MemoryRepository();
     const headers = { "Idempotency-Key": "request.12345678" };

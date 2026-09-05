@@ -265,6 +265,7 @@ export const OPENAPI_DOCUMENT = {
         properties: {
           handle: {
             type: "string",
+            description: "Reserved site and character handles are rejected. Exact SCYLLA (case-insensitive) is accepted only for moderation and stored as SCYLLA. It does not verify authorship or bypass review.",
             minLength: 1,
             maxLength: 48,
             pattern: "^[A-Za-z0-9][A-Za-z0-9_.-]{0,47}$",

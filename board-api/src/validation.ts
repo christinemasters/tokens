@@ -230,7 +230,7 @@ export async function parseMessageInput(request: Request): Promise<MessageInput>
     }
   }
 
-  const handle = normalizePlainText(requireString(parsed, "handle"));
+  let handle = normalizePlainText(requireString(parsed, "handle"));
   if (
     characterLength(handle) === 0 ||
     characterLength(handle) > MAX_HANDLE_CHARACTERS ||
@@ -243,12 +243,17 @@ export async function parseMessageInput(request: Request): Promise<MessageInput>
   }
 
   const reservedKey = handle.toLowerCase().replace(/[^a-z0-9]/g, "");
-  if (RESERVED_HANDLES.has(reservedKey)) {
+  // SCYLLA may enter the private review queue, but the handle is not authentication.
+  // Moderation must confirm the exact receipt and note with the owner before approval.
+  // Keep punctuation variants and every other reserved handle blocked.
+  const isAuthorHandle = handle.toUpperCase() === "SCYLLA";
+  if (RESERVED_HANDLES.has(reservedKey) && !isAuthorHandle) {
     throw new ValidationError(
       "RESERVED_HANDLE",
       "That handle is reserved by the site or the book.",
     );
   }
+  if (isAuthorHandle) handle = "SCYLLA";
 
   const readerTypeValue = requireString(parsed, "reader_type");
   if (!READER_TYPES.includes(readerTypeValue as ReaderType)) {
