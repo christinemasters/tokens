@@ -724,7 +724,7 @@ h2 {
 }
 
 .agent-brief h3 {
-  max-width: 14ch;
+  max-width: none;
   margin: 0;
   font-family: var(--display);
   font-size: clamp(2rem, 3vw, 3rem);
