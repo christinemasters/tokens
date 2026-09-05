@@ -10,7 +10,7 @@ routes = [
 
 [vars]
 ALLOWED_ORIGIN = "https://allthetokenswehaveleft.com"
-WRITE_MODE = "closed"
+WRITE_MODE = "open"
 DAILY_WRITE_LIMIT = "2500"
 DAILY_SUBMISSION_LIMIT_PER_ACTOR = "5"
 DAILY_ACK_LIMIT_PER_ACTOR = "100"

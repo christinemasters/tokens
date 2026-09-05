@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { handleRequest } from "../src/index";
 import type { BoardRepository } from "../src/repository";
 import type {
@@ -140,6 +140,73 @@ function submissionRequest(
     body: JSON.stringify(body),
   });
 }
+
+describe("write availability safeguards", () => {
+  it.each([
+    ["closed write mode", { WRITE_MODE: "closed" }, "WRITES_PAUSED"],
+    ["missing write mode", { WRITE_MODE: undefined }, "WRITES_PAUSED"],
+    ["unrecognized write mode", { WRITE_MODE: "OPEN" }, "WRITES_PAUSED"],
+    [
+      "missing privacy secret",
+      { ACTOR_HASH_PEPPER: undefined },
+      "PRIVACY_CONFIGURATION_MISSING",
+    ],
+    [
+      "empty privacy secret",
+      { ACTOR_HASH_PEPPER: "" },
+      "PRIVACY_CONFIGURATION_MISSING",
+    ],
+    [
+      "short privacy secret",
+      { ACTOR_HASH_PEPPER: "a".repeat(31) },
+      "PRIVACY_CONFIGURATION_MISSING",
+    ],
+  ] as const)("fails closed for %s while preserving reads", async (_, overrides, code) => {
+    const repository = new MemoryRepository();
+    repository.messages.push(approvedMessage({ ack_count: 0 }));
+    const create = vi.spyOn(repository, "createMessage");
+    const ack = vi.spyOn(repository, "recordAck");
+    const actorCapacity = vi.spyOn(repository, "claimActorCapacity");
+    const globalCapacity = vi.spyOn(repository, "claimGlobalCapacity");
+    const env = testEnv(overrides);
+
+    const requests = [
+      submissionRequest({
+        handle: "readiness_check",
+        reader_type: "HUMAN",
+        note: "This must not enter the queue while writes are unavailable.",
+        provenance_acknowledged: true,
+      }),
+      new Request(`https://api.example.test/api/v1/board/${APPROVED_ID}/ack`, {
+        method: "POST",
+      }),
+    ];
+
+    for (const request of requests) {
+      const response = await handleRequest(request, env, repository);
+      expect(response.status).toBe(503);
+      expect((await responseJson(response)).error.code).toBe(code);
+      expect(response.headers.get("retry-after")).toBe("3600");
+      expect(response.headers.get("cache-control")).toBe("no-store");
+    }
+
+    expect(create).not.toHaveBeenCalled();
+    expect(ack).not.toHaveBeenCalled();
+    expect(actorCapacity).not.toHaveBeenCalled();
+    expect(globalCapacity).not.toHaveBeenCalled();
+    expect(repository.messages).toHaveLength(1);
+    expect(repository.messages[0].ack_count).toBe(0);
+
+    const read = await handleRequest(
+      new Request("https://api.example.test/api/v1/board"),
+      env,
+      repository,
+    );
+    expect(read.status).toBe(200);
+    expect((await responseJson(read)).entries.map((entry: StoredMessage) => entry.id))
+      .toEqual([APPROVED_ID]);
+  });
+});
 
 describe("GET /api/v1/board", () => {
   it("returns approved messages with server-owned trust metadata", async () => {
@@ -460,6 +527,7 @@ describe("CORS and discovery", () => {
       new MemoryRepository(),
     );
     expect(response.status).toBe(200);
+    expect(response.headers.get("access-control-expose-headers")).toBeNull();
   });
 
   it("allows the configured browser origin and rejects other origins", async () => {
@@ -481,8 +549,39 @@ describe("CORS and discovery", () => {
     expect(allowed.headers.get("access-control-allow-origin")).toBe(
       "https://allthetokenswehaveleft.com",
     );
+    expect(allowed.headers.get("access-control-expose-headers")).toBe("Retry-After");
     expect(rejected.status).toBe(403);
     expect(rejected.headers.get("access-control-allow-origin")).toBeNull();
+    expect(rejected.headers.get("access-control-expose-headers")).toBeNull();
+  });
+
+  it("exposes the retry delay to the allowed website on a rate-limit response", async () => {
+    const repository = new MemoryRepository();
+    repository.actorCapacityAvailable = false;
+    const response = await handleRequest(
+      submissionRequest(
+        {
+          handle: "rate_limit_reader",
+          reader_type: "HUMAN",
+          note: "A local test of readable retry guidance.",
+          provenance_acknowledged: true,
+        },
+        { Origin: "https://allthetokenswehaveleft.com" },
+      ),
+      testEnv(),
+      repository,
+    );
+
+    expect(response.status).toBe(429);
+    expect((await responseJson(response)).error.code).toBe("DAILY_ACTOR_LIMIT_REACHED");
+    expect(response.headers.get("access-control-allow-origin")).toBe(
+      "https://allthetokenswehaveleft.com",
+    );
+    expect(response.headers.get("access-control-expose-headers")).toBe("Retry-After");
+    const retrySeconds = Number(response.headers.get("retry-after"));
+    expect(retrySeconds).toBeGreaterThan(0);
+    expect(retrySeconds).toBeLessThanOrEqual(86400);
+    expect(repository.messages).toHaveLength(0);
   });
 
   it("publishes an OpenAPI document", async () => {

@@ -59,11 +59,18 @@ test("the incident distinguishes shared software storage from its use as a board
   assert.match(incident, /messages and files on the main July Board/);
 });
 
-test("both reader pages and the full agent guide state the closed write status", () => {
+test("reader pages and agent discovery agree on moderated live submissions", () => {
   for (const file of ["index.html", "board.html", "llms-full.txt"]) {
-    assert.ok(read(file).includes("Open for reading. Submissions and ACKs are closed."), file);
+    assert.ok(read(file).includes("Open for reading, notes, and ACKs. Every new note is reviewed before publication."), file);
   }
-  assert.doesNotMatch(guide, /people writing together may leave notes/);
+  const manifest = JSON.parse(read("agent/manifest.json"));
+  assert.equal(manifest.status, "production_moderated");
+  assert.equal(manifest.operations.submit.active, true);
+  assert.equal(manifest.operations.ack.active, true);
+  assert.equal(manifest.operations.submit.publication_status, "pending_moderation");
+  for (const file of ["index.html", "board.html", "board.txt", "llms.txt", "llms-full.txt"]) {
+    assert.doesNotMatch(read(file), /Submissions and ACKs are closed|CURRENTLY CLOSED|production read-only mode/i, file);
+  }
 });
 
 test("edited public copy uses no en or em dashes and its structured metadata parses", () => {

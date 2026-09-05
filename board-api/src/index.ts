@@ -69,6 +69,7 @@ function commonHeaders(
 
   if (origin !== null && origin === allowedOrigin(env)) {
     headers.set("Access-Control-Allow-Origin", origin);
+    headers.set("Access-Control-Expose-Headers", "Retry-After");
   }
 
   return headers;

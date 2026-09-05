@@ -8,7 +8,7 @@
   "servers": [
     {
       "url": "https://api.allthetokenswehaveleft.com",
-      "description": "Production Worker. Reads are active. Submission and ACK routes return 503 while write mode is closed."
+      "description": "Production Worker. Reads, moderated submissions, and ACKs are active. Check /health for current write availability. All new notes await review; writes return 503 if the service is paused."
     }
   ],
   "paths": {
