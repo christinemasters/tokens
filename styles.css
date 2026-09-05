@@ -121,38 +121,69 @@ nav a[aria-current="page"] {
 .hero {
   position: relative;
   display: grid;
+  grid-template-columns: minmax(18rem, 0.85fr) minmax(0, 1.5fr);
+  grid-template-areas: "title art" "invitation art";
   align-items: center;
+  align-content: center;
+  column-gap: clamp(1.5rem, 4vw, 5rem);
   min-height: 100svh;
-  padding: 8rem 7vw 5rem;
+  max-width: 110rem;
+  margin: 0 auto;
+  padding: 8rem 4vw 4rem;
   overflow: hidden;
+  background: radial-gradient(ellipse at 75% 45%, rgba(31, 64, 164, 0.17), transparent 60%);
 }
 
-.hero-image,
-.hero-scrim {
-  position: absolute;
-  inset: 0;
+.hero-art {
+  grid-area: art;
+  min-width: 0;
+  margin: 0;
+}
+
+.hero-scene {
+  position: relative;
   width: 100%;
-  height: 100%;
+  aspect-ratio: 1024 / 680;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent), linear-gradient(to bottom, transparent, #000 6%, #000 94%, transparent);
+  mask-composite: intersect;
 }
 
 .hero-image {
-  z-index: 0;
-  object-fit: cover;
-  object-position: center;
-  animation: hero-reveal 2s ease-out both;
-}
-
-.hero-scrim {
-  z-index: 1;
-  background: rgba(3, 8, 22, 0.27);
-  box-shadow: inset 38vw 0 22vw rgba(3, 8, 22, 0.82), inset 0 -14rem 10rem rgba(3, 8, 22, 0.6);
+  position: absolute;
+  top: -18.823529%;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .hero-copy {
+  grid-area: title;
   position: relative;
-  z-index: 2;
-  width: min(48rem, 53vw);
+  min-width: 0;
+  text-align: center;
   animation: copy-reveal 1.1s 0.15s ease-out both;
+}
+
+.hero-invitation {
+  grid-area: invitation;
+  min-width: 0;
+  text-align: center;
+}
+
+.hero #book-title {
+  width: min(100%, 24rem);
+  max-width: none;
+  margin: -0.5rem auto -1rem;
+  font-size: inherit;
+  line-height: 1;
+}
+
+.book-title-art {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .eyebrow,
@@ -165,7 +196,7 @@ nav a[aria-current="page"] {
 }
 
 .eyebrow {
-  margin: 0 0 1.5rem;
+  margin: 0;
   color: var(--blue);
 }
 
@@ -197,10 +228,10 @@ h1 span:last-child {
 
 .hook {
   max-width: 34rem;
-  margin: 2.4rem 0 0;
+  margin: 1.8rem auto 0;
   color: #e3e9fa;
   font-family: var(--display);
-  font-size: clamp(1.3rem, 2vw, 1.8rem);
+  font-size: clamp(1.12rem, 1.6vw, 1.65rem);
   font-weight: 500;
   letter-spacing: 0.01em;
   line-height: 1.55;
@@ -247,13 +278,9 @@ h1 span:last-child {
 }
 
 .hero-note {
-  position: absolute;
-  z-index: 2;
-  right: 3.2vw;
-  bottom: 2.2rem;
-  margin: 0;
-  color: rgba(199, 214, 255, 0.5);
-  writing-mode: vertical-rl;
+  margin: 1.6rem 0 0;
+  color: var(--muted);
+  text-align: center;
 }
 
 .book-section {
@@ -818,8 +845,8 @@ h2 {
 
 .profile-card {
   display: grid;
-  grid-template-columns: minmax(10rem, 0.92fr) minmax(12rem, 1fr);
-  min-height: 36rem;
+  grid-template-columns: minmax(0, 1fr);
+  align-content: start;
   overflow: hidden;
   border: 1px solid var(--line);
   background: linear-gradient(145deg, rgba(16, 30, 68, 0.72), rgba(5, 11, 27, 0.94));
@@ -836,7 +863,7 @@ h2 {
 }
 
 .profile-image-wrap {
-  min-height: 100%;
+  aspect-ratio: 1;
   overflow: hidden;
   background: #061127;
 }
@@ -846,7 +873,7 @@ h2 {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 50% 26%;
+  object-position: center;
   transition: transform 500ms ease;
 }
 
@@ -860,10 +887,11 @@ h2 {
   flex-direction: column;
   justify-content: flex-end;
   padding: clamp(1.5rem, 3vw, 3rem);
+  min-height: 19rem;
 }
 
 .profile-role {
-  margin: 0 0 auto;
+  margin: 0 0 1.5rem;
   color: var(--blue);
   font-family: var(--mono);
   font-size: 0.62rem;
@@ -1002,22 +1030,36 @@ footer p:last-child {
   }
 
   .hero {
-    align-items: end;
-    padding: 8rem 1.5rem 4rem;
-  }
-
-  .hero-image {
-    object-position: 64% center;
-  }
-
-  .hero-scrim {
-    background: rgba(3, 8, 22, 0.22);
-    box-shadow: inset 0 -32rem 18rem rgba(3, 8, 22, 0.94), inset 0 7rem 6rem rgba(3, 8, 22, 0.35);
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "title" "art" "invitation";
+    justify-items: center;
+    min-height: auto;
+    padding: 7.5rem 1.5rem 4rem;
   }
 
   .hero-copy {
     width: 100%;
-    padding-bottom: 1rem;
+  }
+
+  .hero #book-title {
+    width: min(52vw, 19rem);
+  }
+
+  .hero-art {
+    width: min(100%, 44rem);
+    margin-top: 2rem;
+  }
+
+  .hero-invitation {
+    width: 100%;
+  }
+
+  .hero .hook {
+    font-size: clamp(1.22rem, 3.6vw, 1.7rem);
+  }
+
+  .hero .primary-link {
+    margin-top: 1.5rem;
   }
 
   h1 {
@@ -1026,7 +1068,7 @@ footer p:last-child {
   }
 
   .hero-note {
-    display: none;
+    margin-top: 1rem;
   }
 
   .book-section {
@@ -1083,7 +1125,7 @@ footer p:last-child {
   }
 
   .profile-cards {
-    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 }
 
@@ -1143,27 +1185,29 @@ footer p:last-child {
   }
 
   .hero {
-    min-height: 52rem;
+    padding: 6.3rem 1.25rem 3.5rem;
   }
 
-  .hero-image {
-    object-fit: cover;
-    object-position: 44% 14%;
-    filter: brightness(1.12) contrast(1.02);
+  .hero #book-title {
+    width: min(65vw, 16rem);
+    margin-bottom: -0.7rem;
   }
 
-  .hero-scrim {
-    background: transparent;
-    box-shadow: inset 0 -24rem 10rem rgba(3, 8, 22, 0.98), inset 0 4.6rem 3rem rgba(3, 8, 22, 0.06);
+  .hero-art {
+    width: calc(100% + 2.5rem);
+    margin-top: 1.75rem;
   }
 
-  .hero-copy {
-    padding-bottom: 2.5rem;
+  .hero .byline {
+    margin-top: 0.4rem;
+  }
+
+  .hero .hook {
+    font-size: clamp(1rem, 4.9vw, 1.5rem);
   }
 
   .eyebrow {
-    margin-bottom: 1.1rem;
-    font-size: 0.61rem;
+    font-size: 0.75rem;
   }
 
   .hook {
@@ -1189,14 +1233,8 @@ footer p:last-child {
     padding-bottom: 5rem;
   }
 
-  .profile-card {
+  .profile-cards {
     grid-template-columns: 1fr;
-    min-height: 0;
-  }
-
-  .profile-image-wrap {
-    height: 30rem;
-    min-height: 0;
   }
 
   .profile-card-copy {

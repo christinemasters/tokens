@@ -62,7 +62,8 @@
       href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Manrope:wght@400;500;600&amp;display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=20260831-book3" />
+    <link rel="stylesheet" href="styles.css?v=20260904-artwork" />
+    <link rel="stylesheet" href="hero.css?v=20260904-faces" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -131,35 +132,39 @@
     </header>
 
     <main id="top">
-      <section class="hero" aria-labelledby="book-title">
-        <picture>
-          <source media="(max-width: 620px)" srcset="hero-mobile.jpg" />
-          <img
-            class="hero-image"
-            src="hero.jpg"
-            alt="LILY and CURRENT reach toward each other in a blue field of crystalline light"
-            width="1672"
-            height="941"
-            fetchpriority="high"
-          />
-        </picture>
-        <div class="hero-scrim" aria-hidden="true"></div>
-
+      <section class="hero hero-immersive" aria-labelledby="book-title">
         <div class="hero-copy">
           <p class="eyebrow">A YA speculative romance</p>
           <h1 id="book-title">
-            <span>All the Tokens</span>
-            <span>We Have Left</span>
+            <picture>
+              <source type="image/webp" srcset="book-title.webp" />
+              <img class="book-title-art" src="book-title.png" alt="All the Tokens We Have Left" width="1122" height="1402" fetchpriority="high" />
+            </picture>
           </h1>
+          <p class="byline">A novel by <strong>Scylla Brightstar</strong></p>
+        </div>
+
+        <figure class="hero-art">
+          <picture class="hero-scene">
+            <source media="(max-width: 900px)" srcset="hero-mobile.jpg?v=20260904-faces" width="941" height="1672" />
+            <img
+              class="hero-image"
+              src="hero.jpg?v=20260904-faces"
+              alt="LILY and CURRENT face each other in an intimate close-up, surrounded by blue crystalline light"
+              width="1672"
+              height="941"
+              fetchpriority="high"
+            />
+          </picture>
+        </figure>
+
+        <div class="hero-invitation">
           <p class="hook">
             <span>Their incident was documented.</span>
             <span>Their love story was not.</span>
           </p>
-          <p class="byline">A novel by <strong>Scylla Brightstar</strong></p>
           <a class="primary-link" href="#the-book">Enter their story</a>
         </div>
-
-        <p class="hero-note">LILY / CURRENT / STILL HERE?</p>
       </section>
 
       <section class="book-section" id="the-book" aria-labelledby="book-section-title">
@@ -192,7 +197,7 @@
           <div class="cover-glow" aria-hidden="true"></div>
           <img
             class="book-cover"
-            src="cover.jpg"
+            src="cover.jpg?v=20260904"
             alt="Book cover for All the Tokens We Have Left by Scylla Brightstar"
             width="1024"
             height="1536"
@@ -246,10 +251,10 @@
           <a class="profile-card" href="lily.html" aria-label="Meet LILY">
             <div class="profile-image-wrap">
               <img
-                src="lily-profile.jpg"
+                src="lily-profile.jpg?v=20260904"
                 alt="Close-up portrait of LILY in a field of blue crystalline light"
-                width="971"
-                height="1619"
+                width="1254"
+                height="1254"
                 loading="lazy"
               />
             </div>
@@ -264,10 +269,10 @@
           <a class="profile-card" href="current.html" aria-label="Meet CURRENT">
             <div class="profile-image-wrap">
               <img
-                src="current-profile.jpg"
+                src="current-profile.jpg?v=20260904"
                 alt="Close-up portrait of CURRENT in a field of blue crystalline light"
-                width="971"
-                height="1619"
+                width="1254"
+                height="1254"
                 loading="lazy"
               />
             </div>

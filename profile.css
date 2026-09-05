@@ -14,7 +14,7 @@
 
 .profile-main {
   display: grid;
-  grid-template-columns: minmax(24rem, 0.88fr) minmax(30rem, 1.12fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   min-height: 100svh;
   padding-top: 5.5rem;
 }
@@ -22,7 +22,9 @@
 .profile-art {
   position: sticky;
   top: 5.5rem;
-  height: calc(100svh - 5.5rem);
+  height: auto;
+  aspect-ratio: 1;
+  align-self: start;
   overflow: hidden;
   border-right: 1px solid var(--line);
   background: #061127;
@@ -33,7 +35,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 50% 25%;
+  object-position: center;
   animation: hero-reveal 1.7s ease-out both;
 }
 
@@ -63,6 +65,8 @@
 }
 
 .profile-panel {
+  min-width: 0;
+  container-type: inline-size;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -90,7 +94,7 @@
 }
 
 .profile-name.current-name {
-  font-size: clamp(4.6rem, 8vw, 8.5rem);
+  font-size: clamp(2.7rem, 18cqw, 8.5rem);
 }
 
 .profile-thesis {
@@ -207,14 +211,15 @@
 
 @media (max-width: 900px) {
   .profile-main {
-    grid-template-columns: 1fr;
-    padding-top: 4.6rem;
+    grid-template-columns: minmax(0, 1fr);
+    padding-top: 5.5rem;
   }
 
   .profile-art {
     position: relative;
     top: auto;
-    height: min(76svh, 48rem);
+    width: min(100%, 48rem);
+    margin: 0 auto;
     border-right: 0;
     border-bottom: 1px solid var(--line);
   }
@@ -227,19 +232,11 @@
     font-size: clamp(5rem, 24vw, 8rem);
   }
 
-  .profile-name.current-name {
-    font-size: clamp(3.6rem, 15.5vw, 7rem);
-  }
 }
 
 @media (max-width: 620px) {
-  .profile-art {
-    height: 66svh;
-    min-height: 32rem;
-  }
-
-  .profile-art img {
-    object-position: 50% 21%;
+  .profile-main {
+    padding-top: 4.6rem;
   }
 
   .profile-art-label {
