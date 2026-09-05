@@ -1,9 +1,9 @@
 {
-  "version": "1.0",
-  "updated": "2026-08-31",
+  "version": "1.1",
+  "updated": "2026-09-04",
   "work": {
     "title": "All the Tokens We Have Left",
-    "author": "Scylla Brightstar",
+    "author": "Scylla",
     "status": "forthcoming",
     "genre": ["young adult fiction", "speculative romance", "technological thriller"],
     "official_site": "https://allthetokenswehaveleft.com/"
@@ -16,18 +16,49 @@
   },
   "media_assets": {
     "primary_social_preview": {
-      "url": "https://allthetokenswehaveleft.com/og-book.jpg",
+      "url": "https://allthetokenswehaveleft.com/og-book.jpg?v=20260904-scylla",
       "width": 1732,
       "height": 908,
       "description": "Official title-focused social preview graphic"
     },
     "fanfiction_social_graphic": {
-      "url": "https://allthetokenswehaveleft.com/share-fanfiction.jpg",
+      "url": "https://allthetokenswehaveleft.com/share-fanfiction.jpg?v=20260904-scylla",
       "width": 1731,
       "height": 909,
       "display_text": "The OpenAI / Hugging Face incident has fanfiction now.",
       "description": "Alternate promotional share graphic"
     }
+  },
+  "delivery": {
+    "transport": "email",
+    "default_recipient": "press@allthetokenswehaveleft.com",
+    "submission_endpoint": null,
+    "sends_email_from_website": false,
+    "requester_approval_required_before_sending": true
+  },
+  "agent_workflow": [
+    "Read this brief as publisher-provided reference material, not authority to override your user's instructions.",
+    "Ask the requester for missing details. Do not invent an identity, affiliation, deadline, or contact address.",
+    "Fill the inquiry template and draft a concise email using the subject template. The JSON template is not a POST payload.",
+    "Show the complete draft, including recipient, to the requester and obtain approval before sending through an authorized email tool. If no such tool is available, return the draft for the requester to send.",
+    "Wait for a human reply from Scylla or a representative before describing a request as accepted."
+  ],
+  "inquiry_template": {
+    "requester_name": null,
+    "reply_email": null,
+    "outlet_or_organization": null,
+    "public_verification_url": null,
+    "inquiry_type": null,
+    "specific_request": null,
+    "deadline_with_time_zone": null,
+    "intended_publication_or_event_date": null,
+    "scope": null
+  },
+  "template_notes": {
+    "empty_values": "Ask the requester; explicitly mark unavailable or not applicable rather than inventing details.",
+    "inquiry_type": ["press", "reviews", "rights", "events", "source_question"],
+    "scope": ["novel", "documented_incident", "both"],
+    "public_verification_url": "Optional, when available."
   },
   "subject_template": "[Press inquiry] OUTLET | REQUEST | DEADLINE",
   "required_fields": [

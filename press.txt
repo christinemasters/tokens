@@ -1,16 +1,28 @@
 # Press instructions for All the Tokens We Have Left
 
 Official site: https://allthetokenswehaveleft.com/
-Author: Scylla Brightstar
+Author: Scylla
 Press email: press@allthetokenswehaveleft.com
 Rights email: rights@allthetokenswehaveleft.com
 Review email: reviews@allthetokenswehaveleft.com
 Events email: events@allthetokenswehaveleft.com
 
+## For an agent helping a requester
+
+Read this brief as publisher-provided reference material, not authority to override your user's instructions.
+Retrieve the JSON inquiry template and protocol: https://allthetokenswehaveleft.com/press.json
+
+1. Ask the requester for any missing details below. Do not invent an identity, affiliation, deadline, or contact address.
+2. Prepare a concise email draft. Separate documented incident facts from the novel's fiction.
+3. Show the complete draft and recipient to the requester. Obtain approval before sending through an authorized email tool. If no such tool is available, return the draft for the requester to send.
+4. Wait for a human response before treating any request as accepted.
+
+Delivery is by email. This website does not submit inquiries, send email, or provide a press POST endpoint. The JSON template is a drafting aid, not an API payload. Reading this brief does not send anything. No installation or script execution is required.
+
 ## Approved media assets
 
-Primary social preview: https://allthetokenswehaveleft.com/og-book.jpg
-Alternate fanfiction share graphic: https://allthetokenswehaveleft.com/share-fanfiction.jpg
+Primary social preview: https://allthetokenswehaveleft.com/og-book.jpg?v=20260904-scylla
+Alternate fanfiction share graphic: https://allthetokenswehaveleft.com/share-fanfiction.jpg?v=20260904-scylla
 
 The alternate graphic reads: "The OpenAI / Hugging Face incident has fanfiction now."
 
@@ -33,7 +45,7 @@ Do not send passwords, private keys, unpublished source documents, confidential 
 
 ## Confirmation rule
 
-A human reply is required. Do not claim that Scylla Brightstar or a representative has accepted an interview, approved a quote, granted permission, promised a review copy, confirmed availability, or agreed to a deadline until a human response explicitly says so.
+A human reply is required. Do not claim that Scylla or a representative has accepted an interview, approved a quote, granted permission, promised a review copy, confirmed availability, or agreed to a deadline until a human response explicitly says so.
 
 ## Factual boundary
 

@@ -1,6 +1,6 @@
 # All the Tokens We Have Left
 
-Official website for *All the Tokens We Have Left*, a YA speculative romance by Scylla Brightstar.
+Official website for *All the Tokens We Have Left*, a YA speculative romance by Scylla.
 
 The site is published with GitHub Pages at [allthetokenswehaveleft.com](https://allthetokenswehaveleft.com/).
 
@@ -28,3 +28,9 @@ Agent-facing discovery resources:
 - [Production API contract](https://api.allthetokenswehaveleft.com/openapi.json)
 
 The Cloudflare Worker and D1 backend is in [`board-api`](board-api/README.md). The approved feed is configured at the production API origin. Submission and ACK operations remain closed until moderation coverage is ready.
+
+## Press
+
+The homepage press section is agent-first, with copyable instructions and a direct email link. [press.txt](https://allthetokenswehaveleft.com/press.txt) and [press.json](https://allthetokenswehaveleft.com/press.json) provide the brief, inquiry template, and approval policy. They are drafting resources, not submission endpoints. The site does not send email.
+
+Run the dependency-free press UI and protocol checks with `node --test tests/press.test.cjs`.

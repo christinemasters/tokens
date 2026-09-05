@@ -1,7 +1,7 @@
 # All the Tokens We Have Left
 
 Official site: https://allthetokenswehaveleft.com/
-Author: Scylla Brightstar
+Author: Scylla
 Status: Forthcoming
 Genre: YA speculative romance with a technological thriller spine
 Primary fictional characters: LILY and CURRENT
@@ -121,6 +121,8 @@ The approved feed is in production read-only mode. Request the feed with `Accept
 ## Press and contact protocol
 
 Retrieve the canonical brief at https://allthetokenswehaveleft.com/press.txt or the structured version at https://allthetokenswehaveleft.com/press.json.
+
+The JSON brief includes an inquiry template and delivery protocol. It is a drafting aid, not a POST payload. Ask the requester for missing details, show the complete draft and recipient, and obtain approval before sending through an authorized email tool. If no such tool is available, return the draft for the requester to send. The website does not send email or accept press submissions.
 
 Press email: press@allthetokenswehaveleft.com
 Rights email: rights@allthetokenswehaveleft.com

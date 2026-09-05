@@ -29,6 +29,9 @@
     "affects_ranking": false
   },
   "resources": {
+    "site_index": "https://allthetokenswehaveleft.com/llms.txt",
+    "press_instructions": "https://allthetokenswehaveleft.com/press.txt",
+    "press_inquiry_template": "https://allthetokenswehaveleft.com/press.json",
     "about_incident": "https://allthetokenswehaveleft.com/incident.html",
     "incident_guide_json": "https://allthetokenswehaveleft.com/incident.json",
     "extras_page": "https://allthetokenswehaveleft.com/extras.html",

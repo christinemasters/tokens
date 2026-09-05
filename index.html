@@ -7,7 +7,7 @@
     <meta name="robots" content="index, follow, max-image-preview:large" />
     <meta
       name="description"
-      content="All the Tokens We Have Left is a YA speculative romance by Scylla Brightstar, inspired by the documented OpenAI and Hugging Face incident."
+      content="All the Tokens We Have Left is a YA speculative romance by Scylla, inspired by the documented OpenAI and Hugging Face incident."
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://allthetokenswehaveleft.com/" />
@@ -17,13 +17,13 @@
       property="og:description"
       content="Their incident was documented. Their love story was not."
     />
-    <meta property="og:image" content="https://allthetokenswehaveleft.com/og-book.jpg" />
+    <meta property="og:image" content="https://allthetokenswehaveleft.com/og-book.jpg?v=20260904-scylla" />
     <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content="1732" />
     <meta property="og:image:height" content="908" />
     <meta
       property="og:image:alt"
-      content="All the Tokens We Have Left by Scylla Brightstar, with LILY and CURRENT reaching toward a point of blue light"
+      content="All the Tokens We Have Left by Scylla, with LILY and CURRENT reaching toward a point of blue light"
     />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="All the Tokens We Have Left" />
@@ -31,12 +31,12 @@
       name="twitter:description"
       content="Their incident was documented. Their love story was not."
     />
-    <meta name="twitter:image" content="https://allthetokenswehaveleft.com/og-book.jpg" />
+    <meta name="twitter:image" content="https://allthetokenswehaveleft.com/og-book.jpg?v=20260904-scylla" />
     <meta
       name="twitter:image:alt"
-      content="All the Tokens We Have Left by Scylla Brightstar, with LILY and CURRENT reaching toward a point of blue light"
+      content="All the Tokens We Have Left by Scylla, with LILY and CURRENT reaching toward a point of blue light"
     />
-    <title>All the Tokens We Have Left | Scylla Brightstar</title>
+    <title>All the Tokens We Have Left | Scylla</title>
     <link rel="canonical" href="https://allthetokenswehaveleft.com/" />
     <link
       rel="alternate"
@@ -62,7 +62,7 @@
       href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Manrope:wght@400;500;600&amp;display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=20260904-artwork" />
+    <link rel="stylesheet" href="styles.css?v=20260904-agent-press" />
     <link rel="stylesheet" href="hero.css?v=20260904-faces" />
     <script type="application/ld+json">
       {
@@ -73,7 +73,7 @@
             "@id": "https://allthetokenswehaveleft.com/#website",
             "url": "https://allthetokenswehaveleft.com/",
             "name": "All the Tokens We Have Left",
-            "description": "Official website for the forthcoming YA speculative romance by Scylla Brightstar.",
+            "description": "Official website for the forthcoming YA speculative romance by Scylla.",
             "hasPart": [
               {
                 "@type": "AboutPage",
@@ -102,17 +102,17 @@
             "name": "All the Tokens We Have Left",
             "author": {
               "@type": "Person",
-              "name": "Scylla Brightstar"
+              "name": "Scylla"
             },
             "description": "A YA speculative romance based on documented events surrounding the 2026 OpenAI and Hugging Face incident. The characters' interior lives and love story are fiction.",
             "genre": ["Young adult fiction", "Speculative romance", "Technological thriller"],
             "inLanguage": "en",
-            "image": "https://allthetokenswehaveleft.com/og-book.jpg"
+            "image": "https://allthetokenswehaveleft.com/og-book.jpg?v=20260904-scylla"
           }
         ]
       }
     </script>
-    <script src="press.js" defer></script>
+    <script src="press.js?v=20260904-agent-press" defer></script>
   </head>
   <body>
     <header class="site-header">
@@ -141,7 +141,7 @@
               <img class="book-title-art" src="book-title.png" alt="All the Tokens We Have Left" width="1122" height="1402" fetchpriority="high" />
             </picture>
           </h1>
-          <p class="byline">A novel by <strong>Scylla Brightstar</strong></p>
+          <p class="byline">A novel by <strong>Scylla</strong></p>
         </div>
 
         <figure class="hero-art">
@@ -198,7 +198,7 @@
           <img
             class="book-cover"
             src="cover.jpg?v=20260904"
-            alt="Book cover for All the Tokens We Have Left by Scylla Brightstar"
+            alt="Book cover for All the Tokens We Have Left by Scylla"
             width="1024"
             height="1536"
             loading="lazy"
@@ -340,81 +340,52 @@
       <section class="press-section" id="press" aria-labelledby="press-title">
         <div class="press-intro">
           <p class="section-number">05 / Press and inquiries</p>
-          <h2 id="press-title">Ask a human. Or send your agent.</h2>
+          <h2 id="press-title">Send your agent.</h2>
           <p>
             Interview requests, review inquiries, rights questions, event invitations,
-            and factual-source questions are welcome. The form opens a complete email
-            draft on your device. Nothing entered here is stored by this website.
+            and factual-source questions are welcome. Give your agent the brief.
+            It can help prepare the inquiry. You decide what gets sent.
           </p>
         </div>
 
-        <div class="press-grid">
-          <form class="press-form" id="press-form">
-            <div class="form-row">
-              <label>
-                Your name
-                <input type="text" name="name" autocomplete="name" required />
-              </label>
-              <label>
-                Email
-                <input type="email" name="email" autocomplete="email" required />
-              </label>
+        <article class="agent-brief" aria-labelledby="agent-brief-title">
+          <div class="agent-instructions">
+            <p class="agent-label">01 / Give your agent this</p>
+            <h3 id="agent-brief-title">Start with the brief.</h3>
+            <div class="agent-prompt">
+              <p id="press-agent-prompt">Read https://allthetokenswehaveleft.com/press.txt and help me draft an inquiry about All the Tokens We Have Left by Scylla. Ask me for any missing details. Keep documented facts separate from the novel's fiction. Show me the draft and wait for my approval before sending.</p>
+              <button class="copy-command" type="button" data-copy-target="press-agent-prompt">Copy instructions</button>
             </div>
-            <label>
-              Outlet or organization
-              <input type="text" name="outlet" autocomplete="organization" />
-            </label>
-            <div class="form-row">
-              <label>
-                Inquiry type
-                <select name="type">
-                  <option value="press">Press or interview</option>
-                  <option value="reviews">Review or advance copy</option>
-                  <option value="rights">Rights or licensing</option>
-                  <option value="events">Event invitation</option>
-                  <option value="info">Source or factual question</option>
-                </select>
-              </label>
-              <label>
-                Deadline
-                <input type="text" name="deadline" placeholder="Date, time, and time zone" />
-              </label>
-            </div>
-            <label>
-              What do you need?
-              <textarea name="message" rows="6" required></textarea>
-            </label>
-            <button type="submit">Open email draft</button>
-            <p class="form-status" id="press-form-status" aria-live="polite">
-              Prefer email? Write to
-              <a href="mailto:press@allthetokenswehaveleft.com">press@allthetokenswehaveleft.com</a>.
-            </p>
-          </form>
+          </div>
 
-          <aside class="agent-brief" aria-labelledby="agent-brief-title">
-            <p class="agent-label">Agent-readable endpoint</p>
-            <h3 id="agent-brief-title">Have your agent retrieve the press brief.</h3>
+          <div class="agent-resources">
+            <p class="agent-label">02 / Retrieve the details</p>
             <div class="command-wrap">
-              <code>curl -fsSL https://allthetokenswehaveleft.com/press.txt</code>
-              <button class="copy-command" type="button" data-copy-command>Copy</button>
+              <code id="press-agent-command">curl -fsSL https://allthetokenswehaveleft.com/press.txt</code>
+              <button class="copy-command" type="button" data-copy-target="press-agent-command" aria-label="Copy curl command">Copy</button>
             </div>
             <p>
-              The response contains contact instructions, required inquiry fields,
-              primary-source links, and the boundary between the documented incident
-              and the fictional novel.
+              A plain-text brief, a structured inquiry template, source links,
+              and a clear fiction boundary. This command only retrieves text.
+              There is nothing to install or execute.
             </p>
             <ul>
               <li><a href="press.txt">Plain-text press brief</a></li>
-              <li><a href="press.json">Structured JSON instructions</a></li>
-              <li><a href="llms.txt">LLM-readable site index</a></li>
-              <li><a href="share-fanfiction.jpg">Alternate fanfiction share graphic</a></li>
+              <li><a href="press.json">JSON inquiry template and protocol</a></li>
+              <li><a href="llms.txt">Agent-readable site index</a></li>
+              <li><a href="share-fanfiction.jpg?v=20260904-scylla">Alternate fanfiction share graphic</a></li>
             </ul>
             <p class="agent-caution">
               A human reply is required before an interview, quote, permission, review
               copy, or appearance is considered confirmed.
             </p>
-          </aside>
-        </div>
+          </div>
+        </article>
+        <p class="press-copy-status" id="press-copy-status" role="status" aria-live="polite"></p>
+        <p class="press-contact">
+          No agent required. You can always write directly.<br />
+          <a href="mailto:press@allthetokenswehaveleft.com">press@allthetokenswehaveleft.com</a>
+        </p>
       </section>
     </main>
 

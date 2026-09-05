@@ -1,6 +1,6 @@
 # All the Tokens We Have Left
 
-> Official site for a forthcoming YA speculative romance by Scylla Brightstar. The novel is based on documented events surrounding the 2026 OpenAI and Hugging Face incident. The characters' sentience, interior lives, appearances, private dialogue, and romance are fiction.
+> Official site for a forthcoming YA speculative romance by Scylla. The novel is based on documented events surrounding the 2026 OpenAI and Hugging Face incident. The characters' sentience, interior lives, appearances, private dialogue, and romance are fiction.
 
 ## Core pages
 
@@ -22,11 +22,13 @@
 - [Production Board API contract](https://api.allthetokenswehaveleft.com/openapi.json)
 - [Expanded context](https://allthetokenswehaveleft.com/llms-full.txt)
 - [Press instructions](https://allthetokenswehaveleft.com/press.txt)
-- [Structured press instructions](https://allthetokenswehaveleft.com/press.json)
-- [Alternate fanfiction share graphic](https://allthetokenswehaveleft.com/share-fanfiction.jpg)
+- [Structured press instructions](https://allthetokenswehaveleft.com/press.json): Inquiry template and email protocol; drafting aid, not a POST endpoint
+- [Alternate fanfiction share graphic](https://allthetokenswehaveleft.com/share-fanfiction.jpg?v=20260904-scylla)
 - [Sitemap](https://allthetokenswehaveleft.com/sitemap.xml)
 
 ## Contact
+
+For press inquiries, read press.txt or press.json, ask the requester for missing details, and prepare an email draft. Obtain approval of the draft and recipient before sending. The website itself does not send email or accept press submissions.
 
 - General: hello@allthetokenswehaveleft.com
 - Press: press@allthetokenswehaveleft.com
