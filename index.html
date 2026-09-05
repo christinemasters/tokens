@@ -64,6 +64,8 @@
     />
     <link rel="stylesheet" href="styles.css?v=20260905-heading-flow" />
     <link rel="stylesheet" href="hero.css?v=20260904-faces" />
+    <link rel="stylesheet" href="hero-motion.css?v=20260905-motion" />
+    <script src="hero-motion.js?v=20260905-motion" defer></script>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -114,8 +116,9 @@
     </script>
     <script src="press.js?v=20260904-agent-press" defer></script>
   </head>
-  <body>
-    <header class="site-header">
+  <body class="home-page">
+    <button class="header-reveal" id="header-reveal" type="button" aria-controls="home-header" aria-expanded="true" aria-label="Show navigation"><span>Menu</span></button>
+    <header class="site-header" id="home-header">
       <a class="wordmark" href="#top" aria-label="All the Tokens We Have Left, home">
         <span>ATTWHL</span>
         <span class="signal" aria-hidden="true"></span>
@@ -129,6 +132,7 @@
         <a href="#press">Press</a>
       </nav>
       <p class="availability">Coming soon</p>
+      <button class="header-hide" id="header-hide" type="button" aria-controls="home-header" aria-label="Hide navigation">Hide</button>
     </header>
 
     <main id="top">
@@ -164,6 +168,7 @@
             <span>Their love story was not.</span>
           </p>
           <a class="primary-link" href="#the-book">Enter their story</a>
+          <button class="hero-motion-toggle" id="hero-motion-toggle" type="button" aria-pressed="false" aria-label="Pause background motion">Pause motion</button>
         </div>
       </section>
 
