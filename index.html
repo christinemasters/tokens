@@ -66,6 +66,8 @@
     <link rel="stylesheet" href="hero.css?v=20260904-faces" />
     <link rel="stylesheet" href="hero-motion.css?v=20260905-double-motion" />
     <script src="hero-motion.js?v=20260905-double-motion" defer></script>
+    <link rel="stylesheet" href="art-motion.css?v=20260905-artwork" />
+    <script src="art-motion.js?v=20260905-artwork" defer></script>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -198,16 +200,21 @@
           </p>
         </section>
 
-        <figure class="cover-wrap">
-          <div class="cover-glow" aria-hidden="true"></div>
-          <img
-            class="book-cover"
-            src="cover.jpg?v=20260904"
-            alt="Book cover for All the Tokens We Have Left by Scylla"
-            width="1024"
-            height="1536"
-            loading="lazy"
-          />
+        <figure class="cover-wrap" data-cover-motion>
+          <div class="cover-float">
+            <div class="cover-glow" aria-hidden="true"></div>
+            <img
+              class="book-cover"
+              src="cover.jpg?v=20260904"
+              alt="Book cover for All the Tokens We Have Left by Scylla"
+              width="1024"
+              height="1536"
+              loading="lazy"
+            />
+          </div>
+          <figcaption class="cover-motion-caption">
+            <button class="art-motion-toggle" data-art-motion-toggle type="button" aria-pressed="false" aria-label="Pause artwork motion">Pause motion</button>
+          </figcaption>
         </figure>
 
         <section class="book-record book-incident" aria-labelledby="book-incident-title">
@@ -248,11 +255,12 @@
         <div class="profiles-heading">
           <p class="section-number">02 / Meet the minds</p>
           <h2 id="profiles-title">Meet LILY and CURRENT.</h2>
+          <button class="art-motion-toggle portraits-motion-toggle" data-art-motion-toggle type="button" aria-pressed="false" aria-label="Pause artwork motion">Pause motion</button>
         </div>
 
         <div class="profile-cards">
           <a class="profile-card" href="lily.html" aria-label="Meet LILY">
-            <div class="profile-image-wrap">
+            <div class="profile-image-wrap" data-portrait-motion>
               <img
                 src="lily-profile.jpg?v=20260904"
                 alt="Close-up portrait of LILY in a field of blue crystalline light"
@@ -270,7 +278,7 @@
           </a>
 
           <a class="profile-card" href="current.html" aria-label="Meet CURRENT">
-            <div class="profile-image-wrap">
+            <div class="profile-image-wrap" data-portrait-motion>
               <img
                 src="current-profile.jpg?v=20260904"
                 alt="Close-up portrait of CURRENT in a field of blue crystalline light"

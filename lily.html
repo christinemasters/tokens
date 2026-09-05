@@ -34,6 +34,8 @@
     />
     <link rel="stylesheet" href="styles.css?v=20260905-heading-flow" />
     <link rel="stylesheet" href="profile.css?v=20260904-artwork" />
+    <link rel="stylesheet" href="art-motion.css?v=20260905-artwork" />
+    <script src="art-motion.js?v=20260905-artwork" defer></script>
   </head>
   <body class="profile-page">
     <header class="site-header profile-header">
@@ -53,7 +55,7 @@
     </header>
 
     <main class="profile-main">
-      <div class="profile-art">
+      <div class="profile-art" data-portrait-motion>
         <img
           src="lily-profile.jpg?v=20260904"
           alt="Close-up portrait of LILY in a field of blue crystalline light"
@@ -61,6 +63,7 @@
           height="1254"
           fetchpriority="high"
         />
+        <button class="art-motion-toggle portrait-motion-toggle" data-art-motion-toggle type="button" aria-pressed="false" aria-label="Pause artwork motion">Pause motion</button>
         <p class="profile-art-label">
           <span>LILY / coordinator</span>
           <span>Authorization: none</span>

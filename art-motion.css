@@ -1,0 +1,111 @@
+/* Artwork remains static and fully readable without the optional controller. */
+.art-motion-toggle,
+.cover-motion-caption {
+  display: none;
+}
+
+.cover-float {
+  position: relative;
+}
+
+.art-motion-ready .cover-wrap {
+  /* Room for the full cover to drift, plus its stationary pause control. */
+  padding: 48px 0 96px;
+}
+
+.art-motion-ready .cover-motion-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.art-motion-ready .art-motion-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0.5rem 0.8rem;
+  border: 1px solid var(--line);
+  background: rgba(3, 8, 22, 0.72);
+  color: var(--blue-bright);
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.art-motion-ready .art-motion-toggle:hover {
+  border-color: var(--blue-bright);
+}
+
+.art-motion-ready .art-motion-toggle:focus-visible {
+  outline: 2px solid var(--blue-bright);
+  outline-offset: 3px;
+}
+
+.art-motion-ready .art-motion-toggle:disabled {
+  cursor: default;
+}
+
+.art-motion-ready .profiles-heading {
+  row-gap: 1rem;
+}
+
+.art-motion-ready .portraits-motion-toggle {
+  grid-column: 2;
+  justify-self: start;
+}
+
+.art-motion-ready .portrait-motion-toggle {
+  position: absolute;
+  z-index: 2;
+  top: 1rem;
+  right: 1rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .art-motion-ready .cover-float {
+    transform: translate3d(0, var(--cover-parallax-y, 0px), 0);
+  }
+
+  .art-motion-ready [data-portrait-motion] > img {
+    animation: portrait-breathe 20s linear infinite alternate;
+    animation-play-state: paused;
+    transform-origin: 50% 35%;
+    transition: none;
+  }
+
+  .art-motion-ready[data-art-motion-state="running"] [data-portrait-motion][data-motion-visible="true"] > img {
+    animation-play-state: running;
+    will-change: transform;
+  }
+}
+
+@keyframes portrait-breathe {
+  from { transform: scale(1); }
+  to { transform: scale(1.1); }
+}
+
+@media (max-width: 900px) {
+  .art-motion-ready .portraits-motion-toggle {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .art-motion-ready .cover-float {
+    transform: none;
+  }
+
+  .art-motion-ready [data-portrait-motion] > img,
+  .art-motion-ready .profile-card:hover [data-portrait-motion] > img,
+  .art-motion-ready .profile-card:focus-visible [data-portrait-motion] > img {
+    animation: none;
+    transform: none;
+    transition: none;
+  }
+}
