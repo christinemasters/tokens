@@ -64,8 +64,8 @@
     />
     <link rel="stylesheet" href="styles.css?v=20260905-heading-flow" />
     <link rel="stylesheet" href="hero.css?v=20260904-faces" />
-    <link rel="stylesheet" href="hero-motion.css?v=20260905-double-motion" />
-    <script src="hero-motion.js?v=20260905-double-motion" defer></script>
+    <link rel="stylesheet" href="hero-motion.css?v=20260907-video2" />
+    <script src="hero-motion.js?v=20260907-video2" defer></script>
     <link rel="stylesheet" href="art-motion.css?v=20260905-artwork" />
     <script src="art-motion.js?v=20260905-artwork" defer></script>
     <script type="application/ld+json">
@@ -117,6 +117,8 @@
       }
     </script>
     <script src="press.js?v=20260904-agent-press" defer></script>
+    <link rel="stylesheet" href="navigation.css?v=20260907" />
+    <script src="navigation.js?v=20260907" defer></script>
   </head>
   <body class="home-page">
     <button class="header-reveal" id="header-reveal" type="button" aria-controls="home-header" aria-expanded="true" aria-label="Show navigation"><span>Menu</span></button>
@@ -162,6 +164,21 @@
               fetchpriority="high"
             />
           </picture>
+          <video
+            class="hero-video"
+            id="hero-video"
+            data-src="hero-video-v2.mp4"
+            data-mobile-src="hero-video-mobile.mp4"
+            width="1280"
+            height="720"
+            preload="none"
+            muted
+            loop
+            playsinline
+            disablepictureinpicture
+            aria-hidden="true"
+            tabindex="-1"
+          ></video>
         </figure>
 
         <div class="hero-invitation">

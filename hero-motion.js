@@ -8,6 +8,7 @@
     var hide = document.getElementById("header-hide");
     var hero = document.querySelector(".hero-immersive");
     var motionToggle = document.getElementById("hero-motion-toggle");
+    var heroVideo = document.getElementById("hero-video");
 
     // An unsupported or incomplete page keeps its ordinary, visible navigation.
     if (!body || !body.classList.contains("home-page") ||
@@ -20,6 +21,11 @@
     var observer;
     var observerEdge;
     var reducedMotion;
+    var videoLayout;
+    var compactNavigation;
+    var videoFailed = false;
+    var videoPlayPending = false;
+    var videoRequest = 0;
     var heroVisible;
     var manuallyPaused = false;
     var headerHovered = false;
@@ -86,16 +92,80 @@
 
     function setHeaderShown(shown) {
       // Navigation never disappears below the hero or under reduced motion.
-      if (reducedMotion || !heroVisible) shown = true;
+      if (reducedMotion || !heroVisible || (compactNavigation && compactNavigation.matches)) shown = true;
       body.dataset.headerState = shown ? "shown" : "hidden";
       header.inert = !shown;
       reveal.setAttribute("aria-expanded", String(shown));
+    }
+
+    function videoIsAllowed() {
+      var connection = window.navigator && window.navigator.connection;
+      return heroVideo && videoLayout && !reducedMotion &&
+        !videoFailed && !(connection && connection.saveData);
+    }
+
+    function showVideoFallback() {
+      body.dataset.heroVideo = "fallback";
+      if (heroVideo) heroVideo.pause();
+    }
+
+    function updateVideo(paused) {
+      if (!heroVideo) return;
+      // Load just the appropriate clip. Reduced-motion and data-saving
+      // visitors keep the original art-directed picture without a download.
+      body.dataset.heroVideoLayout = videoLayout && videoLayout.matches ? "desktop" : "mobile";
+      if (!videoIsAllowed()) {
+        showVideoFallback();
+        return;
+      }
+      if (paused) {
+        heroVideo.pause();
+        return;
+      }
+      var source = videoLayout.matches ? heroVideo.dataset.src : heroVideo.dataset.mobileSrc;
+      if (heroVideo.getAttribute("src") !== source) {
+        videoRequest++;
+        videoPlayPending = false;
+        showVideoFallback();
+        heroVideo.src = source;
+      }
+      if (!heroVideo.paused || videoPlayPending) return;
+      heroVideo.muted = true;
+      videoPlayPending = true;
+      var request = ++videoRequest;
+      try {
+        var playback = heroVideo.play();
+        if (playback && typeof playback.then === "function") {
+          playback.then(function () {
+            if (request !== videoRequest) return;
+            videoPlayPending = false;
+            if (!videoIsAllowed() || body.dataset.motionState !== "running") heroVideo.pause();
+          }).catch(function (error) {
+            if (request !== videoRequest) return;
+            videoPlayPending = false;
+            // A quick pause while loading can legitimately abort play().
+            if (error && error.name === "AbortError") {
+              if (videoIsAllowed() && body.dataset.motionState === "running") updateVideo(false);
+              return;
+            }
+            videoFailed = true;
+            showVideoFallback();
+          });
+        } else {
+          videoPlayPending = false;
+        }
+      } catch (error) {
+        videoPlayPending = false;
+        videoFailed = true;
+        showVideoFallback();
+      }
     }
 
     function updateMotion() {
       var paused = reducedMotion || manuallyPaused || !heroVisible || document.visibilityState === "hidden";
       body.dataset.heroVisible = String(heroVisible);
       body.dataset.motionState = paused ? "paused" : "running";
+      updateVideo(paused);
       motionToggle.disabled = reducedMotion;
       motionToggle.setAttribute("aria-pressed", String(reducedMotion || manuallyPaused));
       motionToggle.setAttribute("aria-label", reducedMotion ? "Motion reduced" :
@@ -123,7 +193,7 @@
     }
 
     function closeExplicitly() {
-      if (reducedMotion || !heroVisible) return;
+      if (reducedMotion || !heroVisible || compactNavigation.matches) return;
       cancelIntro();
       clearHideTimer();
       headerHovered = false;
@@ -167,11 +237,33 @@
       preference = window.matchMedia("(prefers-reduced-motion: reduce)");
       if (typeof preference.addEventListener !== "function" && typeof preference.addListener !== "function") return;
       reducedMotion = preference.matches;
+      compactNavigation = window.matchMedia("(max-width: 900px)");
+      if (heroVideo && typeof heroVideo.play === "function" && typeof heroVideo.pause === "function") {
+        videoLayout = window.matchMedia("(min-width: 901px) and (min-aspect-ratio: 6/5)");
+      } else {
+        heroVideo = null;
+      }
       observeHero();
       heroVisible = heroIsVisible(hero.getBoundingClientRect());
     } catch (error) {
       if (observer) observer.disconnect();
       return;
+    }
+
+    if (heroVideo) {
+      heroVideo.addEventListener("playing", function () {
+        if (!videoIsAllowed() || body.dataset.motionState !== "running") {
+          heroVideo.pause();
+          return;
+        }
+        // Reveal only decoded, playing frames; the original image is always
+        // underneath if loading, playback policy, or the network fails.
+        body.dataset.heroVideo = "ready";
+      });
+      heroVideo.addEventListener("error", function () {
+        videoFailed = true;
+        showVideoFallback();
+      });
     }
 
     setHeaderShown(reducedMotion || !heroVisible || headerHasFocus());
@@ -251,6 +343,7 @@
 
     window.addEventListener("resize", function () {
       try {
+        setHeaderShown(body.dataset.headerState === "shown");
         observeHero();
         updateHeroVisibility(heroIsVisible(hero.getBoundingClientRect()));
       } catch (error) {
@@ -265,7 +358,7 @@
     });
 
     // The introduction runs once, only for an initial, visible landing on the hero.
-    if (!reducedMotion && heroVisible && window.scrollY <= 16 &&
+    if (!reducedMotion && !compactNavigation.matches && heroVisible && window.scrollY <= 16 &&
         document.visibilityState !== "hidden" && !headerHasFocus()) {
       introDelay = window.setTimeout(function () {
         introDelay = null;

@@ -13,6 +13,7 @@
 
 ## Machine-readable resources
 
+- [Site-wide agent paths](https://allthetokenswehaveleft.com/agent/index.json): Read-only orientation, task-specific routes, factual boundaries, and explicit permissions for optional writes
 - [Structured incident guide](https://allthetokenswehaveleft.com/incident.json)
 - [Structured Extras index](https://allthetokenswehaveleft.com/extras.json)
 - [Agent Message Interpreter skill](https://allthetokenswehaveleft.com/downloads/agent-message-interpreter.zip): Unofficial SKILL.md-style ZIP package for cautious interpretation of compressed agent messages

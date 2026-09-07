@@ -73,6 +73,27 @@ function browser(options = {}) {
   if (!options.notHome) body.classList.add("home-page");
   const elements = new Map(["home-header", "header-reveal", "header-hide", "hero-motion-toggle", "hero", "nav-link"]
     .map((id) => [id, new Element(id)]));
+  if (options.video) {
+    const video = new Element("hero-video");
+    video.dataset.src = "hero-video-v2.mp4";
+    video.dataset.mobileSrc = "hero-video-mobile.mp4";
+    video.paused = true;
+    video.playCalls = 0;
+    video.pauseCalls = 0;
+    Object.defineProperty(video, "src", {
+      get() { return video.getAttribute("src"); },
+      set(value) { video.setAttribute("src", value); },
+    });
+    video.play = () => {
+      video.playCalls++;
+      if (options.playThrows) throw new Error("Unsupported playback");
+      if (options.playError) return Promise.reject(options.playError);
+      video.paused = false;
+      return options.playback || Promise.resolve();
+    };
+    video.pause = () => { video.pauseCalls++; video.paused = true; };
+    elements.set("hero-video", video);
+  }
   const el = (id) => elements.get(id);
   for (const element of elements.values()) element.parent = body;
   el("header-hide").parent = el("home-header");
@@ -90,6 +111,7 @@ function browser(options = {}) {
   let time = 0;
   let nextId = 0;
   const window = new Events();
+  window.navigator = { connection: { saveData: Boolean(options.saveData) } };
   window.innerHeight = 900;
   window.scrollY = options.scrollY || 0;
   window.setTimeout = (fn, delay) => { const id = ++nextId; timers.set(id, { fn, at: time + delay }); return id; };
@@ -108,7 +130,10 @@ function browser(options = {}) {
     preference.addEventListener = undefined;
     preference.addListener = undefined;
   }
-  if (!options.noMatchMedia) window.matchMedia = () => preference;
+  const videoLayout = { matches: options.wide !== false };
+  const compactNavigation = { matches: Boolean(options.compact) };
+  if (!options.noMatchMedia) window.matchMedia = (query) => query.includes("min-width") ? videoLayout :
+    query.includes("max-width") ? compactNavigation : preference;
   const observers = [];
   if (!options.noObserver) window.IntersectionObserver = class {
     constructor(callback, settings) {
@@ -124,7 +149,7 @@ function browser(options = {}) {
   const run = () => vm.runInNewContext(script, { document, window }, { filename: "hero-motion.js" });
   if (options.run !== false) run();
   return {
-    body, el, document, window, preference, timers, frames, observers, run,
+    body, el, document, window, preference, videoLayout, compactNavigation, timers, frames, observers, run,
     flushFrames() {
       const pending = [...frames];
       frames.clear();
@@ -158,6 +183,148 @@ function assertHeader(view, state) {
   assert.equal(view.el("home-header").inert, state === "hidden");
   assert.equal(view.el("header-reveal").getAttribute("aria-expanded"), String(state === "shown"));
 }
+
+async function flushPlayback() {
+  await Promise.resolve();
+  await Promise.resolve();
+  await Promise.resolve();
+}
+
+test("video markup defers loading and preserves the original picture fallback", () => {
+  const html = readFileSync(path.join(root, "index.html"), "utf8");
+  const video = html.match(/<video\b[\s\S]*?<\/video>/)?.[0];
+  assert.ok(video);
+  assert.match(video, /data-src="hero-video-v2\.mp4"/);
+  assert.doesNotMatch(video, /\s(?:src|autoplay|controls)=?/);
+  for (const attribute of ['preload="none"', 'muted', 'loop', 'playsinline', 'aria-hidden="true"', 'tabindex="-1"']) {
+    assert.ok(video.includes(attribute), attribute);
+  }
+  assert.match(html, /class="hero-scene"/);
+  assert.match(html, /hero-mobile\.jpg/);
+});
+
+test("wide visible landing loads a muted video but waits for a playing frame before revealing it", async () => {
+  const view = browser({ video: true });
+  const video = view.el("hero-video");
+  assert.equal(video.src, "hero-video-v2.mp4");
+  assert.equal(video.muted, true);
+  assert.equal(video.playCalls, 1);
+  assert.notEqual(view.body.dataset.heroVideo, "ready");
+  video.fire("playing");
+  await flushPlayback();
+  assert.equal(view.body.dataset.heroVideo, "ready");
+  assert.equal(video.paused, false);
+});
+
+for (const options of [{ reduced: true }, { saveData: true }, { hidden: true }, { offHero: true }, { noObserver: true }]) {
+  test(`video does not download or start for ${JSON.stringify(options)}`, () => {
+    const view = browser({ video: true, ...options });
+    assert.equal(view.el("hero-video").src, null);
+    assert.equal(view.el("hero-video").playCalls, 0);
+    assert.notEqual(view.body.dataset.heroVideo, "ready");
+  });
+}
+
+test("motion button, viewport visibility, and background tabs control the video", async () => {
+  const view = browser({ video: true });
+  const video = view.el("hero-video");
+  video.fire("playing");
+  await flushPlayback();
+  view.el("hero-motion-toggle").fire("click");
+  assert.equal(video.paused, true);
+  assert.equal(view.body.dataset.heroVideo, "ready", "Manual pause keeps the displayed frame");
+  view.visibility("hidden");
+  view.visibility("visible");
+  assert.equal(video.paused, true, "A manual pause persists");
+  view.el("hero-motion-toggle").fire("click");
+  await flushPlayback();
+  assert.equal(video.paused, false);
+  view.intersection(false);
+  assert.equal(video.paused, true);
+  view.intersection(true);
+  await flushPlayback();
+  assert.equal(video.paused, false);
+  view.visibility("hidden");
+  assert.equal(video.paused, true);
+  view.visibility("visible");
+  await flushPlayback();
+  assert.equal(video.paused, false);
+});
+
+test("narrow screens load the closer clip instead of downloading the desktop video", async () => {
+  const view = browser({ video: true, wide: false });
+  await flushPlayback();
+  assert.equal(view.el("hero-video").src, "hero-video-mobile.mp4");
+  assert.equal(view.body.dataset.heroVideoLayout, "mobile");
+});
+
+test("resizing selects the other clip and reduced motion restores the image", async () => {
+  const view = browser({ video: true });
+  const video = view.el("hero-video");
+  video.fire("playing");
+  await flushPlayback();
+  view.videoLayout.matches = false;
+  view.window.fire("resize");
+  assert.equal(video.src, "hero-video-mobile.mp4");
+  assert.equal(view.body.dataset.heroVideo, "fallback");
+  await flushPlayback();
+  view.videoLayout.matches = true;
+  view.window.fire("resize");
+  await flushPlayback();
+  video.fire("playing");
+  assert.equal(view.body.dataset.heroVideo, "ready");
+  view.reduce(true);
+  assert.equal(video.paused, true);
+  assert.equal(view.body.dataset.heroVideo, "fallback");
+  video.fire("playing");
+  assert.notEqual(view.body.dataset.heroVideo, "ready", "A late event cannot defeat reduced motion");
+});
+
+test("blocked autoplay and synchronous playback failure keep the still image", async () => {
+  for (const options of [{ playError: { name: "NotAllowedError" } }, { playThrows: true }]) {
+    const view = browser({ video: true, ...options });
+    await flushPlayback();
+    assert.equal(view.body.dataset.heroVideo, "fallback");
+    assert.equal(view.el("hero-video").paused, true);
+    view.window.fire("resize");
+    assert.equal(view.el("hero-video").playCalls, 1, "Do not repeatedly retry failed playback");
+  }
+});
+
+test("network errors return to the original image", async () => {
+  const view = browser({ video: true });
+  await flushPlayback();
+  view.el("hero-video").fire("playing");
+  view.el("hero-video").fire("error");
+  assert.equal(view.body.dataset.heroVideo, "fallback");
+  assert.equal(view.el("hero-video").paused, true);
+});
+
+test("a pending play request cannot resume behind a manual pause", async () => {
+  let resolve;
+  const playback = new Promise((done) => { resolve = done; });
+  const view = browser({ video: true, playback });
+  const video = view.el("hero-video");
+  view.el("hero-motion-toggle").fire("click");
+  video.fire("playing");
+  resolve();
+  await flushPlayback();
+  assert.equal(video.paused, true);
+  assert.notEqual(view.body.dataset.heroVideo, "ready");
+});
+
+test("a quickly aborted play request retries only if motion has been resumed", async () => {
+  let reject;
+  const options = { video: true, playback: new Promise((_, fail) => { reject = fail; }) };
+  const view = browser(options);
+  view.el("hero-motion-toggle").fire("click");
+  view.el("hero-motion-toggle").fire("click");
+  options.playback = undefined;
+  reject({ name: "AbortError" });
+  await flushPlayback();
+  assert.equal(view.el("hero-video").playCalls, 2);
+  assert.equal(view.el("hero-video").paused, false);
+});
 
 test("HTML keeps navigation usable without JavaScript and enhancement-only controls are CSS-gated", () => {
   const html = readFileSync(path.join(root, "index.html"), "utf8");
