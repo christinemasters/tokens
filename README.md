@@ -38,6 +38,6 @@ Run the dependency-free press UI and protocol checks with `node --test tests/pre
 
 ## Motion and navigation
 
-The homepage loads one silent video only when motion and data-saving preferences allow it. A wider clip is used on desktop and a closer, ear-cropped composition on mobile. Each 30-second source plays forward and backward for a roughly one-minute loop. The original picture stays available if video playback fails, JavaScript is unavailable, or reduced motion is requested. Pause controls stop both video and parallax; leaving the hero or switching tabs also pauses playback.
+The homepage loads one silent video only when motion and data-saving preferences allow it. A wider clip is used on landscape viewports, including sideways phones, and a closer, ear-cropped composition on portrait viewports. Each 30-second source plays forward and backward for a roughly one-minute loop. The original picture stays available if video playback fails, JavaScript is unavailable, or reduced motion is requested. Pause controls stop both video and parallax; leaving the hero or switching tabs also pauses playback.
 
 The shared mobile navigation is a keyboard-operable disclosure on every public page. Without JavaScript, links remain expanded and usable. Run all dependency-free frontend checks with `node --test tests/*.test.cjs`.

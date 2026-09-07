@@ -132,7 +132,7 @@ function browser(options = {}) {
   }
   const videoLayout = { matches: options.wide !== false };
   const compactNavigation = { matches: Boolean(options.compact) };
-  if (!options.noMatchMedia) window.matchMedia = (query) => query.includes("min-width") ? videoLayout :
+  if (!options.noMatchMedia) window.matchMedia = (query) => query.includes("min-aspect-ratio") ? videoLayout :
     query.includes("max-width") ? compactNavigation : preference;
   const observers = [];
   if (!options.noObserver) window.IntersectionObserver = class {
@@ -251,11 +251,21 @@ test("motion button, viewport visibility, and background tabs control the video"
   assert.equal(video.paused, false);
 });
 
-test("narrow screens load the closer clip instead of downloading the desktop video", async () => {
+test("portrait-shaped screens load the closer clip instead of downloading the wide video", async () => {
   const view = browser({ video: true, wide: false });
   await flushPlayback();
   assert.equal(view.el("hero-video").src, "hero-video-mobile.mp4");
   assert.equal(view.body.dataset.heroVideoLayout, "mobile");
+});
+
+test("a landscape phone uses the wide clip while keeping its compact menu", async () => {
+  const view = browser({ video: true, wide: true, compact: true });
+  await flushPlayback();
+  assert.equal(view.el("hero-video").src, "hero-video-v2.mp4");
+  assert.equal(view.body.dataset.heroVideoLayout, "desktop");
+  assert.equal(view.body.dataset.headerState, "shown");
+  assert.equal(view.el("home-header").inert, false);
+  assert.match(script, /matchMedia\("\(min-aspect-ratio: 6\/5\)"\)/);
 });
 
 test("resizing selects the other clip and reduced motion restores the image", async () => {

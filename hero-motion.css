@@ -29,8 +29,12 @@
 }
 
 .home-page[data-hero-video-layout="mobile"] .hero-immersive .hero-video {
-  height: min(65svh, 36rem);
+  height: min(65svh, max(36rem, 75vw));
   mask-image: linear-gradient(to bottom, #000 70%, transparent);
+}
+
+.home-page[data-hero-video-layout="mobile"] .hero-immersive .hero-copy {
+  align-self: end;
 }
 
 @media (prefers-reduced-motion: reduce) {

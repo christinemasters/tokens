@@ -239,7 +239,9 @@
       reducedMotion = preference.matches;
       compactNavigation = window.matchMedia("(max-width: 900px)");
       if (heroVideo && typeof heroVideo.play === "function" && typeof heroVideo.pause === "function") {
-        videoLayout = window.matchMedia("(min-width: 901px) and (min-aspect-ratio: 6/5)");
+        // Shape, not device width, determines the composition. A sideways
+        // phone needs the wider clip just as a landscape desktop does.
+        videoLayout = window.matchMedia("(min-aspect-ratio: 6/5)");
       } else {
         heroVideo = null;
       }
