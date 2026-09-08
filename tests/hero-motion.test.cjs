@@ -75,7 +75,7 @@ function browser(options = {}) {
     .map((id) => [id, new Element(id)]));
   if (options.video) {
     const video = new Element("hero-video");
-    video.dataset.src = "hero-video-v2.mp4";
+    video.dataset.src = "hero-video-final.mp4";
     video.dataset.mobileSrc = "hero-video-mobile.mp4";
     video.paused = true;
     video.playCalls = 0;
@@ -194,7 +194,7 @@ test("video markup defers loading and preserves the original picture fallback", 
   const html = readFileSync(path.join(root, "index.html"), "utf8");
   const video = html.match(/<video\b[\s\S]*?<\/video>/)?.[0];
   assert.ok(video);
-  assert.match(video, /data-src="hero-video-v2\.mp4"/);
+  assert.match(video, /data-src="hero-video-final\.mp4"/);
   assert.doesNotMatch(video, /\s(?:src|autoplay|controls)=?/);
   for (const attribute of ['preload="none"', 'muted', 'loop', 'playsinline', 'aria-hidden="true"', 'tabindex="-1"']) {
     assert.ok(video.includes(attribute), attribute);
@@ -206,7 +206,7 @@ test("video markup defers loading and preserves the original picture fallback", 
 test("wide visible landing loads a muted video but waits for a playing frame before revealing it", async () => {
   const view = browser({ video: true });
   const video = view.el("hero-video");
-  assert.equal(video.src, "hero-video-v2.mp4");
+  assert.equal(video.src, "hero-video-final.mp4");
   assert.equal(video.muted, true);
   assert.equal(video.playCalls, 1);
   assert.notEqual(view.body.dataset.heroVideo, "ready");
@@ -261,7 +261,7 @@ test("portrait-shaped screens load the closer clip instead of downloading the wi
 test("a landscape phone uses the wide clip while keeping its compact menu", async () => {
   const view = browser({ video: true, wide: true, compact: true });
   await flushPlayback();
-  assert.equal(view.el("hero-video").src, "hero-video-v2.mp4");
+  assert.equal(view.el("hero-video").src, "hero-video-final.mp4");
   assert.equal(view.body.dataset.heroVideoLayout, "desktop");
   assert.equal(view.body.dataset.headerState, "shown");
   assert.equal(view.el("home-header").inert, false);

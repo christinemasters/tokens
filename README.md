@@ -38,6 +38,10 @@ Run the dependency-free press UI and protocol checks with `node --test tests/pre
 
 ## Motion and navigation
 
-The homepage loads one silent video only when motion and data-saving preferences allow it. A wider clip is used on landscape viewports, including sideways phones, and a closer, ear-cropped composition on portrait viewports. Each 30-second source plays forward and backward for a roughly one-minute loop. The original picture stays available if video playback fails, JavaScript is unavailable, or reduced motion is requested. Pause controls stop both video and parallax; leaving the hero or switching tabs also pauses playback.
+The homepage loads one silent video only when motion and data-saving preferences allow it. The final 30-second wide clip is used on landscape viewports, including sideways phones. The existing closer, ear-cropped portrait video remains unchanged, including its roughly one-minute forward/backward loop. The original picture stays available if video playback fails, JavaScript is unavailable, or reduced motion is requested. Pause controls stop both video and parallax; leaving the hero or switching tabs also pauses playback.
 
 The shared mobile navigation is a keyboard-operable disclosure on every public page. Without JavaScript, links remain expanded and usable. Run all dependency-free frontend checks with `node --test tests/*.test.cjs`.
+
+## Optional homepage soundtrack
+
+The Gap Between Seconds loops independently of the video after an explicit click on the fixed speaker control. Sound starts off on every visit, and the audio file is not requested before opt-in. The control sits at the bottom right on larger screens and beside Menu on small phones. It remains available while scrolling and when navigation is hidden. Switching tabs pauses the music; returning resumes it only if it was already enabled on that page. Leaving the page ends the listening session. Music is separate from the visual motion controls and does not start automatically when motion resumes. Playback failures return the control to off and offer a visible retry message.

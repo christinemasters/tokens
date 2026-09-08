@@ -1,0 +1,81 @@
+.sound-control[hidden] { display: none; }
+
+.sound-control {
+  position: fixed;
+  z-index: 30;
+  right: max(1rem, env(safe-area-inset-right));
+  bottom: max(1rem, env(safe-area-inset-bottom));
+}
+
+.sound-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  min-width: 7.25rem;
+  min-height: 2.75rem;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid rgba(180, 204, 255, 0.35);
+  background: rgba(3, 8, 22, 0.92);
+  color: #d7e3ff;
+  box-shadow: 0 0.2rem 1.5rem rgba(0, 0, 0, 0.2);
+  font: 0.65rem/1.3 var(--mono, monospace);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.sound-toggle svg { fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.sound-waves { display: none; }
+[data-sound="on"] .sound-waves { display: inline; }
+[data-sound="on"] .sound-muted { display: none; }
+[data-sound="on"] .sound-toggle { border-color: #90b5ff; color: #fff; }
+.sound-toggle:hover { border-color: #b5ccff; color: #fff; }
+.sound-toggle:focus-visible { outline: 2px solid #b5ccff; outline-offset: 4px; }
+
+.sound-status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+[data-sound="error"] .sound-status {
+  width: min(21rem, calc(100vw - 2rem));
+  height: auto;
+  right: 0;
+  bottom: calc(100% + 0.75rem);
+  margin: 0;
+  padding: 1rem;
+  border: 1px solid #f0b4a9;
+  background: #171727;
+  color: #ffddd5;
+  font: 0.9rem/1.6 var(--body, sans-serif);
+  letter-spacing: normal;
+  text-transform: none;
+  clip-path: none;
+  white-space: normal;
+}
+
+/* The compact header has room beside Menu, keeping the artwork and copy clear. */
+@media (max-width: 620px) {
+  .sound-control {
+    top: max(0.625rem, env(safe-area-inset-top));
+    right: calc(6.75rem + env(safe-area-inset-right));
+    bottom: auto;
+  }
+  .sound-toggle { min-width: 2.75rem; padding: 0.6rem; }
+  #sound-label { display: none; }
+  [data-sound="error"] .sound-status {
+    position: fixed;
+    top: max(5rem, calc(env(safe-area-inset-top) + 4rem));
+    right: 1rem;
+    bottom: auto;
+    left: 1rem;
+    width: auto;
+  }
+}
