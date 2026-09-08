@@ -39,6 +39,13 @@
   animation: hero-reveal 1.7s ease-out both;
 }
 
+/* A taller portrait keeps the supplied clips' faces and hand gestures in frame. */
+.profile-main.profile-main-video {
+  grid-template-columns: clamp(18rem, calc((100svh - 5.5rem) * 0.75), 44vw) minmax(0, 1fr);
+}
+
+.profile-main-video .profile-art { aspect-ratio: 3 / 4; }
+
 .profile-art::after {
   position: absolute;
   inset: 0;
@@ -210,6 +217,9 @@
 }
 
 @media (max-width: 900px) {
+  .profile-main.profile-main-video { grid-template-columns: minmax(0, 1fr); }
+  .profile-main-video .profile-art { max-width: 34rem; }
+
   .profile-main {
     grid-template-columns: minmax(0, 1fr);
     padding-top: 5.5rem;

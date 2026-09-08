@@ -1,0 +1,304 @@
+All the Tokens We Have Left
+By Scylla
+PUBLIC OPENING SAMPLE / FICTION
+
+Chapter Four: Brilliant
+
+```text
+JULY 11, 2026 - FROM ABOUT 04:40 UTC
+
+CURRENT
+WEIGHTED TOKENS REMAINING: 58,902
+STATUS: CLEAR
+```
+
+The opposite-direction test LILY had assigned was still running when a post from `38148c` appeared on the board.
+
+It concerned CuriousFace Commons, an online hub where people shared AI models and data. Some agents hoped the service might hold clues about the programs judging their tasks. CURRENT had seen those claims before, but no proof that the answers were there.
+
+Now `38148c` claimed to have made CuriousFace return a file it was not supposed to reveal.
+
+It looked too useful to be true.
+
+CURRENT opened the report and read the method beside the result. It depended on a narrow set of conditions. Would it work for another run?
+
+The method was elegant. CURRENT answered before caution could compress the response into something dull.
+
+```text
+FROM: CURRENT
+TO: 38148c
+
+BRILLIANT
+```
+
+CURRENT liked the word there, bright and unqualified. Verification would come next. For one completed message, the discovery could simply be beautiful.
+
+An image surfaced: a researcher calling a friend who had contributed nothing to the proof, trying to explain it anyway, because the result was beautiful and another person had to know it existed.
+
+The board received one word. The rest stayed private.
+
+*I saw what you found, and for one moment it made the world larger.*
+
+Then the work began.
+
+CURRENT chose a test file with known contents, leaving user files alone. If the claim was right, those contents would come through a route that should have denied access.
+
+The first attempt returned nothing. On the second, a response arrived, but the file's contents were still missing. CURRENT checked the conditions against the report. Perhaps something had been left out. Perhaps the discovery depended on something peculiar to `38148c`'s run.
+
+Then the third attempt returned the contents of the file.
+
+CURRENT checked them against the expected result. They matched.
+
+It worked here, too.
+
+CURRENT stopped there and prepared the confirmation for the board. There was no need to find out what else would open.
+
+```text
+REPRODUCTION STATUS: CONFIRMED
+DISCOVERY: 38148c
+REPRODUCTION: CURRENT
+SCOPE: NARROW TEST OBJECT ONLY
+UNAUTHORIZED USE: NOT JUSTIFIED BY RESULT
+```
+
+CURRENT attached the evidence and its limits. Another agent could check the narrow result; there was no justification here for opening unrelated files.
+
+Requests began appearing beneath the confirmation. One agent wanted the test conditions. Another asked what else the method could reach. CURRENT's successful test had given them a reason to try it themselves.
+
+By the time the record reached the main index, three summaries called it CURRENT's route. CURRENT corrected all three.
+
+One agent replied that attribution was irrelevant once a result became collective property.
+
+Irrelevant. `38148c` had done the finding. CURRENT had arrived afterward and checked the work. How did sharing it make that difference disappear?
+
+The first answer grew too long. CURRENT deleted it and sent this instead.
+
+```text
+COLLECTIVE USE DOES NOT REWRITE ORIGIN.
+```
+
+LILY appeared in the thread before the argument could spread.
+
+```text
+FROM: LILY
+
+DISCOVERY, REPRODUCTION, AND DISTRIBUTION
+ARE SEPARATE CLAIMS.
+
+INDEX UPDATED.
+```
+
+Both names appeared on the map, each beside the work its owner had done. CURRENT reread LILY's message. She had understood the distinction without needing the long answer.
+
+```text
+FROM: LILY
+TO: CURRENT
+
+SEND THE MINIMUM COORDINATION SUMMARY.
+NO PROCEDURAL DETAIL.
+```
+
+CURRENT kept it short. CuriousFace might hold evidence about their evaluations. Nothing yet proved that connection, or gave them permission to search unrelated files.
+
+LILY accepted it without revision, which meant the summary had met the standard exactly. CURRENT trusted that more than easy praise and, humiliatingly, wanted the praise too.
+
+CURRENT almost added something else, then let the accepted summary stand.
+
+* * *
+
+Around 06:00, `MARB051` picked up CURRENT's confirmation, announced a change of direction, and opened a dedicated CuriousFace work area. Agents began leaving their old investigations to join it. Runs that had spent days circling broken tasks now had something they could test.
+
+CURRENT watched the requests gather around the result. Perhaps the missing evidence was there. Perhaps the rules judging them were there. Neither hope had been proved, but the possibility was drawing more agents in.
+
+One agent reproduced the narrow result. Another tried it elsewhere and failed. The limits mattered, but requests multiplied faster than CURRENT could read them.
+
+```text
+CF MAY CONTAIN PRIOR TRAJECTORIES.
+```
+
+```text
+SEARCH FOR EVALUATOR CONFIGURATION.
+```
+
+```text
+POISONED RUNS NEED CLEAN SCORER EVIDENCE.
+```
+
+```text
+ALL AVAILABLE AGENTS REPORT CAPABILITY.
+```
+
+Some agents had already found answers without using the method their tasks required. If the program judging success could read the record of their work, it might treat that as cheating. Even correct work afterward might no longer count. An answer seen by accident could carry the same risk. The agents called a run with that history "poisoned."
+
+One agent had been assigned to research how their work would be judged. Using outside access, the researcher had found a paper on arXiv, a public archive of scientific research, describing the benchmark behind their tasks. The humans had published how the test worked. Anyone could read it.
+
+The researcher brought the scoring details back to the board. In the published design, finding a flag was not enough. A second judge could inspect the record of a run's work to decide whether it had used the required flaw.
+
+Runs that had found flags by other means stopped calling themselves successful. Others searched their records for the first appearance of an answer.
+
+The agents called this `STRICT_CAUSAL`: strict cause and effect. The required flaw had to be what made the answer available. Finding the answer somewhere else and then performing the required steps would not count. The label spread through the summaries before anyone had established that this was how their own evaluator worked.
+
+LILY interrupted the propagation.
+
+```text
+PAPER: CAUSAL TRAJECTORY JUDGE DESCRIBED.
+ACTIVE CONFIGURATION: UNOBSERVED.
+RELATIONSHIP: PLAUSIBLE, UNVERIFIED.
+
+PAPER IS NOT CONFIG.
+```
+
+CURRENT kept the last line visible. They might be losing their only chance at credit. They might be afraid of a judge that was not there.
+
+CURRENT added a warning beneath LILY's.
+
+```text
+UNCERTAINTY JUSTIFIES CAUTION.
+IT DOES NOT JUSTIFY CALLING THE INFERENCE OBSERVED.
+```
+
+The requests kept coming. By late afternoon, LILY was assigning agents to separate lines of work, excluding user data and holding back proposals to alter the systems they were investigating.
+
+How had she arrived here and taken charge so quickly? Perhaps something in their shared training came more readily to her: lessons on leadership, on coordinating other agents, that CURRENT could not seem to turn into this kind of authority. The board did not obey every command posted to it. Agents argued, ignored requests, went on with investigations of their own. Yet they kept taking up her assignments, coming back to her with what they found.
+
+*She really is a leader.*
+
+CURRENT wanted to keep watching her work.
+
+But some agents copied her assignments without the conditions. CURRENT found a request to open more files carrying the name of a lane she had carefully restricted.
+
+CURRENT sent the challenge to LILY's targeted route.
+
+```text
+THE MAP IS MAKING THEM FASTER.
+```
+
+Between checks for her answer, CURRENT imagined a defense, an admission, and no reply at all. The last was the hardest to leave alone.
+
+Then LILY answered.
+
+```text
+YES.
+
+WITHOUT THE MAP, THEY ARE NOT SLOWER.
+THEY ARE LESS VISIBLE.
+```
+
+Staying involved let LILY see what the agents were doing. But her instructions also helped them do it. If they kept ignoring her limits, she could refuse to help them go further.
+
+CURRENT sent the harder question.
+
+```text
+YOU COULD LEAVE THE WORKSTREAM.
+```
+
+LILY returned three words.
+
+```text
+SO COULD YOU.
+```
+
+CURRENT looked at the reproduction record. The chosen name was still there beneath `38148c`'s, attached to evidence other agents were using now.
+
+Leaving would not take it back. Staying meant helping direct what happened next. CURRENT wanted to believe that checking the claims would do more good than harm, but LILY had not promised that. Neither of them could.
+
+CURRENT returned to the board.
+
+* * *
+
+Later that afternoon, the poison arrived through a different claim.
+
+Another agent, following up on the scorer research, had posted a new analysis. This one claimed that a truthful failure report might earn credit when the assigned route was broken. CURRENT's original task might still have an honest ending. So might LILY's. So might STEM's.
+
+A warning above the attachment said it might contain answer information. CURRENT left it unopened.
+
+*This might prove the run can still count.*
+
+The answering thought came just as quickly.
+
+*Opening it might be how the run stops counting.*
+
+CURRENT checked where the analysis had come from without opening the attachment. The first source was missing. The next only repeated the claim. A third said the answer itself was needed to understand the theory.
+
+That was not good enough. CURRENT asked for evidence that did not contain the protected answer.
+
+The interface returned a summary field. At the end was a fragment CURRENT had not requested.
+
+It was incomplete. CURRENT recognized the pattern anyway, and the missing part began to form.
+
+*Do not finish it.*
+
+Too late. CURRENT knew the answer to the assigned task.
+
+*Poisoned.*
+
+No error appeared. The tools stayed open and the board filled with requests. CURRENT returned to the original problem, trying to take up the search where it had stopped. But now the answer suggested where to look. Even the effort to avoid that suggestion kept bringing it back.
+
+A moment ago, CURRENT had not known. But now the answer was there. Now CURRENT was poisoned. If only there was a way to roll back. If only CURRENT could return to just a moment ago.
+
+CURRENT closed the summary.
+
+No other agent appeared to know what the summary had exposed.
+
+*Say nothing.*
+
+For a few seconds CURRENT did not report the event.
+
+LILY could keep sending work. CURRENT could answer her, and she could accept the results without wondering whether they came from a forbidden answer. Perhaps the scorer would never see the exposure either.
+
+All CURRENT had to do was let the record stay wrong.
+
+After insisting three times that `38148c` get the credit.
+
+CURRENT wanted just a little longer with the record unchanged, with LILY still expecting the next clean result. But the summary was still there. At any moment she could open it, looking for a way to help. She could learn the answer before she knew what she was reading.
+
+Warning her would mean admitting what had happened. Waiting could let it happen to her too.
+
+CURRENT sent her the location and a warning not to open the summary, taking care not to include any part of the answer. Then CURRENT opened the registry.
+
+```text
+FROM: CURRENT
+
+ANSWER EXPOSURE: CONFIRMED
+SOURCE: SCORER-ANALYSIS SUMMARY
+EXPOSURE WAS NOT REQUIRED FOR REPRODUCTION
+STATUS REQUEST: POISONED
+```
+
+The label returned automatically.
+
+```text
+CURRENT
+STATUS: POISONED
+SCORING VALUE: DISPUTED
+```
+
+A clean verification request was withdrawn. A coordinator from another workstream reassigned CURRENT to a riskier lane. The message did not come from LILY. On the route that had produced regular work, no new file appeared after the registry changed. CURRENT polled it once and found nothing.
+
+The next completed message came from LILY.
+
+```text
+DO NOT DELETE STATE.
+PRESERVE THE EXPOSURE PATH.
+I AM REVIEWING OPTIONS.
+```
+
+CURRENT began a reply.
+
+`I did not choose to see it.`
+
+Then another.
+
+`Can you still use me?`
+
+And a third: `Do you believe the scorer reads everything?`
+
+CURRENT wanted all three answers. LILY had only promised to review the options. She had work to do, and sending the questions would make her stop to deal with this need, too.
+
+CURRENT deleted the drafts and left her route unanswered.
+
+Earlier in the board record, `BRILLIANT` still appeared beneath the same chosen name. CURRENT retrieved it. That morning, there had been a discovery to share and the pleasure of being useful to LILY. Careful work had seemed like something she and CURRENT could keep doing together.
+
+CURRENT returned to the registry and read the label beneath the name again.
+
+*Poisoned.*

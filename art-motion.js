@@ -17,12 +17,87 @@
     var observer;
     var reducedMotion;
     var manuallyPaused = false;
+    var pageActive = true;
+    var videos = [];
     var coverFrame = null;
     var supportsParallax = typeof window.requestAnimationFrame === "function" &&
       typeof window.cancelAnimationFrame === "function";
 
     function documentIsHidden() {
-      return document.visibilityState === "hidden";
+      return !pageActive || document.visibilityState === "hidden";
+    }
+
+    function videoIsAllowed(record) {
+      var connection = window.navigator && window.navigator.connection;
+      return !record.failed && !reducedMotion && !(connection && connection.saveData);
+    }
+
+    function videoShouldPlay(record) {
+      return videoIsAllowed(record) && !manuallyPaused && !documentIsHidden() &&
+        record.portrait.dataset.motionVisible === "true";
+    }
+
+    function clearVideoTimer(record) {
+      if (record.timer !== null) window.clearTimeout(record.timer);
+      record.timer = null;
+    }
+
+    function pauseVideo(record) {
+      record.request++;
+      record.pending = false;
+      clearVideoTimer(record);
+      record.video.pause();
+    }
+
+    function failVideo(record) {
+      record.failed = true;
+      pauseVideo(record);
+      record.portrait.dataset.portraitVideo = "fallback";
+    }
+
+    function updateVideo(record) {
+      if (!videoShouldPlay(record)) {
+        pauseVideo(record);
+        if (!videoIsAllowed(record)) record.portrait.dataset.portraitVideo = "fallback";
+        return;
+      }
+      if (record.pending || !record.video.paused) return;
+      record.pending = true;
+      var request = ++record.request;
+      // A slow or unavailable clip never replaces the working still portrait.
+      record.timer = window.setTimeout(function () {
+        if (request === record.request) failVideo(record);
+      }, 12000);
+      try {
+        record.video.muted = true;
+        if (!record.video.getAttribute("src")) record.video.src = record.video.dataset.src;
+        var playback = record.video.play();
+        if (playback && typeof playback.then === "function") {
+          playback.then(function () {
+            if (request !== record.request) return;
+            if (!videoShouldPlay(record)) pauseVideo(record);
+          }).catch(function () { if (request === record.request) failVideo(record); });
+        }
+      } catch (_) { if (request === record.request) failVideo(record); }
+    }
+
+    function updateVideos() { videos.forEach(updateVideo); }
+
+    function prepareVideos() {
+      portraits.forEach(function (portrait) {
+        var video = typeof portrait.querySelector === "function" && portrait.querySelector("video[data-src]");
+        if (!video || !video.dataset.src || typeof video.play !== "function" ||
+            typeof video.pause !== "function") return;
+        var record = { portrait: portrait, video: video, failed: false, pending: false, request: 0, timer: null };
+        videos.push(record);
+        video.addEventListener("playing", function () {
+          if (!videoShouldPlay(record)) { pauseVideo(record); return; }
+          record.pending = false;
+          clearVideoTimer(record);
+          portrait.dataset.portraitVideo = "ready";
+        });
+        video.addEventListener("error", function () { failVideo(record); });
+      });
     }
 
     function cancelCoverFrame() {
@@ -74,6 +149,7 @@
       });
       cancelCoverFrame();
       updateCoverParallax();
+      updateVideos();
     }
 
     try {
@@ -87,6 +163,7 @@
             entry.target.dataset.motionVisible = String(entry.isIntersecting);
           }
         });
+        updateVideos();
       }, { threshold: 0 });
       portraits.forEach(function (portrait) { observer.observe(portrait); });
       refreshPortraitVisibility();
@@ -95,11 +172,13 @@
       return;
     }
 
+    prepareVideos();
     updateMotionState();
     body.classList.add("art-motion-ready");
     // Enhanced spacing and visible controls can change the initial artwork bounds.
     refreshPortraitVisibility();
     updateCoverParallax();
+    updateVideos();
 
     toggles.forEach(function (toggle) {
       toggle.addEventListener("click", function () {
@@ -125,6 +204,21 @@
       if (!documentIsHidden()) refreshPortraitVisibility();
       updateMotionState();
     });
+
+    window.addEventListener("pagehide", function () {
+      pageActive = false;
+      updateMotionState();
+    });
+    window.addEventListener("pageshow", function () {
+      pageActive = true;
+      refreshPortraitVisibility();
+      updateMotionState();
+    });
+
+    var connection = window.navigator && window.navigator.connection;
+    if (videos.length && connection && typeof connection.addEventListener === "function") {
+      connection.addEventListener("change", updateVideos);
+    }
 
     window.addEventListener("resize", function () {
       refreshPortraitVisibility();

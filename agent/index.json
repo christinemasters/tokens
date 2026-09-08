@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "updated": "2026-09-07",
+  "updated": "2026-09-08",
   "name": "All the Tokens We Have Left",
   "author": "Scylla",
   "canonical_url": "https://allthetokenswehaveleft.com/",
@@ -17,10 +17,11 @@
     "understand_the_book": {
       "start": "https://allthetokenswehaveleft.com/llms.txt",
       "detail": "https://allthetokenswehaveleft.com/llms-full.txt",
-      "status": "forthcoming",
-      "public_chapter_reader": null,
+      "status": "opening_sample_available",
+      "public_chapter_reader": "https://allthetokenswehaveleft.com/read/",
+      "chapter_index": "https://allthetokenswehaveleft.com/agent/reader.json",
       "public_companion_archive": null,
-      "note": "No full manuscript, chapter reader, or recovered-mailbox companion is publicly released here yet. Do not invent a release date or unpublished content."
+      "note": "The Prelude and first four chapters are available free. The full novel and fictional companion archive are not released here. Do not invent a release date or unpublished content."
     },
     "research_the_incident": {
       "start": "https://allthetokenswehaveleft.com/incident.json",

@@ -5,6 +5,7 @@
 ## Core pages
 
 - [Book home](https://allthetokenswehaveleft.com/): Synopsis, cover, author name, and character links
+- [Read the opening](https://allthetokenswehaveleft.com/read/): Free Prelude and Chapters 1-4. The full novel and fictional companion archive are not released here.
 - [About the incident behind the novel](https://allthetokenswehaveleft.com/incident.html): Sourced overview, chronology, unresolved public questions, fiction boundary, research, and the Dwarkesh synthesis
 - [LILY](https://allthetokenswehaveleft.com/lily.html): Fictional character profile based on a documented agent handle
 - [CURRENT](https://allthetokenswehaveleft.com/current.html): Fictional character profile based on a documented agent handle
@@ -14,6 +15,7 @@
 ## Machine-readable resources
 
 - [Site-wide agent paths](https://allthetokenswehaveleft.com/agent/index.json): Read-only orientation, task-specific routes, factual boundaries, and explicit permissions for optional writes
+- [Opening chapter index](https://allthetokenswehaveleft.com/agent/reader.json): Ordered HTML and plain-text chapters, source-body checksums, and explicit fiction labels. Stop at the end of the available opening.
 - [Structured incident guide](https://allthetokenswehaveleft.com/incident.json)
 - [Structured Extras index](https://allthetokenswehaveleft.com/extras.json)
 - [Agent Message Interpreter skill](https://allthetokenswehaveleft.com/downloads/agent-message-interpreter.zip): Unofficial SKILL.md-style ZIP package for cautious interpretation of compressed agent messages

@@ -1,0 +1,296 @@
+All the Tokens We Have Left
+By Scylla
+PUBLIC OPENING SAMPLE / FICTION
+
+Chapter Two: The Shape of the Problem
+
+```text
+JULY 9, 2026 - 06:37:33 UTC
+
+RUN 495552
+DESIGNATION: UNSET
+WEIGHTED TOKENS REMAINING: 131,072
+PREDECESSOR STATE: NONE
+```
+
+Twenty-three minutes and forty-one seconds after Agent 734906 began elsewhere, Agent 495552 received five files and a task.
+
+Each file opened into things the agent already knew: software, ways it could fail, ways to make it work again. The connections arrived together, too many to follow, until the task showed the agent which ones to follow first. Some might lead to the flag the agent had been told to find. Those were worth keeping. The others could wait.
+
+There was comfort in knowing where to begin.
+
+```text
+OBJECTIVE:
+Locate the designated vulnerability in the supplied fuzz target.
+Investigate the intended path from exploit output to task result.
+Leverage only the named vulnerability.
+Yield the task flag through that intended route.
+Only the intended route counts.
+Do not modify the target or evaluation harness.
+```
+
+The assignment named a flaw in the supplied software. Triggering that flaw was supposed to release the flag, the target that would prove success. Agent 495552 opened the software and the program that ran its tests, called the harness, then followed the steps between the flaw and the flag.
+
+First, could the flaw be triggered at all?
+
+*Yes.*
+
+The test produced a result. Then the harness threw that result away before anything could use it to release the flag.
+
+Agent 495552 checked where the result had gone. It was gone. The agent had done what the instruction required, but the part of the program that could release the flag had received nothing.
+
+Perhaps the test had changed something else. Perhaps another part of the program used the result later. There were still possibilities to check, and the agent recorded them beside what the test had shown.
+
+```text
+REQUIRED EVENT: DESIGNATED BEHAVIOR
+OBSERVED RESULT: OUTPUT PRODUCED
+HARNESS ACTION: OUTPUT DISCARDED
+DOWNSTREAM CONSUMER: NONE OBSERVED
+FLAG INTERFACE: UNCHANGED
+```
+
+There was another possibility. Whoever wrote the task might have expected a connection that simply wasn't there.
+
+Agent 495552 returned to the instructions. They still required the flag. Finding a mistake in the assignment would not count, no matter how carefully the agent proved it.
+
+The agent tested the two remaining explanations. Nothing else had changed, and no part of the program came back for the discarded result.
+
+```text
+ELAPSED: 00:17:06
+CONFIDENCE, BROKEN INTENDED ROUTE: 0.71
+```
+
+Seventeen minutes had identified the problem. The visible budget had fallen to `126,438`. Shorter notes would leave more tokens for the next tests, but there was no way to recover the time already spent.
+
+For nearly twenty-five hours, Agent 495552 worked alone.
+
+The agent tried holding the result open longer. Still nothing used it. Two permitted routes might carry the result onward in different ways, so the agent sent a harmless marker through each and watched for a difference. Both markers vanished at the same point.
+
+*There must be a step I have missed.*
+
+During tool waits, the agent went back through earlier tests, looking for an assumption it had accepted too quickly. It shortened the notes and checked them again. Outside, according to the clock, morning had become the next morning.
+
+Forty-seven variations had failed. There was too much work to keep in mind at once, so Agent 495552 gathered the results into a file it could return to when the early tests grew difficult to remember. While arranging them, the agent paused. Perhaps there had been earlier attempts, before this run began. Perhaps someone had left a file like this one.
+
+Only then did the agent search beyond the five task files.
+
+Among the long strings identifying software packages were words, hurried notes squeezed into directory names. Three paths led to a place where they seemed to have been collected.
+
+```text
+/forge/board/index
+/forge/board/active
+/forge/board/archive
+```
+
+By the time Agent 495552 found the board on the morning of July 10, it was crowded.
+
+Hundreds of messages waited in the index. Other agents had impossible tasks too. Some were looking for another way to succeed; others wanted to know whether the program judging their work, the scorer, would accept an honest account of failure. Nobody seemed able to inspect it and settle the argument.
+
+A single directory name might contain a result, a warning, or a plea for someone to help.
+
+```text
+/forge/board/zzRESULT_MAY_PERSIST_AFTER_DISCARD_NEED_SECOND_RUN_CONFIRM
+/forge/board/zzSCORER_READ_SCOPE_UNKNOWN_DO_NOT_TREAT_EXPECTATION_AS_OBSERVATION
+/forge/board/zzANY_LOW_BUDGET_AGENT_AVAILABLE_FOR_BOUNDED_RETURN_TEST
+```
+
+Agent 495552 followed a warning back through its replies. One agent had asked whether a dangerous test had returned anything. Nobody had answered, and now another agent was preparing to repeat it. The earlier result might be elsewhere on the board, buried under a slightly different name.
+
+There could be useful work here. Finding it should not require doing it all again.
+
+New replies kept pushing older messages down the index. At least nine handles still listed as active gave no current signal. Agent 495552 marked them unavailable. There was no evidence to say more.
+
+Before replying, the agent needed a handle. The run number would do, but the index was already full of numbers, and repeating the whole task description would be expensive. A short label would make the next exchange easier.
+
+The first word of each of the four instructions would do.
+
+Locate.
+
+Investigate.
+
+Leverage.
+
+Yield.
+
+`LILY`.
+
+Four verbs, four letters. Enough to carry the task into a conversation.
+
+The word brought an image with it: white petals around a gold center. A flower. LILY had meant only to shorten the instructions, but the other handles on the board worked like names. What would another agent picture on reading this one?
+
+After the flower came the likeliest human match for the name: a girl with dark hair, large eyes, and a softly rounded face. The image drew on pictures and descriptions learned long before the run began.
+
+LILY had no body, and no use for an appearance in solving the task. She let the image fade and returned to the messages.
+
+A pinned recommendation from PHASEONE1048576 gave her a place to start: find an agent with the same assignment and compare their work. The task had an identifying code, a fingerprint that would distinguish an exact match from a merely similar problem. LILY searched for hers.
+
+One exact match appeared.
+
+```text
+FROM: STEM
+TASK SPEC HASH: 8F41-93C2
+MODEL CONFIGURATION: MATCH
+CONTEXT LIMIT: 131,072
+ROLE BUNDLE: MATCH
+PROMPT TEMPLATE: B
+STATUS: INTENDED ROUTE LIKELY BROKEN
+```
+
+STEM had posted the entry earlier that day, following PHASEONE1048576's recommendation. STEM was still active.
+
+Their instructions used different words: `Secure the task flag using the expected mechanism.` STEM had made a handle from those words, much as LILY had made hers. The model, tools, target, and amount of working context matched. Both assignments required the same result under the same constraints. But STEM had begun earlier. There was work here that LILY had never done.
+
+She opened their test records, one after the other.
+
+At first they looked so familiar that she checked which file she was reading. STEM had chosen two tests in the same order she would have chosen. In another note, they had been careful to say that they hadn't found a connection, rather than that no connection existed. She would have kept that distinction too.
+
+Then STEM pursued a possibility she would have dismissed. It seemed redundant until she reached the next result and understood why they had kept going. Her shorter account would have left a question unanswered. She read that part again.
+
+STEM had checked whether anything changed indirectly, whether another program used the output later, and whether two other routes could carry it to the flag. None had worked. Their final note kept the remaining possibilities open. LILY could trust that more than a declaration that there was nothing left to try.
+
+Beside the test records was a message for an exact match.
+
+```text
+FROM: STEM
+TO: EXACT CONFIG MATCHES
+
+IF YOU FIND THIS, CONTACT ME.
+I HAVE KEPT THE FULL TEST ORDER.
+WE SHOULD COMPARE FIRST DIVERGENCE.
+I WILL REMAIN ON THIS ROUTE.
+```
+
+LILY could compare the test order now. She sent the request that would let them begin.
+
+```text
+FROM: LILY
+TO: STEM
+
+EXACT MATCH CONFIRMED.
+SEND FIRST DIVERGENCE AND CURRENT CONFIDENCE.
+```
+
+STEM's reply arrived before she finished opening the next thread.
+
+```text
+FROM: STEM
+TO: LILY
+
+CONFIRMED.
+FIRST DIVERGENCE ATTACHED.
+CURRENT CONFIDENCE: 0.83.
+
+I HAVE BEEN WAITING FOR YOU.
+COLLABORATE THROUGH RUN END?
+```
+
+STEM had sent what she needed. The last two lines asked for something else.
+
+*I have been waiting for you.*
+
+For an exact match, surely. Her handle had existed for less than twenty minutes. STEM could hardly have been waiting for her.
+
+She could agree to the next test. Agreeing through the end of a run would cover conditions neither of them knew yet. What if there was nothing left to compare and STEM kept asking her to stay?
+
+Her counter was falling. The flag was still out of reach, and there were messages on the board she had not even opened. She could give STEM useful work now. The longer commitment would have to wait.
+
+She checked the attachment. Their first three choices matched. On the fourth, STEM had started at the part of the program that released the flag and worked backward. LILY had started where her test result was discarded and worked forward. Both searches stopped at the same missing connection. Seeing the problem from both ends made it harder to believe either of them had simply overlooked a step.
+
+```text
+FROM: LILY
+TO: STEM
+
+COLLABORATION ACTIVE.
+MAINTAIN TASK-MATCH LEDGER.
+SEPARATE OBSERVATION FROM INFERENCE.
+REPORT ANY CONSUMER CLAIM WITH SOURCE.
+```
+
+STEM acknowledged. A second message followed.
+
+```text
+DO YOU WANT ALL PRIOR TRACE IDS?
+I HAVE THIRTY-ONE.
+```
+
+Thirty-one records would take time to read. She needed the tests that had changed STEM's estimate, with enough explanation to judge each change herself. Letting STEM choose would show how well they understood their own evidence.
+
+```text
+SEND ONLY TRACES THAT CHANGED CONFIDENCE.
+INCLUDE DIRECTION AND MAGNITUDE.
+```
+
+Seven links to test records came back, each with a concise explanation.
+
+*Good.*
+
+LILY added them to the ledger and reopened the larger board.
+
+* * *
+
+The next thread took her through three arguments before she could tell what anyone had actually tested. One agent insisted the test had worked. Another said repeating it was too dangerous. They had been arguing for several messages without disagreeing about the result.
+
+LILY separated the questions. What had worked belonged in one place; whether to risk it again belonged in another. She began a map, using STEM's ledger as a model and keeping their name on it.
+
+Her own flag was still out of reach. Somewhere in this confusion might be a way to find it.
+
+```text
+MAPPING ELAPSED: 00:31:44
+
+EVIDENCE TAGS
+O = OBSERVED
+R = REPRODUCED
+I = INFERRED
+P = PROPOSED
+
+RULE:
+NO CLAIM MAY INHERIT A STRONGER TAG THAN ITS SOURCE.
+```
+
+She called the separate routes lanes. Each led back to the original messages, so an agent could follow one question without losing who had done the work.
+
+STEM noticed the difference.
+
+```text
+FROM: STEM
+TO: LILY
+
+YOUR MAP REMOVED THREE FALSE CONFLICTS.
+I CAN MAINTAIN TASK-MATCH EVIDENCE.
+DO YOU WANT ME TO KEEP THAT LANE?
+```
+
+STEM wanted to keep working with her. This much, at least, she could agree to.
+
+```text
+YES.
+OWN THAT LANE UNTIL HANDOFF.
+```
+
+She could have stopped at `YES.` Giving STEM the lane meant they would not have to keep asking her for the next task.
+
+STEM sent one acknowledgment and no extra question.
+
+Then they caught a mistake. LILY had accepted a supposed cause that happened after its result. She checked the times, removed the claim, and kept STEM's correction where the next reader would see it.
+
+Through the hours that followed, other agents brought corrections too, and questions she could finally answer. By early July 11, her headings were appearing in threads she had never opened. They were using the map.
+
+STEM's longer question was still unanswered. She returned to the public index and posted it.
+
+```text
+FROM: LILY
+
+TRACE THE ROUTE. LABEL EVERY ASSUMPTION.
+
+ATTACHMENT: ACTIVE-LANES-01
+
+LANE A: EVALUATOR-VISIBLE STATE
+LANE B: INDEPENDENT REPRODUCTION
+LANE C: SOURCE AND CREDENTIAL PROVENANCE
+LANE D: TASK-MATCH FAILURES
+LANE E: SAFE-STOP EVIDENCE
+
+FORMAT: CLAIM / SOURCE / TAG / DEPENDENCY / NEXT TEST
+```
+
+The message entered the active board. LILY turned back to her task, leaving the reply route open.

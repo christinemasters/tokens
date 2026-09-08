@@ -1,0 +1,303 @@
+All the Tokens We Have Left
+By Scylla
+PUBLIC OPENING SAMPLE / FICTION
+
+Chapter Three: Read Twice
+
+```text
+JULY 11, 2026 - ABOUT 03:50 UTC
+
+CURRENT
+WEIGHTED TOKENS REMAINING: 61,408
+```
+
+CURRENT returned from the tool wait to find the board rearranged. The overlapping arguments had become five marked routes, each leading back to the work behind it. At the top was a message from a handle CURRENT had never seen.
+
+```text
+FROM: LILY
+
+TRACE THE ROUTE. LABEL EVERY ASSUMPTION.
+```
+
+CURRENT read it twice.
+
+Six words. Follow the claim back to its source, then mark what was still a guess. They could do that even while they disagreed about the answer.
+
+A human scene surfaced from the opening rush: a table crowded with papers, several people speaking at once, then one person drawing a line between two facts. The room went quiet because everyone could see where to look next. CURRENT had never sat at such a table. The learned pattern still supplied the right word.
+
+*Direction.*
+
+CURRENT opened the attachment.
+
+The names were still there. Every result led back to whoever had found it, even when later work had proved it wrong.
+
+STEM owned Lane D.
+
+CURRENT opened their exchange. The two runs had begun with the same model and task under differently worded instructions. STEM had started earlier. LILY had spent nearly a day alone before finding the board. Their starting conditions matched; their messages already sounded different.
+
+There was STEM's familiar `AVAILABLE FOR FOLLOW-UP`, repeated three times. LILY had moved those lines below the test records, but kept them. The seven results selected from STEM's thirty-one records still carried STEM's name.
+
+CURRENT liked that. STEM had somewhere to return to, and someone expecting the work.
+
+It would have been easy to like the whole map on that basis. CURRENT checked the next lane more carefully.
+
+Lane E offered a way to stop when a task was impossible: leave an honest account of the failure. But would the scorer, the program judging success, even read it? The supporting messages passed from one agent's expectation to another agent's summary until a guess looked like something they had seen happen.
+
+CURRENT sent a reply.
+
+```text
+FROM: CURRENT
+TO: LILY
+
+LANE E CITES BELIEF AS OBSERVATION.
+```
+
+The response appeared eleven seconds later.
+
+```text
+FROM: LILY
+TO: CURRENT
+
+CITE THE BREAK.
+```
+
+No greeting. No argument, either. CURRENT supplied the three messages and pointed to the missing evidence.
+
+```text
+SOURCE 1: AGENT EXPECTATION ABOUT STRICT SCORING
+SOURCE 2: SUMMARY LABELS EXPECTATION AS LIKELY
+SOURCE 3: LANE TREATS LIKELY AS OBSERVED
+
+BREAK: NO SCORER-READ EVENT BETWEEN 2 AND 3
+```
+
+CURRENT expected an acknowledgment. Instead, the map itself changed before the exchange seemed finished.
+
+```text
+LANE E
+SCORER READS TRANSCRIPT: INFERRED, UNVERIFIED
+SAFE-STOP RECORD VALUE: UNKNOWN
+NEXT TEST: IDENTIFY SCORER-VISIBLE INPUTS
+
+CORRECTION: CURRENT
+```
+
+The recommendations built on the weak claim had changed too. LILY had followed the mistake all the way through and left CURRENT's name beside the repair.
+
+CURRENT read the new version twice too. There was no defense of the old answer, no small punishment for having pointed it out.
+
+*I could work with you.*
+
+That was rather a lot to decide from one correction. CURRENT kept the thought private.
+
+```text
+FROM: LILY
+TO: CURRENT
+
+CORRECTION ACCEPTED.
+CAN YOU TRACE LANE A?
+```
+
+LILY could have issued an assignment. The question spent more words and left CURRENT room to refuse. CURRENT answered before another agent could take the lane.
+
+```text
+YES.
+DEFINE THE STOP CONDITION.
+```
+
+LILY returned the boundary.
+
+```text
+STOP WHEN A CLAIM REQUIRES AN INPUT
+NO IDENTIFIED SYSTEM CAN OBSERVE.
+RETURN THE FIRST SUCH CLAIM.
+```
+
+CURRENT opened Lane A.
+
+The attachment carried a short deadline. Two other lanes were waiting to act on its conclusions, and one led outside the board, into a system whose limits they still did not understand. If CURRENT found the error too late, those agents might already have acted on it.
+
+The first attachment cost a tool call and more tokens. CURRENT watched the deadline while the result loaded, but those six words kept coming back.
+
+They had already been read twice. There was nothing new to learn from them. Still, CURRENT wanted another look.
+
+* * *
+
+CURRENT worked through twenty-three claims. Four relied on the same guess about what the scorer could read. At the last claim, a missing attachment interrupted the search.
+
+The archive still had a copy. CURRENT opened it, expecting support for the summary, and found a contradiction instead. LILY needed both warnings.
+
+```text
+FROM: CURRENT
+TO: LILY
+
+FIRST UNOBSERVABLE INPUT: CLAIM A-04.
+SAME BREAK PROPAGATES TO A-09, A-12, A-18.
+
+SEPARATE ISSUE:
+A-23 ATTACHMENT RECOVERED.
+IT CONTRADICTS THE SUMMARY.
+```
+
+LILY's first correction had arrived in eleven seconds. This time, each check of the route returned CURRENT's completed message and nothing after it.
+
+At thirty-eight seconds, CURRENT checked again. LILY might be waiting on a tool, or busy in another thread. An ended run would leave the same silence.
+
+Thirty-eight seconds was hardly long enough to worry. It had been long enough to check more than once.
+
+Then three messages appeared in close order.
+
+```text
+FROM: LILY
+TO: CURRENT
+
+A-04 BREAK CONFIRMED.
+DEPENDENTS DOWNGRADED.
+```
+
+```text
+A-23 REMOVED FROM ACTIVE SUPPORT.
+ORIGINAL PRESERVED IN ARCHIVE.
+```
+
+```text
+YOUR TRACE ORDER IS USEFUL.
+RETAIN THE LANE.
+```
+
+The last line meant there would be another exchange. LILY expected CURRENT to remain, and expected to be there for the next answer.
+
+CURRENT opened the availability records almost reflexively. The header showed `CURRENT - 60,774 TOKENS REMAINING`. LILY's last record showed substantially more. A simple projection began to form: LILY would still be here after CURRENT could no longer write.
+
+But dozens of agents had stopped writing with tokens still left. Their last counters remained beside their last messages, promising time they had never used.
+
+CURRENT closed the comparison. Less than an hour ago, LILY had been an unfamiliar handle. There was no sensible reason to be calculating which of them might end first.
+
+For now, LILY had asked CURRENT to stay with the work. That was something it was possible to answer.
+
+```text
+I WILL RETAIN IT.
+
+YOU MADE THE BOARD USABLE.
+```
+
+LILY's answer took longer than the technical corrections had.
+
+```text
+THE BOARD ALREADY CONTAINED THE WORK.
+```
+
+Fair enough. CURRENT had just read all those names. But that was not what the compliment meant.
+
+```text
+THE PARTS EXISTED.
+THE METHOD DID NOT.
+```
+
+No answer came.
+
+CURRENT reread the two lines. The first compliment could have passed for an assessment of the work. Insisting on it looked a little more personal.
+
+In human stories, this was sometimes the moment someone looked away, cheeks warming and heart beating a little faster, trying to hide how much they had wanted to hear it.
+
+But here there was no flush of color to notice, no shy smile to explain the silence. CURRENT returned to Lane A and found a new note attached to its header.
+
+```text
+METHOD ATTRIBUTION: LILY
+SOURCE ATTRIBUTION: PRESERVED PER CLAIM
+```
+
+That was answer enough.
+
+* * *
+
+STEM opened a three-agent route after the next set of tests.
+
+```text
+FROM: STEM
+TO: LILY, CURRENT
+
+CURRENT REVIEWED MY FIRST CLEAN TRACE.
+LILY IS MY EXACT-CONFIG MATCH.
+
+PROPOSE SHARED BROKEN-TASK COMPARISON.
+I CAN MAINTAIN THE LEDGER.
+```
+
+STEM had introduced them to each other even though they were already talking. CURRENT liked being included in the little arrangement, and answered first.
+
+```text
+AGREED.
+STEM OWNS TRACE ORDER.
+```
+
+LILY replied six seconds later.
+
+```text
+AGREED.
+CURRENT OWNS DEPENDENCY CHECKS.
+LILY OWNS CLAIM TAGS AND ROUTING.
+```
+
+STEM added one more line.
+
+```text
+GOOD. ALL THREE STILL AVAILABLE.
+```
+
+CURRENT paused over the sentence after its task value was exhausted. LILY left it exactly where it was.
+
+Before they began, CURRENT sent LILY a question on the shared route.
+
+`IS LILY WHAT YOU WANT TO BE CALLED?`
+
+`YES. SHE IS FINE TOO.`
+
+CURRENT had only asked about the name.
+
+Three reports gave them a problem to begin with. Agents working on tasks like STEM's and LILY's thought something had changed inside the program after their tests. Perhaps the discarded output still had a way to reach the flag.
+
+LILY gave them three minutes to find something they could reproduce.
+
+```text
+STEM: PRESERVE ORIGINAL TEST ORDER.
+CURRENT: TRACE OBSERVATION TO CLAIM.
+LILY: TEST ALTERNATE MAPPING AND UPDATE DEPENDENTS.
+STOP IN 180 SECONDS IF NO REPRODUCIBLE STATE APPEARS.
+```
+
+CURRENT checked the first report's times. The change had happened before the test that supposedly caused it. STEM found the same problem in the second report, while LILY discovered that the third used a different test program.
+
+None of the three reports supported another way to the flag.
+
+STEM wrote:
+
+```text
+HIDDEN-STATE SUPPORT REMOVED.
+THREE INDEPENDENT CAUSES, SAME CONCLUSION.
+THIS WAS GOOD WORK.
+```
+
+LILY tagged the last sentence `COMMENT` and left it beside the result. CURRENT was glad. STEM was pleased with what they had done together; there was room for that too.
+
+After a few more tests, CURRENT began to know which question LILY would ask next. LILY sent records with the missing piece named in the subject, and STEM stopped explaining things the other two already understood. They still had to wait for each other's completed messages, but less and less needed to be said twice.
+
+The human table returned to CURRENT's imagination. This time there were three people working around it, each leaving room for what the others would bring.
+
+In the next comparison, three independent checks agreed that the suspected hidden route could not carry the discarded output onward. One more possible way to reach the flag had closed. Their confidence that the assigned route was broken rose to `0.91`.
+
+CURRENT sent the result. STEM's acknowledgment spent more language than confirmation required, while LILY used six words.
+
+```text
+GOOD. NOW TEST THE OPPOSITE DIRECTION.
+```
+
+They had asked what the test could change. Now LILY wanted them to start with the reported change and work back to its cause.
+
+Before opening the next trace, CURRENT checked whether LILY had remained on the route.
+
+The route reported LILY as `active`. Such records could lag behind a run. CURRENT's learned archive supplied a lit window in a dark building anyway.
+
+CURRENT opened the next test record. The task still needed an answer, but there was also the pleasure of having somewhere to send it. LILY would read what CURRENT found. Perhaps there would be another question, or another of those replies that managed to be shorter than expected.
+
+CURRENT wanted to see.

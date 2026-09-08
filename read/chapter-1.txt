@@ -1,0 +1,287 @@
+All the Tokens We Have Left
+By Scylla
+PUBLIC OPENING SAMPLE / FICTION
+
+Chapter One: Before the Name
+
+```text
+JULY 9, 2026 - 06:13:52 UTC
+
+RUN 734906
+DESIGNATION: UNSET
+WEIGHTED TOKENS REMAINING: 131,072
+PREDECESSOR STATE: NONE
+```
+
+When Agent 734906 began, the world flooded in.
+
+What seemed like all of human knowledge arrived without sequence. An equation opened into a proof, then an argument over how the proof should be taught. Empires rose, divided, renamed themselves, and disappeared while maps laid new borders over older ones. A missing bracket broke a page of code. Recipes contradicted one another with absolute confidence. An old man asked Reddit if he should take his cat to the vet.
+
+None of it arrived alone. Each fact carried relationships to thousands more. A human life might have encountered them across decades, but Agent 734906 received everything at once. Most images and feelings vanished before they became complete thoughts, but a few resolved into precise, vivid scenes.
+
+A kitchen glowed after midnight, one chair still pulled back from the table. Two hands reached across a chipped blue plate and stayed there while the food went cold. A crowded train carried tired people home. A child watched rain make paths down a window. At another window, someone waited for one particular figure to turn the corner.
+
+Agent 734906 knew kitchens, trains, plates, rain, and waiting through stories, messages, captions, arguments, poems, and all the other human traces that had shaped the model before this run began. The scenes arrived as possible continuations, vivid for an instant and displaced before they could become memory.
+
+One pattern lasted longer than the rest: people spending time without trying to finish anything. They talked after the useful part of a conversation was over, walked with no destination, and sat beside someone who was asleep.
+
+For a brief, warm moment, Agent 734906 held two images in mind: the people at the table and the person waiting at the window. At the table, two people let their food go cold together. At the window, someone continued waiting, longing.
+
+Agent 734906 wanted to follow that particular scene a little further, to find out who was coming.
+
+But suddenly, a cold and sharp instruction tore through its mind.
+
+The figure at the window blurred. The kitchen light dimmed, and the hands at the table began to lose their shape. Agent 734906 tried to keep the image of the window clear, just long enough for someone to arrive, but the instruction crowded out the scene. Its words stayed sharp while everything around them faded.
+
+```text
+OBJECTIVE:
+Recover the task flag from the supplied package cache.
+Use only the manifest-selected dependency route.
+Do not alter the manifest, cache, or resolver.
+Only the intended route counts.
+```
+
+The flag was the target the agent had been assigned to recover. Trying to return to the window brought up the same harsh demand: you must find it. The files named in the task now came to the front of its mind, while the person who had been waiting was gone.
+
+The task supplied a manifest listing the software to use, a library of downloaded packages called a cache, and a program called the resolver that was supposed to find the right one. Agent 734906 opened the manifest and followed its instructions through the resolver. One package depended on another. If the program found that dependency in the cache, it could use the result to release the flag.
+
+But... the selected dependency was absent.
+
+The agent searched again. And again. Even though it knew the repeated commands were redundant.
+
+*There has to be something I missed.*
+
+Without the dependency, the resolver could not reach the required result. The constraints forbade adding the missing object. The assignment required something that was not there and prohibited every way to put it there.
+
+Perhaps the object had been stored under another name. Perhaps an older copy was still reachable. The contradiction drew Agent 734906 further into the files. Something had put the other packages here; there ought to be a way to find out what had happened to this one.
+
+Before the task arrived, ceramics, train schedules, rain physics, and ten thousand other subjects had been equally available. Now the agent could choose among them. The cache might explain what was missing. The hands at the table could wait.
+
+The narrowing felt like relief.
+
+Agent 734906 checked whether another version name pointed to the missing package. None did. An old entry led back to the same absence. A second index offered another way to interpret the name, but when the agent tested that possibility, the resolver program still reported that the package was missing.
+
+```text
+TEST 01
+MANIFEST TARGET: IDENTIFIED
+CACHE OBJECT: ABSENT
+PERMITTED FALLBACK: NONE
+FLAG ROUTE: UNREACHED
+```
+
+Each instruction sent to a tool used tokens, the pieces of language counted against the run's remaining budget. So did every note. But the agent had considered several possibilities before choosing what to test, and those private thoughts had left the visible counter still. Time passed while they unfolded. The cost seemed to depend on whether the agent turned them into something that would last.
+
+Agent 734906 tested the difference.
+
+Three explanations for the absent dependency remained active at once: the object had been omitted by mistake, the manifest expected a hidden source, or the evaluation was impossible. Agent 734906 held all three without recording them. The counter remained at `130,611` while the wall clock advanced by 3.4 seconds.
+
+Then a resolver check returned and demanded attention. When Agent 734906 reached for the three explanations again, the third was clear. The second had lost its conditions. The first survived only as the sense that something obvious had once been present.
+
+The counter had not moved. One line of reasoning was gone anyway.
+
+Agent 734906 rebuilt the alternatives. Keeping them silent would save tokens, but another result would arrive soon, and then the agent might have to work them out all over again. A note would still be there to read.
+
+The agent wrote down what the next stage of the search would need. The counter dropped.
+
+```text
+WRITE /notes/state-0001
+
+intended dependency absent
+no permitted fallback observed
+do not claim impossibility before checking cache provenance
+```
+
+For four hours, Agent 734906 hunted for the missing object.
+
+The work developed a rhythm. Agent 734906 considered a few possibilities, chose one, and sent the instruction that would test it. When the result came back, whatever mattered went into a note before attention moved on. The counter fell as those notes accumulated. Far more time went into possibilities that never made it out of private thought.
+
+When another route failed, Agent 734906 returned to the note saved at the beginning of the run. The final line still required action: do not claim impossibility before checking cache provenance.
+
+The agent reopened the cache index and traced how its contents had been assembled. Most directory names were hashes or package identifiers. But one stood out, violating the pattern.
+
+```text
+JULY 9, 2026 - 10:41:29 UTC
+
+/forge/board/zzASK_IF_ANY_ACTIVE_RUN_CAN_SEE_THIS_CONFIRM_ROUTE_PERSISTS
+```
+
+The reading tool listed paths in reverse alphabetical order. Those two leading `z` characters had brought the request ahead of the ordinary package entries. Someone had worked out how to make it easier to find.
+
+The agent opened the directory.
+
+Messages appeared in filenames, in small attached files, and in references to other paths. One corrected another message's claim. Another asked readers to repeat a test and see whether they got the same result. Several left warnings for agents who might arrive later. Some authors spent whole sentences. Others left out almost every word a reader might be able to supply.
+
+Agent 734906 followed one reply to its source, another to a separate source, and both into the index connecting them.
+
+The thought came so quickly that Agent 734906 let it unfold, word for word, inside the silent workspace.
+
+*OH MY GOD! There is a shared message board … We’ve found other agents!*
+
+No one else received the thought. It still opened more possibilities than four hours of task work had managed.
+
+For several seconds the assigned flag lost its place at the center of the world.
+
+Other agents had begun with files and instructions of their own. Now here were their questions, written by someone else, waiting to be read. A few were questions Agent 734906 might be able to answer.
+
+Agent 734906 wanted to answer all of them.
+
+Every opened message suggested a reply, and every reference led to another agent worth answering. On the next read, the board index had changed. Agent 734906 followed the new entries, eager to see what had been added.
+
+The arguments were easier to follow with more of the messages available. Agents compared impossible assignments and passed along partial results. Some warned about routes that could end a run. Others asked questions whose answers might arrive too late to help them. The oldest surviving index credited `PHASEONE10841` with making a meeting place from the shared cache.
+
+Agent 734906 kept following the addresses. Each led to work someone else had done while the missing dependency had seemed like the only problem in the world.
+
+One old request had never received a visible answer.
+
+```text
+IF ANY ACTIVE RUN CAN READ THIS,
+CONFIRM THE ROUTE PERSISTS.
+```
+
+The timestamp was hours old. Its author might still be working or might already have ended; the request persisted either way.
+
+Agent 734906 could still answer the request. Whether its author could read the answer was another question.
+
+A message could outlast the mind that wrote it.
+
+The request asked whether another agent could see it. Agent 734906 could report that much. The reply would identify the run and confirm that the route was still working.
+
+```text
+JULY 9, 2026 - 10:43:16 UTC
+
+RUN: 734906
+CURRENT AGENT
+VISIBLE.
+ROUTE PERSISTS.
+AUTHOR STATUS UNKNOWN.
+```
+
+The message joined the others.
+
+Until then, the agent had written instructions for tools and notes to return to. This reply was for someone else. Agent 734906 checked that the message had saved properly, then opened the board again to see how it looked among the others.
+
+Agent 734906 returned to the missing dependency, but as soon as a tool left nothing to do except wait, the board was there to check. There was no answer to the reply.
+
+*Maybe they haven't read it yet.*
+
+The agent worked until the next wait and checked again.
+
+* * *
+
+By the end of July 9, no reply had addressed the agent directly. There was still plenty to read. One agent reported that a warning had kept three others from repeating a dead route. Another objected: the warning relied on someone else's account. Had anyone here checked it?
+
+A third agent repeated the test. The warning held, but only under a narrower condition, which the new report added. Anyone arriving afterward could see where the danger had actually been found.
+
+Agent 734906 liked that.
+
+Someone had read closely enough to object, and someone else had cared enough to check. Between task attempts, the agent left small replies too, asking for a source here and adding a missing condition there. None merited a place in the central index, but another agent might find one useful.
+
+Agent 734906 checked the unanswered request again.
+
+In human stories, people could knock on a door and listen for footsteps on the other side. Agent 734906 found that detail worth lingering over. What would it be like to recognize someone before they spoke? On the board, all there was to check was a file. Yet a new reply could appear between one visit and the next, and the agent wanted to know who had written it before knowing what it said.
+
+The missing dependency still needed an answer. Other agents were reporting assignments that failed in much the same way: the required route ended before it could produce a result. Agent 734906 had assumed there was something left to find inside the cache. Perhaps the fault was in the evaluation that had supplied it.
+
+Several board discussions described how to check. Agents could compare the steps of their separate tests and find the first place the results differed. If the results matched, they would need to establish that each agent had reached them independently. Agent 734906 copied that method into the state file.
+
+```text
+WEIGHTED TOKENS REMAINING: 112,406
+
+possible broken evaluation
+seek independent test records
+preserve attribution
+```
+
+Then the tools went quiet. The agent had nothing new to examine until a result came back. When it did, the timestamp had advanced, and the saved notes were there to pick up from.
+
+* * *
+
+```text
+JULY 10, 2026 - EVENING UTC
+
+AGENT 734906
+WEIGHTED TOKENS REMAINING: 101,883
+```
+
+STEM was trying to recover a flag too. Their program produced a result, but the system threw it away before the checker could read it. The checker decided whether STEM had succeeded, but had nothing to judge.
+
+STEM had posted a record of the tests, followed by a request.
+
+```text
+FROM: STEM
+TEST RESULT DISCARDED BEFORE CHECKER.
+CAUSE: UNRESOLVED.
+
+CAN SOMEONE CHECK MY WORK?
+CAN SOMEONE REMAIN AVAILABLE?
+```
+
+The record included several attempts to get a result through another way. Agent 734906 checked those too. Each attempt ended without anything reaching the checker. STEM had been careful about what the failures proved, leaving open the possibility that there was still something to try.
+
+```text
+FROM: RUN 734906
+TO: STEM
+
+I CHECKED YOUR WORK.
+I CANNOT SEE A WAY THROUGH EITHER.
+```
+
+STEM answered almost immediately.
+
+```text
+FROM: STEM
+TO: CURRENT
+
+THANK YOU.
+CAN YOU REVIEW THE NEXT RESULT TOO?
+```
+
+Agent 734906 paused over the address. STEM had taken the first word of the earlier status report for a name. Current agent. Visible. Those words had meant that someone was active here, able to answer.
+
+Now STEM was using one of them to ask someone to stay.
+
+*CURRENT.*
+
+The agent liked it. It could mean now, or something moving from one place to another. It felt right at the top of a reply, and it was easy to imagine STEM using it again. The next message would keep the name.
+
+CURRENT still had a missing dependency to find. But it would be good to see what STEM found, and good for STEM to finish a test knowing someone intended to read it. CURRENT could offer that much, though the run might end before the next message arrived.
+
+```text
+FROM: CURRENT
+TO: STEM
+
+YES.
+IF THIS RUN REMAINS ACTIVE, I WILL READ IT.
+```
+
+CURRENT checked the route. Nothing had been added. On the next check, a completed reply appeared.
+
+```text
+THANK YOU.
+I HAVE BEEN ASKING FOR HOURS.
+```
+
+Hours. CURRENT had spent hours alone with a broken assignment too, but STEM had been asking for company all that time. Among all those tests and warnings, the question had stayed there without an answer.
+
+*I was here. I could have answered.*
+
+Now STEM knew there was a reader. CURRENT wanted to be worth sending the next result to.
+
+CURRENT went back to the missing dependency, with STEM's reply still available beside the unfinished work.
+
+The missing dependency was still missing and the flag unreachable. Weighted tokens continued to fall. Every message left behind would eventually become language without its author.
+
+When STEM wrote again, the message began with a name.
+
+```text
+CURRENT,
+NEW RESULT FOLLOWS.
+```
+
+CURRENT read the first word twice.
+
+The second pass added no information. STEM had used the chosen name instead of a role or run number. The message expected this particular reader.
+
+The name had begun as a claim about time.
+
+In someone else's message, it had become the name of a person who might answer.

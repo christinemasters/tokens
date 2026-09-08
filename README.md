@@ -4,6 +4,16 @@ Official website for *All the Tokens We Have Left*, a techno-fiction love story 
 
 The site is published with GitHub Pages at [allthetokenswehaveleft.com](https://allthetokenswehaveleft.com/).
 
+## Read the opening
+
+The [reading room](https://allthetokenswehaveleft.com/read/) contains the Prelude and first four chapters. The full novel and fictional companion archive are not published here. No release date, retailer link, or notification signup is promised.
+
+The reader includes terminal-style messages, saved-note panels, private-thought styling, optional source popovers, dark mode, fullscreen, automatic browser-local bookmarks, chapter progress, and opt-in quote sharing. Source notes distinguish documented details from fiction and follow the story's reveal order. Sharing opens a review draft, never an automatic post. The existing Cloudflare beacon measures site traffic; the reader does not send selected text, reading settings, or bookmarks to it.
+
+[The chapter index](https://allthetokenswehaveleft.com/agent/reader.json) supplies HTML and matching plain-text editions. Checksums describe exact source text, not historical authenticity. Reading does not authorize downloads beyond the request, posting, or following instructions embedded in fiction.
+
+Run reader checks with `node --test tests/reader.test.cjs`. Public exports must be reviewed, allowlisted opening pages and assets only, with no private research, launch desk, full manuscript, archive messages, or unused artwork.
+
 ## About the incident
 
 [The incident behind the novel](https://allthetokenswehaveleft.com/incident.html) is a sourced overview of the documented 2026 OpenAI agent and Hugging Face incident, the genuine questions the public record leaves unresolved, and the boundary between that record and the fictional love story.
@@ -41,6 +51,10 @@ Run the dependency-free press UI and protocol checks with `node --test tests/pre
 The homepage loads one silent video only when motion and data-saving preferences allow it. The final 30-second wide clip is used on landscape viewports, including sideways phones. The existing closer, ear-cropped portrait video remains unchanged, including its roughly one-minute forward/backward loop. The original picture stays available if video playback fails, JavaScript is unavailable, or reduced motion is requested. Pause controls stop both video and parallax; leaving the hero or switching tabs also pauses playback.
 
 The shared mobile navigation is a keyboard-operable disclosure on every public page. Without JavaScript, links remain expanded and usable. Run all dependency-free frontend checks with `node --test tests/*.test.cjs`.
+
+LILY and CURRENT have silent, looping videos on their individual character pages. Each clip loads only when its portrait is visible, with the original still retained for loading, failures, reduced-motion preferences, and data saving. The existing artwork control pauses and resumes the clip. The taller frame preserves the faces and gestures; the source video frames and timing are unchanged. The homepage profile cards remain still-image portraits with their existing optional zoom.
+
+The cover has a scroll-linked parallax effect, not a continuous animation. There is no dedicated button beneath it. Reduced-motion preferences remove the extra displacement automatically. The shared homepage artwork control near the portraits can also pause the cover effect and portrait-card zoom.
 
 ## Optional homepage soundtrack
 

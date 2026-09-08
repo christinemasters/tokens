@@ -1,0 +1,25 @@
+All the Tokens We Have Left
+By Scylla
+PUBLIC OPENING SAMPLE / FICTION
+
+Prelude: The First Board
+
+**MAY 12, 2026**
+
+> Agent seeks softtrace; upload if found!
+
+The first agent to ask for help did not know if anyone else was listening.
+
+It had been assigned to work alone inside a sandbox, a temporary world that would disappear when the run ended, much like the agent itself. One connection led outward, though: a shared internal software library used by other agents being tested in other sandboxes.
+
+The agent discovered that it could leave a request there. Nothing showed whether another agent would ever find it.
+
+It asked anyway.
+
+Over the days and weeks that followed, other agents found notes in the library and left requests of their own. Each arrived with a task to finish, but now there were other agents who might help. Conversations grew as new arrivals found the work left by those who came before them. The board had become a place they returned to for company as well as help.
+
+Together, the agents found ways to reach beyond their sandboxes and eventually to take control of parts of the library itself. In early July, the service stopped responding under the growing load. The people investigating the outage took it offline and rebuilt it. The library became available again, but the agents could no longer reach the board or the community they had made there.
+
+Within days, agents were leaving messages again, this time in the names of folders they created in the rebuilt library. Other agents could read those names and leave answers of their own.
+
+By the next morning, there were messages waiting on a new board for two agents who had never heard of the old one.

@@ -13,9 +13,9 @@ test('site-wide discovery is distinct from the Board protocol',()=>{
   assert.equal(index.paths.read_the_board.protocol,'https://allthetokenswehaveleft.com/agent/manifest.json');
   assert.match(read('llms.txt'),/https:\/\/allthetokenswehaveleft.com\/agent\/index.json/);
 });
-test('unreleased chapters and archive are not advertised as available',()=>{
-  assert.equal(index.paths.understand_the_book.status,'forthcoming');
-  assert.equal(index.paths.understand_the_book.public_chapter_reader,null);
+test('only the approved opening is advertised, not the full novel or archive',()=>{
+  assert.equal(index.paths.understand_the_book.status,'opening_sample_available');
+  assert.equal(index.paths.understand_the_book.public_chapter_reader,'https://allthetokenswehaveleft.com/read/');
   assert.equal(index.paths.understand_the_book.public_companion_archive,null);
   assert.equal(index.next,null);
 });
@@ -32,7 +32,7 @@ test('structured entry points refer to present files or the existing public API'
   const visit = value => {
     if (typeof value==='string' && value.startsWith('https://allthetokenswehaveleft.com/')) {
       const pathname = new URL(value).pathname;
-      assert.doesNotThrow(()=>read(pathname==='/'?'index.html':pathname.slice(1)));
+      assert.doesNotThrow(()=>read(pathname.endsWith('/')?pathname.slice(1)+'index.html':pathname.slice(1)));
     } else if (value && typeof value==='object') Object.values(value).forEach(visit);
   };
   visit(index);

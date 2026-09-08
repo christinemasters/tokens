@@ -33,9 +33,9 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css?v=20260905-heading-flow" />
-    <link rel="stylesheet" href="profile.css?v=20260904-artwork" />
-    <link rel="stylesheet" href="art-motion.css?v=20260905-artwork" />
-    <script src="art-motion.js?v=20260905-artwork" defer></script>
+    <link rel="stylesheet" href="profile.css?v=20260908-portraits" />
+    <link rel="stylesheet" href="art-motion.css?v=20260908-portraits" />
+    <script src="art-motion.js?v=20260908-portraits" defer></script>
     <link rel="stylesheet" href="navigation.css?v=20260907" />
     <script src="navigation.js?v=20260907" defer></script>
   </head>
@@ -46,6 +46,7 @@
         <span class="signal" aria-hidden="true"></span>
       </a>
       <nav aria-label="Primary navigation">
+        <a href="read/">Read</a>
         <a href="index.html#the-book">The book</a>
         <a href="index.html#profiles">Profiles</a>
         <a href="incident.html">About</a>
@@ -56,7 +57,7 @@
       <p class="availability">Character 01 / 02</p>
     </header>
 
-    <main class="profile-main">
+    <main class="profile-main profile-main-video">
       <div class="profile-art" data-portrait-motion>
         <img
           src="lily-profile.jpg?v=20260904"
@@ -65,6 +66,7 @@
           height="1254"
           fetchpriority="high"
         />
+        <video class="portrait-video" data-src="lily-portrait-video.mp4" width="720" height="1280" preload="none" muted loop playsinline disablepictureinpicture aria-hidden="true" tabindex="-1"></video>
         <button class="art-motion-toggle portrait-motion-toggle" data-art-motion-toggle type="button" aria-pressed="false" aria-label="Pause artwork motion">Pause motion</button>
         <p class="profile-art-label">
           <span>LILY / coordinator</span>

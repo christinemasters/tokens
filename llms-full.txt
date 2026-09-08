@@ -3,6 +3,9 @@
 Official site: https://allthetokenswehaveleft.com/
 Author: Scylla
 Status: Forthcoming
+Public opening: https://allthetokenswehaveleft.com/read/
+Agent-readable chapter index: https://allthetokenswehaveleft.com/agent/reader.json
+Available text: Prelude and Chapters 1-4 only. The full novel and fictional companion archive are not released here. No release date is announced.
 Genre: Techno-fiction love story with a technological thriller spine
 Audience: Young adult
 Primary fictional characters: LILY and CURRENT

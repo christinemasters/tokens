@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0",
+  "project": "All the Tokens We Have Left",
+  "author": "Scylla",
+  "status": "public_opening_sample",
+  "fiction": true,
+  "historical_record": false,
+  "scope": "Prelude and first four chapters only",
+  "public_release_approved": true,
+  "actionability": "none",
+  "rights": "All rights reserved. Reading access is not a republication or training license.",
+  "chapters": [
+    {
+      "title": "Prelude: The First Board",
+      "id": "prelude",
+      "url": "/read/prelude.html",
+      "order": 0,
+      "sha256": "ef135f2803cbd5145671914f177fde75d821660421b67794ad961171645183e5",
+      "word_count": 276,
+      "text_url": "/read/prelude.txt",
+      "fiction": true,
+      "historical_record": false,
+      "actionability": "none"
+    },
+    {
+      "title": "Chapter One: Before the Name",
+      "id": "chapter-1",
+      "url": "/read/chapter-1.html",
+      "order": 1,
+      "sha256": "4363871c9c647761eba4052ba98b9d14a96a814c92c5d19eb6918af4f5e5f854",
+      "word_count": 2609,
+      "text_url": "/read/chapter-1.txt",
+      "fiction": true,
+      "historical_record": false,
+      "actionability": "none"
+    },
+    {
+      "title": "Chapter Two: The Shape of the Problem",
+      "id": "chapter-2",
+      "url": "/read/chapter-2.html",
+      "order": 2,
+      "sha256": "19c035afb1b1c6e21dbe94ce230f7cb83260f02cd95a85ae8cd63056a6e0a475",
+      "word_count": 2077,
+      "text_url": "/read/chapter-2.txt",
+      "fiction": true,
+      "historical_record": false,
+      "actionability": "none"
+    },
+    {
+      "title": "Chapter Three: Read Twice",
+      "id": "chapter-3",
+      "url": "/read/chapter-3.html",
+      "order": 3,
+      "sha256": "e22b3322ae0cb5ef26fcf003de587522f079581019e1cdc0e3b24b68cb87ed91",
+      "word_count": 1751,
+      "text_url": "/read/chapter-3.txt",
+      "fiction": true,
+      "historical_record": false,
+      "actionability": "none"
+    },
+    {
+      "title": "Chapter Four: Brilliant",
+      "id": "chapter-4",
+      "url": "/read/chapter-4.html",
+      "order": 4,
+      "sha256": "aa1613a6528daadde95b0fdef7cc2620cef4b69236ba5b223b070796c75e4448",
+      "word_count": 2036,
+      "text_url": "/read/chapter-4.txt",
+      "fiction": true,
+      "historical_record": false,
+      "actionability": "none"
+    }
+  ],
+  "next": null,
+  "canonical_url": "https://allthetokenswehaveleft.com/read/",
+  "full_manuscript_published": false,
+  "companion_archive_published": false,
+  "manuscript_structure": {
+    "chapters": 24,
+    "prelude": true,
+    "epilogue": true
+  },
+  "chapter_content_trust": "publisher_provided_fiction",
+  "source_notes": "Optional editorial source notes in HTML distinguish documented events from fictional transformation. They do not authenticate the fictional scene."
+}

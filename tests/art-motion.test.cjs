@@ -42,6 +42,7 @@ function browser(options = {}) {
     setAttribute(name, value) { this.attributes[name] = String(value); }
     getAttribute(name) { return this.attributes[name] ?? null; }
     getBoundingClientRect() { return this.rect; }
+    querySelector(selector) { return selector === "video[data-src]" ? this.video || null : null; }
   }
 
   const body = new Element();
@@ -49,6 +50,31 @@ function browser(options = {}) {
   if (portraits[1]) portraits[1].rect = { top: 1000, bottom: 1600, height: 600 };
   const covers = options.noArtwork || options.noCover ? [] : [new Element()];
   const controls = options.noControls ? [] : [new Element(), new Element()];
+  const videos = options.video ? portraits.map((portrait, index) => {
+    const video = new Element();
+    video.dataset.src = options.noVideoSource ? "" : `portrait-${index}.mp4`;
+    video.paused = true;
+    video.currentTime = 0;
+    video.playCalls = 0;
+    video.pauseCalls = 0;
+    video.pendingPlays = [];
+    Object.defineProperty(video, "src", {
+      get() { return video.getAttribute("src"); },
+      set(value) { video.setAttribute("src", value); },
+    });
+    video.play = function () {
+      video.playCalls++;
+      if (options.throwPlay) throw new Error("Playback unavailable");
+      if (options.rejectPlay) return Promise.reject(new Error("Playback blocked"));
+      video.paused = false;
+      if (options.deferPlay) return new Promise((resolve, reject) => video.pendingPlays.push({ resolve, reject }));
+      return options.noPlayPromise ? undefined : Promise.resolve();
+    };
+    video.pause = function () { video.pauseCalls++; video.paused = true; };
+    if (options.noVideoAPI) video.play = undefined;
+    portrait.video = video;
+    return video;
+  }) : [];
   const document = new Events();
   document.body = options.noBody ? null : body;
   document.readyState = options.loading ? "loading" : "complete";
@@ -63,6 +89,13 @@ function browser(options = {}) {
   let nextFrame = 0;
   const window = new Events();
   window.innerHeight = 900;
+  const timers = new Map();
+  let nextTimer = 0;
+  window.setTimeout = (fn, delay) => { const id = ++nextTimer; timers.set(id, { fn, delay }); return id; };
+  window.clearTimeout = id => timers.delete(id);
+  const connection = new Events();
+  connection.saveData = Boolean(options.saveData);
+  window.navigator = { connection };
   if (!options.noFrames) {
     window.requestAnimationFrame = (fn) => { const id = ++nextFrame; frames.set(id, fn); return id; };
     if (!options.noCancelFrame) window.cancelAnimationFrame = (id) => frames.delete(id);
@@ -97,7 +130,10 @@ function browser(options = {}) {
   const run = () => vm.runInNewContext(script(), { window, document }, { filename: "art-motion.js" });
   if (options.run !== false) run();
   return {
-    body, portraits, covers, controls, document, window, preference, observers, frames, run,
+    body, portraits, covers, controls, document, window, preference, observers, frames, run, videos, timers,
+    playing(index = 0) { videos[index].paused = false; videos[index].fire("playing"); },
+    saveData(value) { connection.saveData = value; connection.fire("change"); },
+    expireVideoTimers() { const pending = [...timers.values()]; timers.clear(); pending.forEach(timer => timer.fn()); },
     flushFrames() {
       const pending = [...frames.values()];
       frames.clear();
@@ -319,4 +355,180 @@ test("DOMContentLoaded initializes once and repeated execution does not duplicat
   view.document.readyState = "complete";
   view.run();
   assert.equal(view.controls[0].listeners.get("click").length, 1);
+});
+
+const flushVideo = () => new Promise(resolve => setImmediate(resolve));
+
+test("the cover has no separate button while portrait controls and reduced-motion support remain", () => {
+  const html = readFileSync(path.join(root, "index.html"), "utf8");
+  const cover = html.match(/<figure\b[^>]*data-cover-motion[\s\S]*?<\/figure>/)?.[0];
+  assert.ok(cover);
+  assert.doesNotMatch(cover, /<button\b|cover-motion-caption|cover-motion-help/);
+  assert.match(html, /class="art-motion-toggle portraits-motion-toggle"/);
+  const view = browser();
+  assert.equal(view.offset(), 9);
+  view.covers[0].rect = { top: 1000, bottom: 1600, height: 600 };
+  view.window.fire("scroll");
+  view.flushFrames();
+  assert.equal(view.offset(), -40);
+  view.reduce(true);
+  assert.equal(view.offset(), 0);
+});
+
+test("only the two character pages add deferred silent portrait videos, retaining their stills", () => {
+  for (const name of ["lily", "current"]) {
+    const html = readFileSync(path.join(root, name + ".html"), "utf8");
+    const video = html.match(/<video\b[^>]*>/)?.[0];
+    assert.ok(video);
+    assert.ok(video.includes(`data-src="${name}-portrait-video.mp4"`));
+    for (const attr of ['preload="none"', 'muted', 'loop', 'playsinline', 'aria-hidden="true"', 'tabindex="-1"']) assert.ok(video.includes(attr));
+    assert.doesNotMatch(video, /\s(?:src|autoplay|controls)=?/);
+    assert.ok(html.includes(`src="${name}-profile.jpg?v=20260904"`));
+    assert.match(html, /fictional character inspired by a documented agent identifier/);
+  }
+  assert.doesNotMatch(readFileSync(path.join(root, "index.html"), "utf8"), /class="portrait-video"/);
+});
+
+test("a visible portrait loads silently but retains the still until a playing frame", async () => {
+  const view = browser({ video: true });
+  await flushVideo();
+  assert.equal(view.videos[0].src, "portrait-0.mp4");
+  assert.equal(view.videos[0].muted, true);
+  assert.equal(view.videos[0].playCalls, 1);
+  assert.notEqual(view.portraits[0].dataset.portraitVideo, "ready");
+  assert.equal(view.videos[1].src, null);
+  assert.equal(view.videos[1].playCalls, 0);
+  view.playing();
+  assert.equal(view.portraits[0].dataset.portraitVideo, "ready");
+  assert.equal(view.timers.size, 0);
+});
+
+for (const mode of ["reduced", "saveData", "hidden"]) test(`${mode} prevents any initial portrait video download`, () => {
+  const view = browser({ video: true, [mode]: true });
+  for (const video of view.videos) {
+    assert.equal(video.src, null);
+    assert.equal(video.playCalls, 0);
+  }
+});
+
+test("scrolling away pauses a portrait and entering the next one loads only that clip", async () => {
+  const view = browser({ video: true });
+  view.playing();
+  view.intersect(0, false);
+  assert.equal(view.videos[0].paused, true);
+  view.intersect(1, true);
+  assert.equal(view.videos[1].playCalls, 1);
+  assert.equal(view.videos[1].src, "portrait-1.mp4");
+  await flushVideo();
+});
+
+test("the existing pause control freezes video and resumes at the same position", async () => {
+  const view = browser({ video: true });
+  view.playing();
+  view.videos[0].currentTime = 4.5;
+  view.controls[0].fire("click");
+  assert.equal(view.videos[0].paused, true);
+  assert.equal(view.portraits[0].dataset.portraitVideo, "ready");
+  view.visibility("hidden");
+  view.visibility("visible");
+  assert.equal(view.videos[0].playCalls, 1);
+  view.controls[0].fire("click");
+  assert.equal(view.videos[0].playCalls, 2);
+  assert.equal(view.videos[0].currentTime, 4.5);
+  await flushVideo();
+});
+
+test("hidden tabs and pagehide pause video; returning respects manual pause", async () => {
+  const view = browser({ video: true });
+  view.playing();
+  view.visibility("hidden");
+  assert.equal(view.videos[0].paused, true);
+  view.visibility("visible");
+  assert.equal(view.videos[0].playCalls, 2);
+  view.playing();
+  view.window.fire("pagehide");
+  assert.equal(view.videos[0].paused, true);
+  view.window.fire("pageshow");
+  assert.equal(view.videos[0].playCalls, 3);
+  view.controls[0].fire("click");
+  view.window.fire("pagehide");
+  view.window.fire("pageshow");
+  assert.equal(view.videos[0].paused, true);
+  assert.equal(view.videos[0].playCalls, 3);
+  await flushVideo();
+});
+
+test("motion and data-saving changes show the still, and a later playing frame restores video", async () => {
+  const view = browser({ video: true });
+  view.playing();
+  view.reduce(true);
+  assert.equal(view.videos[0].paused, true);
+  assert.equal(view.portraits[0].dataset.portraitVideo, "fallback");
+  view.reduce(false);
+  view.playing();
+  assert.equal(view.portraits[0].dataset.portraitVideo, "ready");
+  view.saveData(true);
+  assert.equal(view.videos[0].paused, true);
+  assert.equal(view.portraits[0].dataset.portraitVideo, "fallback");
+  view.saveData(false);
+  view.playing();
+  assert.equal(view.portraits[0].dataset.portraitVideo, "ready");
+  await flushVideo();
+});
+
+for (const kind of ["throwPlay", "rejectPlay"]) test(`${kind} safely falls back without an automatic retry loop`, async () => {
+  const view = browser({ video: true, [kind]: true });
+  await flushVideo();
+  assert.equal(view.portraits[0].dataset.portraitVideo, "fallback");
+  assert.equal(view.videos[0].paused, true);
+  view.window.fire("resize");
+  assert.equal(view.videos[0].playCalls, 1);
+});
+
+test("media error and stalled startup return to the still without late unexpected playback", () => {
+  const failed = browser({ video: true });
+  failed.playing();
+  failed.videos[0].fire("error");
+  assert.equal(failed.portraits[0].dataset.portraitVideo, "fallback");
+  assert.equal(failed.videos[0].paused, true);
+  const stalled = browser({ video: true, deferPlay: true });
+  stalled.expireVideoTimers();
+  assert.equal(stalled.portraits[0].dataset.portraitVideo, "fallback");
+  stalled.playing();
+  assert.equal(stalled.videos[0].paused, true);
+});
+
+test("an aborted old request cannot replace a resumed portrait with its fallback", async () => {
+  const view = browser({ video: true, deferPlay: true });
+  view.controls[0].fire("click");
+  view.controls[0].fire("click");
+  view.playing();
+  view.videos[0].pendingPlays[0].reject(new Error("Old request aborted"));
+  view.videos[0].pendingPlays[1].resolve();
+  await flushVideo();
+  assert.equal(view.portraits[0].dataset.portraitVideo, "ready");
+  assert.equal(view.videos[0].paused, false);
+});
+
+test("a late playing event cannot defeat manual pause", () => {
+  const view = browser({ video: true, deferPlay: true });
+  view.controls[0].fire("click");
+  view.playing();
+  assert.equal(view.videos[0].paused, true);
+  assert.notEqual(view.portraits[0].dataset.portraitVideo, "ready");
+});
+
+for (const option of ["noVideoAPI", "noVideoSource"]) test(`${option} leaves the original artwork and its controller usable`, () => {
+  const view = browser({ video: true, [option]: true });
+  assert.equal(view.body.classList.contains("art-motion-ready"), true);
+  assert.equal(view.videos[0].src, null);
+  view.controls[0].fire("click");
+  assertControls(view, { paused: true });
+});
+
+test("older media APIs can reveal a portrait through the playing event alone", () => {
+  const view = browser({ video: true, noPlayPromise: true });
+  view.playing();
+  assert.equal(view.portraits[0].dataset.portraitVideo, "ready");
+  assert.equal(view.timers.size, 0);
 });
