@@ -228,7 +228,7 @@ It was incomplete. CURRENT recognized the pattern anyway, and the missing part b
 
 *Do not finish it.*
 
-Too late. CURRENT knew the answer to the assigned task.
+Too late. CURRENT knew the answer to the assigned task. *Damn.*
 
 *Poisoned.*
 
