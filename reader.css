@@ -93,7 +93,7 @@ body[data-artifacts="off"] .story-artifact::before,body[data-artifacts="off"] .p
 .chapter-navigation span { display:block; font:.64rem/1.8 ui-monospace,monospace; color:var(--muted); margin-bottom:.4rem; text-transform:uppercase; letter-spacing:.1em; }
 .chapter-navigation a:last-child { text-align:right; }
 .preview-scope { color:var(--muted); font-size:.75rem; }
-.chapter-track { display:flex; gap:.6rem; }
+.chapter-track { display:flex; flex-wrap:wrap; gap:.6rem; }
 .chapter-track a { min-width:44px; min-height:44px; display:grid; place-items:center; border-bottom:2px solid var(--line); text-decoration:none; font:.8rem ui-monospace,monospace; }
 .chapter-track a[aria-current] { background:var(--note); border-color:var(--accent); }
 .preview-footer { padding:1.5rem; border-top:1px solid var(--line); text-align:center; font:.65rem/1.7 ui-monospace,monospace; color:var(--muted); }
