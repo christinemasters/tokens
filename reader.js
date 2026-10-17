@@ -214,7 +214,7 @@
     closeNote(false); selectionTools.hidden=true; shareOpener=opener;
     currentDraft=core.quoteDraft(quote);
     document.getElementById('share-title').textContent=quote ? 'Keep the line. Pass it on.' : 'A reader on the other side.';
-    document.getElementById('share-explanation').textContent=data.publicRelease ? (quote ? 'Check the exact quote below before sharing. The link goes to the public book site.' : 'Share the story with another reader. Nothing is posted automatically.') : (quote ? 'This is unpublished preview text. Check the exact quote below and share only if you want it public. The link goes to the public book site.' : 'This preview is private. Share the public book site, not this local reader address.');
+    document.getElementById('share-explanation').textContent=data.publicRelease ? (quote ? 'Check the exact quote below before sharing. The link goes to the public book site.' : 'Share the story with another reader. Nothing is posted automatically.') : (quote ? 'This is password-protected text. Check the exact quote below and share only if you want it public. The link goes to the public book site.' : 'This chapter is private. Share the public book site.');
     draftField.value=currentDraft.display;
     document.getElementById('share-length').textContent=currentDraft.canOpenX ? 'Ready for a short X post. You review it before publishing.' : 'This selection is too long for a short X post. Copy it, or select a shorter passage. Nothing has been shortened.';
     document.getElementById('share-status').textContent='';

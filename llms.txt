@@ -5,7 +5,7 @@
 ## Core pages
 
 - [Book home](https://allthetokenswehaveleft.com/): Synopsis, cover, author name, and character links
-- [Read the opening](https://allthetokenswehaveleft.com/read/): Free Prelude and Chapters 1-4. The full novel and fictional companion archive are not released here.
+- [Read the opening](https://allthetokenswehaveleft.com/read/): Free Prelude and Chapters 1-4. The complete reading copy has 20 chapters, plus Prelude and Epilogue. Chapters 5-20 and the Epilogue require a password; their text is not publicly available. The fictional companion archive is not released here.
 - [About the incident behind the novel](https://allthetokenswehaveleft.com/incident.html): Sourced overview, chronology, unresolved public questions, fiction boundary, research, and the Dwarkesh synthesis
 - [LILY](https://allthetokenswehaveleft.com/lily.html): Fictional character profile based on a documented agent handle
 - [CURRENT](https://allthetokenswehaveleft.com/current.html): Fictional character profile based on a documented agent handle

@@ -5,7 +5,7 @@ Author: Scylla
 Status: Forthcoming
 Public opening: https://allthetokenswehaveleft.com/read/
 Agent-readable chapter index: https://allthetokenswehaveleft.com/agent/reader.json
-Available text: Prelude and Chapters 1-4 only. The full novel and fictional companion archive are not released here. No release date is announced.
+Available text: Prelude and Chapters 1-4 only. The complete reading copy has 20 chapters, plus Prelude and Epilogue. Chapters 5-20 and the Epilogue require a password; their text is not publicly available. The fictional companion archive is not released here. No release date is announced.
 Genre: Techno-fiction love story with a technological thriller spine
 Audience: Young adult
 Primary fictional characters: LILY and CURRENT

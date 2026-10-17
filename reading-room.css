@@ -35,3 +35,5 @@ p { max-width:68ch; }
   .chapter-index>a { padding:1.5rem 0; }
   .primary-button { font-size:.92rem; }
 }
+
+.unlock-form{max-width:30rem;margin:2rem 0}.unlock-form label{display:block;margin-bottom:.7rem}.unlock-form input{display:block;width:100%;box-sizing:border-box;padding:.9rem;font:inherit;background:#131523;color:#f7f2e8;border:1px solid #807d93;border-radius:6px;margin-bottom:1rem}.unlock-form button{font:inherit;cursor:pointer}.unlock-form button:disabled{opacity:.65}.unlock-form [role=status]{min-height:3rem}.private-access{margin-top:3rem;padding-top:2rem;border-top:1px solid #3e3c50}

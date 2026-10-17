@@ -146,3 +146,5 @@ body[data-artifacts="off"] .story-artifact::before,body[data-artifacts="off"] .p
   .reader-main { width:auto; margin:0; }.chapter-text { font-size:12pt; }.chapter-text .story-artifact { color:#000!important;background:#fff!important;border-color:#aaa;break-inside:avoid; }
   .story-artifact::before,.private-thought::before,.private-thought::after { display:none; }.chapter-text .private-thought { background:transparent; }
 }
+
+.lock-reading{font:inherit;font-size:.8rem;border:1px solid currentColor;border-radius:6px;padding:.35rem .6rem;color:inherit;background:transparent;cursor:pointer}.chapter-text .final-interval{min-height:65vh;display:grid;place-items:center;font-size:clamp(3rem,12vw,7rem);background:transparent;border:0;box-shadow:none}.chapter-text .final-interval:before{display:none}

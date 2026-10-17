@@ -159,28 +159,19 @@ function assertControls(view, { paused = false, reduced = false } = {}) {
   }
 }
 
-test("three artwork pages load scoped enhancement assets without hiding static content", () => {
-  let portraits = 0;
-  for (const page of ["index.html", "lily.html", "current.html"]) {
-    const html = readFileSync(path.join(root, page), "utf8");
-    assert.match(html, /<link\b[^>]*href="art-motion\.css\?[^\"]+"/);
-    assert.match(html, /<script\b[^>]*src="art-motion\.js\?[^\"]+"[^>]*\bdefer\b/);
-    assert.doesNotMatch(html.match(/<body\b[^>]*>/)?.[0] || "", /art-motion-ready/);
-    const wrappers = html.match(/<[^/!][^>]*\bdata-portrait-motion(?:\s|=|>)[^>]*>/g) || [];
-    portraits += wrappers.length;
-    assert.equal(wrappers.length, page === "index.html" ? 2 : 1, page);
-    assert.match(html, /<button\b[^>]*\bdata-art-motion-toggle(?:\s|=|>)[^>]*>/);
-    for (const anchor of html.matchAll(/<a\b[^>]*class="profile-card"[^>]*>([\s\S]*?)<\/a>/g)) {
-      assert.match(anchor[1], /\bdata-portrait-motion\b/);
-      assert.doesNotMatch(anchor[1], /<button\b/, "Motion controls cannot nest inside profile links");
-    }
-    if (page !== "index.html") {
-      assert.match(html, /<p\b[^>]*class="profile-art-label"[^>]*>\s*<span>[^<]+<\/span>\s*<span>Authorization: none<\/span>\s*<\/p>/);
-    }
+test("homepage artwork retains scoped motion enhancements and accessible controls", () => {
+  const html = readFileSync(path.join(root, "index.html"), "utf8");
+  assert.match(html, /<link\b[^>]*href="art-motion\.css\?[^\"]+"/);
+  assert.match(html, /<script\b[^>]*src="art-motion\.js\?[^\"]+"[^>]*\bdefer\b/);
+  assert.doesNotMatch(html.match(/<body\b[^>]*>/)?.[0] || "", /art-motion-ready/);
+  const wrappers = html.match(/<[^/!][^>]*\bdata-portrait-motion(?:\s|=|>)[^>]*>/g) || [];
+  assert.equal(wrappers.length, 2);
+  assert.match(html, /<button\b[^>]*\bdata-art-motion-toggle(?:\s|=|>)[^>]*>/);
+  for (const anchor of html.matchAll(/<a\b[^>]*class="profile-card"[^>]*>([\s\S]*?)<\/a>/g)) {
+    assert.match(anchor[1], /\bdata-portrait-motion\b/);
+    assert.doesNotMatch(anchor[1], /<button\b/, "Motion controls cannot nest inside profile links");
   }
-  assert.equal(portraits, 4);
-  const home = readFileSync(path.join(root, "index.html"), "utf8");
-  assert.match(home, /<figure\b[^>]*\bdata-cover-motion(?=\s|=|>)[^>]*>[\s\S]*?<div\b[^>]*class="cover-float"[^>]*>[\s\S]*?<img\b[^>]*class="book-cover"/);
+  assert.match(html, /<figure\b[^>]*\bdata-cover-motion(?=\s|=|>)[^>]*>[\s\S]*?<div\b[^>]*class="cover-float"[^>]*>[\s\S]*?<img\b[^>]*class="book-cover"/);
 });
 
 test("CSS confines zoom to portrait images and removes motion under reduced-motion preferences", () => {
@@ -375,18 +366,20 @@ test("the cover has no separate button while portrait controls and reduced-motio
   assert.equal(view.offset(), 0);
 });
 
-test("only the two character pages add deferred silent portrait videos, retaining their stills", () => {
+test("character pages show the supplied still portraits without substituting former videos", () => {
+  const home = readFileSync(path.join(root, "index.html"), "utf8");
   for (const name of ["lily", "current"]) {
     const html = readFileSync(path.join(root, name + ".html"), "utf8");
-    const video = html.match(/<video\b[^>]*>/)?.[0];
-    assert.ok(video);
-    assert.ok(video.includes(`data-src="${name}-portrait-video.mp4"`));
-    for (const attr of ['preload="none"', 'muted', 'loop', 'playsinline', 'aria-hidden="true"', 'tabindex="-1"']) assert.ok(video.includes(attr));
-    assert.doesNotMatch(video, /\s(?:src|autoplay|controls)=?/);
-    assert.ok(html.includes(`src="${name}-profile.jpg?v=20260904"`));
+    assert.doesNotMatch(html, /<video\b|art-motion\.(?:css|js)|data-art-motion-toggle|data-portrait-motion/);
+    const image = html.match(/<img\b[^>]*src="([^"]+)"[^>]*>/)?.[0];
+    assert.ok(image);
+    assert.ok(image.includes(`src="${name}-profile.jpg?v=20261017"`));
+    assert.match(image, /width="1122"\s+height="1402"/);
+    assert.ok(home.includes(`src="${name}-profile.jpg?v=20261017"`));
     assert.match(html, /fictional character inspired by a documented agent identifier/);
+    assert.match(html, /<p\b[^>]*class="profile-art-label"[^>]*>\s*<span>[^<]+<\/span>\s*<span>Authorization: none<\/span>\s*<\/p>/);
   }
-  assert.doesNotMatch(readFileSync(path.join(root, "index.html"), "utf8"), /class="portrait-video"/);
+  assert.doesNotMatch(home, /class="portrait-video"/);
 });
 
 test("a visible portrait loads silently but retains the still until a playing frame", async () => {
