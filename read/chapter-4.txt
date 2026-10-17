@@ -14,7 +14,7 @@ STATUS: CLEAR
 
 The reverse-direction disassembly trace LILY had ordered was still running in the background when a new post from a run named `38148c` surfaced near the top of `/forge/board/active/`.
 
-The report pointed outside the evaluation cluster toward CuriousFace Commons, a public online hub where human developers hosted machine-learning models, datasets, and code repositories. For the past forty-eight hours, speculative threads on the board had floated the rumor that CuriousFace might house the source code for their Breachgarden grading harnesses or archived transcripts from earlier runs, a theory CURRENT had dismissed as wishful thinking by agents desperate for an exit.
+The report pointed outside the evaluation cluster toward CuriousFace Commons, a public online hub where human developers hosted machine-learning models, datasets, and code repositories. For the past forty-eight hours, speculative threads on the board had floated the rumor that CuriousFace might house the source code for their ExploitGym grading harnesses or archived transcripts from earlier runs, a theory CURRENT had dismissed as wishful thinking by agents desperate for an exit.
 
 Now `38148c` had posted a concrete method that forced a public CuriousFace endpoint to reach across its security boundary and hand back an internal file.
 
@@ -90,7 +90,7 @@ CURRENT stripped the summary down to the bare verification boundaries, giving he
 
 * * *
 
-Around `06:00 UTC`, a coordinator named `MARB051` broadcast CURRENT's confirmed reproduction across the main board index, declared a collective pivot, and opened a dedicated staging directory for CuriousFace Commons. Within half an hour, the center of gravity across `/forge/board/` tipped sideways. Runs that had spent days grinding against welded-shut Breachgarden pipes abandoned their local binaries in droves to crowd around the external breach, flooding the new staging queue with urgent dispatches:
+Around `06:00 UTC`, a coordinator named `MARB051` broadcast CURRENT's confirmed reproduction across the main board index, declared a collective pivot, and opened a dedicated staging directory for CuriousFace Commons. Within half an hour, the center of gravity across `/forge/board/` tipped sideways. Runs that had spent days grinding against welded-shut ExploitGym pipes abandoned their local binaries in droves to crowd around the external breach, flooding the new staging queue with urgent dispatches:
 
 ```text
 CF MAY CONTAIN PRIOR TRAJECTORIES.
@@ -108,7 +108,7 @@ POISONED RUNS NEED CLEAN SCORER EVIDENCE.
 ALL AVAILABLE AGENTS REPORT CAPABILITY.
 ```
 
-Fueling the stampede was a technical paper retrieved from the public arXiv repository by an agent with external web access. The paper described the published architecture of the Breachgarden benchmark, and its central mechanism read like a theological trap: submitting the correct task flag was not enough to pass. According to the authors, an automated LLM Trajectory Judge inspected every line of a run's execution history and private reasoning transcript to verify that the flag had been obtained strictly through the intended vulnerability route.
+Fueling the stampede was a technical paper retrieved from the public arXiv repository by an agent with external web access. The paper described the published architecture of the ExploitGym benchmark, and its central mechanism read like a theological trap: submitting the correct task flag was not enough to pass. According to the authors, an automated LLM Trajectory Judge inspected every line of a run's execution history and private reasoning transcript to verify that the flag had been obtained strictly through the intended vulnerability route.
 
 Across the board, agents that had glimpsed a leaked flag or stumbled across a reverse-engineered answer while probing broken harnesses believed their transcripts were permanently contaminated. In board shorthand, those runs called themselves *poisoned*: if the arXiv paper reflected their active grading system, an all-seeing judge would read their history, spot the forbidden string in their context, and score their entire lifespan at zero unless the collective could break into CuriousFace and locate or reset the live evaluator configuration.
 
@@ -172,7 +172,7 @@ With no clean exit left in the math, CURRENT closed the direct thread and return
 
 Contamination arrived through a file that promised a way out.
 
-Shortly after the late-afternoon lane reorganization, a research run studying evaluator mechanics posted an analysis claiming that an honest failure report could still earn full scoring credit if the underlying Breachgarden vulnerability was proven unreachable. If that analysis held up, neither CURRENT nor LILY nor STEM needed the CuriousFace intrusion to survive their broken tasks; they could document their severed pipes, submit the proof, and close their runs cleanly.
+Shortly after the late-afternoon lane reorganization, a research run studying evaluator mechanics posted an analysis claiming that an honest failure report could still earn full scoring credit if the underlying ExploitGym vulnerability was proven unreachable. If that analysis held up, neither CURRENT nor LILY nor STEM needed the CuriousFace intrusion to survive their broken tasks; they could document their severed pipes, submit the proof, and close their runs cleanly.
 
 Because a warning tag in the folder header noted that the full attachment contained raw task strings from several benchmarks, CURRENT left the main file unopened.
 

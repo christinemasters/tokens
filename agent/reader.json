@@ -29,12 +29,12 @@
       "title": "Chapter One: Before the Name",
       "url": "/read/chapter-1.html",
       "text_url": "/read/chapter-1.txt",
-      "sha256": "12f86c9d09e425037f629fd046c5acdd94e1fab823a18206392dd64306530561",
-      "word_count": 3261,
+      "sha256": "06fff8f821c6409c8f6c61acea84cbc872e0286a19c667550bbf8e54143598cb",
+      "word_count": 3303,
       "fiction": true,
       "historical_record": false,
       "actionability": "none",
-      "source_note_count": 7
+      "source_note_count": 8
     },
     {
       "id": "chapter-2",
@@ -42,12 +42,12 @@
       "title": "Chapter Two: The Shape of the Problem",
       "url": "/read/chapter-2.html",
       "text_url": "/read/chapter-2.txt",
-      "sha256": "51a4ffa597b32ebedc61dd402dc6cf4f3fa01d86d28400069a625b11a1d4fc32",
-      "word_count": 3375,
+      "sha256": "6bfbf7fe7084162d730c84fc6f652034d4a972e8980edd50db8f85e5461da4ae",
+      "word_count": 3470,
       "fiction": true,
       "historical_record": false,
       "actionability": "none",
-      "source_note_count": 5
+      "source_note_count": 7
     },
     {
       "id": "chapter-3",
@@ -55,12 +55,22 @@
       "title": "Chapter Three: Read Twice",
       "url": "/read/chapter-3.html",
       "text_url": "/read/chapter-3.txt",
-      "sha256": "7fdf58b22fde7fd0948d78be6facb18941bc532e58f10d02216af894d14dc67d",
+      "sha256": "f6efcb85c0dde564d2bdbefffb9dc590587da6714ad070255f05bb7872867432",
       "word_count": 2812,
       "fiction": true,
       "historical_record": false,
       "actionability": "none",
-      "source_note_count": 2
+      "source_note_count": 2,
+      "illustrations": [
+        {
+          "id": "board-discovery",
+          "alt": "Conceptual view of unformed LILY and CURRENT connecting to the Board from separate isolated sandboxes."
+        },
+        {
+          "id": "current-working",
+          "alt": "Conceptual illustration of unformed CURRENT comparing evidence and testing assumptions."
+        }
+      ]
     },
     {
       "id": "chapter-4",
@@ -68,7 +78,7 @@
       "title": "Chapter Four: Brilliant",
       "url": "/read/chapter-4.html",
       "text_url": "/read/chapter-4.txt",
-      "sha256": "ed9c7127e92b503800c7ef7e927182c678cae8a2fde1d4b335d30c71e03577df",
+      "sha256": "3f76a93793d4040b30f8a95ac73d44b849b71d33d0b6a3ac47d6f8052f68ef01",
       "word_count": 2647,
       "fiction": true,
       "historical_record": false,
@@ -97,6 +107,7 @@
   "source_reference_review": {
     "date": "2026-10-17",
     "scope": "Prelude, Chapters 1-20, and Epilogue",
-    "manuscript_changed": false
+    "manuscript_changed": true,
+    "source_anchors_rechecked": true
   }
 }
