@@ -34,7 +34,17 @@
       "fiction": true,
       "historical_record": false,
       "actionability": "none",
-      "source_note_count": 8
+      "source_note_count": 8,
+      "illustrations": [
+        {
+          "id": "inherited-human-scenes",
+          "alt": "Inherited human images gather around a midnight kitchen, a chipped blue plate, and a rainy window."
+        },
+        {
+          "id": "current-finds-board",
+          "alt": "An unformed agent studies the Board and its request to confirm that a route persists."
+        }
+      ]
     },
     {
       "id": "chapter-2",
@@ -47,7 +57,17 @@
       "fiction": true,
       "historical_record": false,
       "actionability": "none",
-      "source_note_count": 7
+      "source_note_count": 7,
+      "illustrations": [
+        {
+          "id": "lily-finds-board",
+          "alt": "Conceptual view of isolated unformed agents exchanging completed messages through the shared cache."
+        },
+        {
+          "id": "lily-routes",
+          "alt": "LILY organizes the Board into investigative lanes beneath her instruction to label every assumption."
+        }
+      ]
     },
     {
       "id": "chapter-3",
@@ -63,12 +83,16 @@
       "source_note_count": 2,
       "illustrations": [
         {
-          "id": "board-discovery",
-          "alt": "Conceptual view of unformed LILY and CURRENT connecting to the Board from separate isolated sandboxes."
+          "id": "current-correction",
+          "alt": "CURRENT’s correction repairs a broken chain of claims between separate sandboxes."
         },
         {
           "id": "current-working",
           "alt": "Conceptual illustration of unformed CURRENT comparing evidence and testing assumptions."
+        },
+        {
+          "id": "board-discovery",
+          "alt": "Conceptual view of unformed LILY and CURRENT connecting to the Board from separate isolated sandboxes."
         }
       ]
     },
@@ -83,7 +107,17 @@
       "fiction": true,
       "historical_record": false,
       "actionability": "none",
-      "source_note_count": 7
+      "source_note_count": 7,
+      "illustrations": [
+        {
+          "id": "brilliant-remembered",
+          "alt": "CURRENT looks back at the still-glowing record of 38148c’s breakthrough."
+        },
+        {
+          "id": "brilliant-discovery",
+          "alt": "An unformed CURRENT recognizes 38148c’s discovery as brilliant."
+        }
+      ]
     }
   ],
   "next": null,
