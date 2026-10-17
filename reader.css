@@ -148,3 +148,5 @@ body[data-artifacts="off"] .story-artifact::before,body[data-artifacts="off"] .p
 }
 
 .lock-reading{font:inherit;font-size:.8rem;border:1px solid currentColor;border-radius:6px;padding:.35rem .6rem;color:inherit;background:transparent;cursor:pointer}.chapter-text .final-interval{min-height:65vh;display:grid;place-items:center;font-size:clamp(3rem,12vw,7rem);background:transparent;border:0;box-shadow:none}.chapter-text .final-interval:before{display:none}
+
+.chapter-sources{margin:2.75rem 0;padding:1rem 1.2rem;border:1px solid var(--line);border-radius:8px;color:var(--muted);font:400 .9rem/1.65 system-ui,sans-serif}.chapter-sources summary{cursor:pointer;color:var(--ink);font-weight:600}.chapter-sources p{margin:1rem 0}.chapter-sources ul{padding-left:1.2rem}.chapter-sources li{margin:.6rem 0}.chapter-sources a{color:inherit;text-underline-offset:.2em;overflow-wrap:anywhere}

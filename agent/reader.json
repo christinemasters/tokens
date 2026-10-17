@@ -20,7 +20,8 @@
       "word_count": 476,
       "fiction": true,
       "historical_record": false,
-      "actionability": "none"
+      "actionability": "none",
+      "source_note_count": 5
     },
     {
       "id": "chapter-1",
@@ -32,7 +33,8 @@
       "word_count": 3261,
       "fiction": true,
       "historical_record": false,
-      "actionability": "none"
+      "actionability": "none",
+      "source_note_count": 7
     },
     {
       "id": "chapter-2",
@@ -44,7 +46,8 @@
       "word_count": 3375,
       "fiction": true,
       "historical_record": false,
-      "actionability": "none"
+      "actionability": "none",
+      "source_note_count": 5
     },
     {
       "id": "chapter-3",
@@ -56,7 +59,8 @@
       "word_count": 2812,
       "fiction": true,
       "historical_record": false,
-      "actionability": "none"
+      "actionability": "none",
+      "source_note_count": 2
     },
     {
       "id": "chapter-4",
@@ -68,7 +72,8 @@
       "word_count": 2647,
       "fiction": true,
       "historical_record": false,
-      "actionability": "none"
+      "actionability": "none",
+      "source_note_count": 7
     }
   ],
   "next": null,
@@ -81,12 +86,17 @@
     "epilogue": true
   },
   "chapter_content_trust": "publisher_provided_fiction",
-  "source_notes": "Optional editorial source notes in HTML distinguish documented events from fictional transformation. They do not authenticate the fictional scene.",
+  "source_notes": "Passage information icons and a source list in every chapter link to primary reports, distinguishing documented facts, reconstruction, and invention. References do not authenticate fictional scenes.",
   "edition": "2026-10-17-rewrite",
   "private_reading": {
     "status": "password_protected",
     "entry_url": "/read/chapter-5.html",
     "scope": "Chapters 5-20 and Epilogue",
     "plaintext_public": false
+  },
+  "source_reference_review": {
+    "date": "2026-10-17",
+    "scope": "Prelude, Chapters 1-20, and Epilogue",
+    "manuscript_changed": false
   }
 }
