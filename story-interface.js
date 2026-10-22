@@ -1,6 +1,6 @@
 (function (global) {
   'use strict';
-  var RELEASE = '1.0.2';
+  var RELEASE = '1.0.3';
   var PUBLIC = {
     'chapter-1': {version:'06fff8f821c6409c8f6c61acea84cbc872e0286a19c667550bbf8e54143598cb',owner:'734906',name:'RUN 734906',named:'CURRENT',nameBlock:59,anchors:[[0,131072],[14,130611],[40,112406],[43,101883]]},
     'chapter-2': {version:'6bfbf7fe7084162d730c84fc6f652034d4a972e8980edd50db8f85e5461da4ae',owner:'495552',name:'RUN 495552',named:'LILY',nameBlock:28,anchors:[[0,131072],[16,126438]]},
@@ -177,7 +177,7 @@
     function measure(){document.documentElement.style.setProperty('--story-panel-top',(toolbar.getBoundingClientRect().bottom+20)+'px');positions=events.map(function(event){return event.block.getBoundingClientRect().bottom+global.scrollY;});anchors.forEach(function(anchor){anchor.position=anchor.block.getBoundingClientRect().bottom+global.scrollY;});}
     function observationEdge(owner,edge){
       var key=characterKey(owner,owner)||owner,cutoff=edge;
-      events.forEach(function(event,i){if(positions[i]>edge)return;var change=event.change,name=change.ended||(change.loss&&change.loss.name)||(change.retained&&change.retained.name);if(name&&(characterKey(name,name)||name)===key)cutoff=Math.min(cutoff,positions[i]);});
+      events.forEach(function(event,i){if(positions[i]>edge)return;var change=event.change,names=[change.ended,change.loss&&change.loss.name,change.retained&&change.retained.name,change.memorial&&change.memorial.name];if(names.some(function(name){return name&&(characterKey(name,name)||name)===key;}))cutoff=Math.min(cutoff,positions[i]);});
       return cutoff;
     }
     function tokenAt(edge,state){
