@@ -42,3 +42,6 @@ body[data-story-blackout="true"]{background:#000!important}body[data-story-black
 @media(max-width:1200px){.story-mobile-objects{gap:0}.story-mobile-object{opacity:0;visibility:hidden;max-height:0;max-width:0;min-width:0;padding:0;margin:0;overflow:hidden;transition:opacity .65s ease,visibility .65s,max-height .65s ease,max-width .65s ease}.story-mobile-object[data-visible="true"]{opacity:1;visibility:visible;max-height:48px;max-width:100%;min-width:120px;margin:0 14px 5px 0;padding:0}.story-mobile-object img{width:26px;height:30px}.story-mobile-object span{font:9px/1.6 ui-monospace,monospace}}
 @media(max-width:620px){.story-mobile-object[data-visible="true"]{min-width:calc(50% - 14px)}.story-mobile-object span{font-size:8px}}
 body[data-story-clean="true"] .story-token,body[data-story-clean="true"] .story-elapsed,body[data-story-clean="true"] .story-mobile-state{display:none!important}
+
+/* No decorative layer may paint before the first initialized narrative state. */
+body:not([data-story-ready="true"]) .story-world,body:not([data-story-ready="true"]) .story-panel,body:not([data-story-ready="true"]) .story-mobile-state,body:not([data-story-ready="true"]) .story-hud{opacity:0!important;visibility:hidden!important;pointer-events:none!important}
