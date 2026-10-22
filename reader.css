@@ -4,6 +4,18 @@ html { scroll-padding-top:9rem; overflow-anchor:none; }
 body { margin:0; background:var(--page); color:var(--ink); font:16px/1.65 system-ui,sans-serif; }
 body[data-theme="night"] { color-scheme:dark; --page:#10131c; --surface:#1a1e2c; --ink:#e5e2df; --muted:#abb0c4; --line:#34394b; --accent:#bdceff; --violet:#cfb8ec; --thought:#252135; --note:#1c2230; }
 body[data-theme="light"] { --page:#fff; --surface:#fff; --ink:#24252b; --muted:#66616d; --line:#dedbe2; --thought:#f3eef8; --note:#f0f1f4; }
+/* READER CANVAS START: copied into public heads before external styles load. */
+@media screen {
+  html:root { background:#02060c; color:#e4edf5; color-scheme:dark; }
+  body.reader-page:not([data-story-clean="true"]) { --page:#02060c; --surface:#061321; --ink:#e4edf5; --muted:#a4bfd7; --line:#234362; --note:#0b1d30; --thought:#101e34; --accent:#9fd8ff; background:#02060c; color:#e4edf5; color-scheme:dark; }
+  body.reader-page:not([data-story-clean="true"]) .reader-toolbar { background:#030c18; border-color:#387fb2; }
+  body.reader-page:not([data-story-room="true"]) .reader-main { background:transparent; box-shadow:none; }
+  html:has(body.reader-page[data-story-clean="true"]) { background:#f6f1e8; color:#292a30; color-scheme:light; }
+  html:has(body.reader-page[data-story-clean="true"][data-theme="light"]) { background:#fff; color:#24252b; }
+  html:has(body.reader-page[data-story-clean="true"][data-theme="night"]) { background:#10131c; color:#e5e2df; color-scheme:dark; }
+  html:root:has(body.reader-page[data-story-blackout="true"]) { background:#000; color-scheme:dark; }
+}
+/* READER CANVAS END */
 body[data-type="sans"] { --reader-font:system-ui,sans-serif; }
 a { color:var(--accent); text-underline-offset:.22em; }
 button,select,summary,textarea { font:inherit; }

@@ -1,6 +1,6 @@
 (function (global) {
   'use strict';
-  var RELEASE = '1.0.3';
+  var RELEASE = '1.0.4';
   var PUBLIC = {
     'chapter-1': {version:'06fff8f821c6409c8f6c61acea84cbc872e0286a19c667550bbf8e54143598cb',owner:'734906',name:'RUN 734906',named:'CURRENT',nameBlock:59,anchors:[[0,131072],[14,130611],[40,112406],[43,101883]]},
     'chapter-2': {version:'6bfbf7fe7084162d730c84fc6f652034d4a972e8980edd50db8f85e5461da4ae',owner:'495552',name:'RUN 495552',named:'LILY',nameBlock:28,anchors:[[0,131072],[16,126438]]},
@@ -114,9 +114,10 @@
     var document=global.document, toolbar=document.querySelector('.reader-toolbar');
     if(!toolbar) return null;
     document.body.dataset.storyReady='false';
+    document.body.dataset.storyRoom='false';document.body.dataset.storyNetwork='false';document.body.dataset.storyBlackout='false';
     // A late enhancement must retain an already-restored bookmark or reading place.
     var mountPlace=(function(){var edge=toolbar.getBoundingClientRect().bottom+24;if(article.getBoundingClientRect().top>=edge)return null;var children=Array.from(article.children),block=children.find(function(item){return item.getBoundingClientRect().bottom>edge;})||children[children.length-1];if(!block)return null;var rect=block.getBoundingClientRect();return{block:block,offset:Math.max(0,Math.min(1,(edge-rect.top)/Math.max(1,rect.height)))};})();
-    var nodes=[],blocks=[],events=[],anchors=[],positions=[],lastIndex=-1,rendered=false,clean=false,inputSeen=false,frame=0;
+    var nodes=[],blocks=[],events=[],anchors=[],positions=[],lastIndex=-1,rendered=false,clean=document.body.dataset.storyClean==='true',inputSeen=false,frame=0;
     var context={lastActor:null,viewpoint:null,owner:null,name:null};
     var initial={room:false,network:false,flower:false,blackout:false,signals:[],presences:[],lostGroups:0,elapsed:null,name:null,ended:[]};
     var current=copy(initial),currentToken=null,currentCounters=[],chapter=root.dataset.chapter;
@@ -142,7 +143,7 @@
     var tokenGroup=node('div','story-token-group');tokenGroup.setAttribute('aria-label','Character token balances');var tokenNodes={};
     function tokenNode(key){if(tokenNodes[key])return tokenNodes[key];var el=node('div','story-token');el.dataset.character=key;var label=node('span','story-token-label'),subject=node('span','story-token-subject'),value=node('strong','story-token-value'),qualifier=node('span','story-token-qualifier');el.append(label,subject,value,qualifier);tokenGroup.appendChild(el);return tokenNodes[key]={element:el,label:label,subject:subject,value:value,qualifier:qualifier};}
     var clock=node('div','story-elapsed');clock.id='story-elapsed';clock.hidden=true;var clockLabel=node('span','','Elapsed · as reported');var clockValue=node('strong');clock.append(clockLabel,clockValue);
-    var cleanButton=node('button','story-clean-toggle','Clean reader');cleanButton.id='story-clean-toggle';cleanButton.type='button';cleanButton.setAttribute('aria-pressed','false');hud.append(tokenGroup,clock,cleanButton);toolbar.appendChild(hud);
+    var cleanButton=node('button','story-clean-toggle','Clean reader');cleanButton.id='story-clean-toggle';cleanButton.type='button';cleanButton.setAttribute('aria-pressed',String(clean));hud.append(tokenGroup,clock,cleanButton);toolbar.appendChild(hud);
     function panel(kind,title){var panel=outside(node('aside','story-panel story-'+kind));panel.id='story-'+kind;panel.dataset.visible='false';panel.setAttribute('aria-label',title);panel.appendChild(image(ASSETS.frame,'story-panel-frame'));panel.appendChild(node('h2','',title));document.body.appendChild(panel);return panel;}
     var network=panel('network','Observed connections');var networkField=node('div','story-network-field');networkField.id='story-network-field';networkField.setAttribute('aria-hidden','true');network.appendChild(networkField);
     network.appendChild(node('p','story-field-note','Illustrative signal field · no numeric census'));
@@ -221,7 +222,7 @@
     global.addEventListener('scroll',schedule,{passive:true});global.addEventListener('resize',schedule);global.addEventListener('hashchange',schedule);
     var observer=new MutationObserver(function(){refresh();});observer.observe(article,{childList:true});
     var resizeObserver=global.ResizeObserver?new ResizeObserver(schedule):null;if(resizeObserver){resizeObserver.observe(article);resizeObserver.observe(toolbar);}
-    document.body.classList.add('story-interface');document.body.dataset.storyClean='false';refresh();if(mountPlace&&mountPlace.block.isConnected){var mountRect=mountPlace.block.getBoundingClientRect();global.scrollTo({top:global.scrollY+mountRect.top+mountPlace.offset*mountRect.height-boundary(),behavior:'instant'});schedule();}
+    document.body.dataset.storyClean=String(clean);document.body.classList.add('story-interface');refresh();if(mountPlace&&mountPlace.block.isConnected){var mountRect=mountPlace.block.getBoundingClientRect();global.scrollTo({top:global.scrollY+mountRect.top+mountPlace.offset*mountRect.height-boundary(),behavior:'instant'});schedule();}
     return{article:article,refresh:refresh,getState:function(){return copy({room:current.room,network:current.network,flower:current.flower,blackout:current.blackout,signals:current.signals,presences:current.presences,lostGroups:current.lostGroups,elapsed:current.elapsed,token:currentToken,tokens:currentCounters,clean:clean,checkpointId:lastIndex>=0?events[lastIndex].block.id||null:null});},destroy:function(){styleLinks.forEach(function(link){link.removeEventListener('load',schedule);});delete document.body.dataset.storyReady;observer.disconnect();if(resizeObserver)resizeObserver.disconnect();if(frame)global.cancelAnimationFrame(frame);global.removeEventListener('scroll',schedule);global.removeEventListener('resize',schedule);global.removeEventListener('hashchange',schedule);['wheel','touchstart','pointerdown','keydown'].forEach(function(type){document.removeEventListener(type,interacted);});nodes.forEach(function(el){el.remove();});document.body.classList.remove('story-interface');}};
   }
   function init(){var root=global.document.querySelector('.reader-main'),article=root&&root.querySelector('.chapter-text');if(!article||!article.children.length)return false;if(instance&&instance.article===article)return true;if(instance)instance.destroy();instance=mount(root,article);return !!instance;}

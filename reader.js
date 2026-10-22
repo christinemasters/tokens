@@ -43,8 +43,11 @@
       requestAnimationFrame(function () { visiblePlace=measurePlace(); isRestoring=false; updateProgress(); });
     });
   }
-  function apply(keepPosition) {
+  function apply(keepPosition,themeIntent) {
     var place=keepPosition!==false && !isRestoring && article.getBoundingClientRect().top<boundary() ? measurePlace() : null;
+    // Theme controls work while the optional story interface is delayed or unavailable.
+    // Initial saved preferences do not opt out of the immersive reading experience.
+    if (themeIntent && !(window.StoryInterface && window.StoryInterface.getState())) document.body.dataset.storyClean=String(prefs.theme!=='night');
     document.body.dataset.theme = prefs.theme;
     document.body.dataset.type = prefs.type;
     document.body.dataset.sources = prefs.sources ? 'on' : 'off';
@@ -64,13 +67,13 @@
   ['size','theme','type','sources','artifacts'].forEach(function (key) {
     document.getElementById('reader-'+key).addEventListener('change',function (event) {
       prefs[key] = event.target.type==='checkbox' ? event.target.checked : event.target.value;
-      prefs = core.preferences(prefs); apply(); rememberPrefs();
+      prefs = core.preferences(prefs); apply(true,key==='theme'); rememberPrefs();
     });
   });
   themeButton.addEventListener('click',function () {
     if (prefs.theme==='night') prefs.theme=prefs.lastLight;
     else { prefs.lastLight=prefs.theme; prefs.theme='night'; }
-    apply(false); rememberPrefs();
+    apply(false,true); rememberPrefs();
   });
 
   // Static editorial styling. No fabricated senders, timestamps, or live logs.
@@ -273,12 +276,12 @@
   // STORY INTERFACE START
   // This also runs inside authenticated chapter HTML. Gates never load this file.
   var storyStyle=document.createElement('link');
-  storyStyle.rel='stylesheet'; storyStyle.href='/story-interface.css?v=f5a9a0b419ce';
+  storyStyle.rel='stylesheet'; storyStyle.href='/story-interface.css?v=92e863186ff3';
   storyStyle.dataset.storyInterface='true';
   // Keep the normal reader if the optional interface stylesheet cannot load.
   storyStyle.onload=function () {
     var storyScript=document.createElement('script');
-    storyScript.src='/story-interface.js?v=b787d70f99f9'; storyScript.id='story-interface-loader';
+    storyScript.src='/story-interface.js?v=74696be55b41'; storyScript.id='story-interface-loader';
     document.head.appendChild(storyScript);
   };
   document.head.appendChild(storyStyle);
