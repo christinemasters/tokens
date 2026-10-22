@@ -45,3 +45,15 @@ body[data-story-clean="true"] .story-token,body[data-story-clean="true"] .story-
 
 /* No decorative layer may paint before the first initialized narrative state. */
 body:not([data-story-ready="true"]) .story-world,body:not([data-story-ready="true"]) .story-panel,body:not([data-story-ready="true"]) .story-mobile-state,body:not([data-story-ready="true"]) .story-hud{opacity:0!important;visibility:hidden!important;pointer-events:none!important}
+
+/* Each character retains an independent narrative observation. */
+.story-token-group{display:flex;justify-content:flex-end;align-items:start;gap:18px;min-width:0;margin-left:auto}
+.story-token-group[data-available="false"]{visibility:hidden}
+.story-token-group .story-token{margin-left:0;min-width:0;max-width:240px}
+.story-token-group .story-token[hidden]{display:none}
+.story-token[data-stale="true"] .story-token-value{font-weight:400}
+.story-token-group .story-token-qualifier{overflow-wrap:anywhere}
+body[data-story-clean="true"] .story-token-group{display:none!important}
+@media(max-width:620px){.story-token-group{flex:1 0 100%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:0;order:0}.story-token-group .story-token{width:100%;max-width:none;gap:2px 5px;text-align:left;grid-template-columns:minmax(0,1fr)}.story-token-group .story-token-label,.story-token-group .story-token-qualifier,.story-token-group .story-token-subject,.story-token-group .story-token-value{grid-column:1;max-width:none;overflow-wrap:anywhere}.story-token-group .story-token-label{font-size:9px;letter-spacing:.025em}.story-token-group .story-token-subject{font-size:11px}.story-token-group .story-token-value{font-size:22px}.story-token-group .story-token-qualifier{font-size:10px;line-height:1.5}.story-token-group .story-token:only-child{grid-column:2}.story-hud .story-clean-toggle{margin-right:auto}}
+.story-token-group{min-height:61px}
+@media(max-width:620px){.story-token-group{flex:1 1 220px;min-height:112px}.story-token-group .story-token-value{font-size:19px}}

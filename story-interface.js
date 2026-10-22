@@ -1,6 +1,6 @@
 (function (global) {
   'use strict';
-  var RELEASE = '1.0.1';
+  var RELEASE = '1.0.2';
   var PUBLIC = {
     'chapter-1': {version:'06fff8f821c6409c8f6c61acea84cbc872e0286a19c667550bbf8e54143598cb',owner:'734906',name:'RUN 734906',named:'CURRENT',nameBlock:59,anchors:[[0,131072],[14,130611],[40,112406],[43,101883]]},
     'chapter-2': {version:'6bfbf7fe7084162d730c84fc6f652034d4a972e8980edd50db8f85e5461da4ae',owner:'495552',name:'RUN 495552',named:'LILY',nameBlock:28,anchors:[[0,131072],[16,126438]]},
@@ -31,6 +31,29 @@
     if(ratio<=0 || ratio>=1) return null;
     return Math.round(previous.value+(next.value-previous.value)*ratio);
   }
+  function characterKey(owner,subject) {
+    if(owner==='734906'||owner==='CURRENT'||subject==='CURRENT')return 'CURRENT';
+    if(owner==='495552'||owner==='LILY'||subject==='LILY')return 'LILY';
+    return null;
+  }
+  function priorTokens(chapter) {
+    var match=String(chapter).match(/^chapter-(\d+)$/),limit=match?Number(match[1]):chapter==='epilogue'?21:0,result={};
+    Object.keys(PUBLIC).forEach(function(key){var n=Number(key.slice(8)),config=PUBLIC[key];if(n>=limit)return;var last=config.anchors[config.anchors.length-1],who=characterKey(config.owner,config.named||config.name);if(who)result[who]={key:who,owner:config.owner,subject:config.named||config.name,value:last[1],estimated:false,active:false,stale:true,qualifier:'Last observed · Chapter '+n,sourceChapter:n};});
+    return result;
+  }
+  function unavailable(state,owner,subject) {
+    var key=characterKey(owner,subject)||owner;
+    if((state.ended||[]).some(function(name){return (characterKey(name,name)||name)===key;}))return 'Run ended';
+    if((state.presences||[]).some(function(item){return (characterKey(item.name,item.name)||item.name)===key;}))return 'Retained presence';
+    if((state.signals||[]).some(function(item){return (characterKey(item.name,item.name)||item.name)===key;}))return 'No new response';
+    return null;
+  }
+  function counterRecords(chapter,observed,active,state) {
+    var records=priorTokens(chapter);
+    observed.forEach(function(record){var who=characterKey(record.owner,record.subject);if(!who)return;var prior=records[who];records[who]=Object.assign({},record,{key:who,subject:prior&&prior.subject===who?who:record.subject,estimated:false,active:false,stale:true,qualifier:'Last observed · earlier passage'});});
+    if(active){var key=characterKey(active.owner,active.subject)||'active',stop=unavailable(state,active.owner,active.subject),exact=records[key];records[key]=Object.assign({},active,{key:key,active:!stop&&active.kind!=='reported'&&active.value>0,stale:!!stop||active.kind==='reported'||active.value===0});if(stop){if(exact){records[key].value=exact.value;records[key].estimated=false;}records[key].qualifier='Last observed · '+stop.toLowerCase();}}
+    return ['CURRENT','LILY','active'].filter(function(key){return records[key];}).map(function(key){var record=records[key],stop=unavailable(state,record.owner,record.subject);if(stop){record.active=false;record.stale=true;record.qualifier='Last observed · '+stop.toLowerCase();}return record;});
+  }
   function actor(text, prior) {
     if(/^\s*(?:Her|His|Its|She|He|It)\b/.test(text)) return prior||null;
     var found=text.match(/^\s*([A-Z][A-Z0-9_-]{1,40})(?:['’]s)?\s+/);
@@ -44,6 +67,7 @@
   function discover(text, context) {
     var changes={}, subject=actor(text,context.lastActor), uncertain=hypothetical(text);
     if(subject) context.lastActor=subject;
+    var ended=text.match(/(?:^|\n)\s*(RUN STATUS|AGENT STATUS|STATUS):\s*(TERMINATED|DEAD|RESET)\s*(?:\n|$)/);if(ended&&!uncertain){var endIdentity=headerIdentity(text),endedOwner=endIdentity.owner||(ended[1]!=='STATUS'?context.owner:null);if(endedOwner)changes.ended=endedOwner;}
     var viewpoint=text.match(/(?:^|\n)\s*VIEWPOINT:\s*([A-Z][A-Z0-9_-]{1,40})\s*(?:\n|$)/);if(viewpoint&&validName(viewpoint[1]))context.viewpoint=viewpoint[1];
     var technical=/\b(?:virtual|rendered|coordinate|geometry|simulation|room controller)\b/i.test(text);
     if(!uncertain && technical && /\b(?:room|chamber)\b/i.test(text) && /\b(?:built|created|formed|stabilized|materialized|rendered|stood inside|entered|inside the)\b/i.test(text)) changes.room=true;
@@ -71,6 +95,7 @@
   }
   function applyChanges(state,change) {
     var next=copy(state);
+    if(change.ended){next.ended=next.ended||[];if(next.ended.indexOf(change.ended)<0)next.ended.push(change.ended);}
     ['room','network','flower','blackout','elapsed'].forEach(function(key){if(change[key]!==undefined)next[key]=change[key];});
     if(change.loss) {
       var name=change.loss.name, known=name&&next.signals.some(function(item){return item.name===name;});
@@ -80,7 +105,7 @@
     [change.retained,change.memorial].forEach(function(item){if(!item||!item.name)return;var existing=next.presences.findIndex(function(entry){return entry.name===item.name;});if(existing<0)next.presences.push(item);else next.presences[existing]=item;});
     return next;
   }
-  var helpers={number:number,headerIdentity:headerIdentity,budgetRecord:budgetRecord,interpolate:interpolate,discover:discover,applyChanges:applyChanges};
+  var helpers={number:number,headerIdentity:headerIdentity,budgetRecord:budgetRecord,interpolate:interpolate,discover:discover,applyChanges:applyChanges,characterKey:characterKey,priorTokens:priorTokens,counterRecords:counterRecords,unavailable:unavailable};
   if(typeof module==='object'&&module.exports){module.exports=helpers;return;}
   if(!global||!global.document) return;
   if(global.StoryInterface&&global.StoryInterface.version===RELEASE){global.StoryInterface.init();return;}
@@ -93,8 +118,8 @@
     var mountPlace=(function(){var edge=toolbar.getBoundingClientRect().bottom+24;if(article.getBoundingClientRect().top>=edge)return null;var children=Array.from(article.children),block=children.find(function(item){return item.getBoundingClientRect().bottom>edge;})||children[children.length-1];if(!block)return null;var rect=block.getBoundingClientRect();return{block:block,offset:Math.max(0,Math.min(1,(edge-rect.top)/Math.max(1,rect.height)))};})();
     var nodes=[],blocks=[],events=[],anchors=[],positions=[],lastIndex=-1,rendered=false,clean=false,inputSeen=false,frame=0;
     var context={lastActor:null,viewpoint:null,owner:null,name:null};
-    var initial={room:false,network:false,flower:false,blackout:false,signals:[],presences:[],lostGroups:0,elapsed:null,name:null};
-    var current=copy(initial),currentToken=null,chapter=root.dataset.chapter;
+    var initial={room:false,network:false,flower:false,blackout:false,signals:[],presences:[],lostGroups:0,elapsed:null,name:null,ended:[]};
+    var current=copy(initial),currentToken=null,currentCounters=[],chapter=root.dataset.chapter;
     var publicConfig=PUBLIC[chapter]&&PUBLIC[chapter].version===root.dataset.version?PUBLIC[chapter]:null;
     function node(tag,className,text){var el=document.createElement(tag);if(className)el.className=className;if(text!==undefined)el.textContent=text;return el;}
     function image(source,className){var el=node('img',className);el.src=source;el.alt='';el.decoding='async';return el;}
@@ -114,9 +139,10 @@
     var world=outside(node('div','story-world'));world.id='story-world';world.setAttribute('aria-hidden','true');world.dataset.visible='false';world.appendChild(image(ASSETS.room,'story-room-art'));document.body.appendChild(world);
     var spatial=node('div','story-spatial-field');spatial.id='story-spatial-field';spatial.setAttribute('aria-hidden','true');world.appendChild(spatial);
     var hud=outside(node('div','story-hud'));hud.id='story-hud';
-    var token=node('div','story-token');var tokenLabel=node('span','story-token-label','Weighted tokens');var tokenSubject=node('span','story-token-subject','Run state');var tokenValue=node('strong','story-token-value','—');var tokenQualifier=node('span','story-token-qualifier','No balance observed yet');token.append(tokenLabel,tokenSubject,tokenValue,tokenQualifier);
+    var tokenGroup=node('div','story-token-group');tokenGroup.setAttribute('aria-label','Character token balances');var tokenNodes={};
+    function tokenNode(key){if(tokenNodes[key])return tokenNodes[key];var el=node('div','story-token');el.dataset.character=key;var label=node('span','story-token-label'),subject=node('span','story-token-subject'),value=node('strong','story-token-value'),qualifier=node('span','story-token-qualifier');el.append(label,subject,value,qualifier);tokenGroup.appendChild(el);return tokenNodes[key]={element:el,label:label,subject:subject,value:value,qualifier:qualifier};}
     var clock=node('div','story-elapsed');clock.id='story-elapsed';clock.hidden=true;var clockLabel=node('span','','Elapsed · as reported');var clockValue=node('strong');clock.append(clockLabel,clockValue);
-    var cleanButton=node('button','story-clean-toggle','Clean reader');cleanButton.id='story-clean-toggle';cleanButton.type='button';cleanButton.setAttribute('aria-pressed','false');hud.append(token,clock,cleanButton);toolbar.appendChild(hud);
+    var cleanButton=node('button','story-clean-toggle','Clean reader');cleanButton.id='story-clean-toggle';cleanButton.type='button';cleanButton.setAttribute('aria-pressed','false');hud.append(tokenGroup,clock,cleanButton);toolbar.appendChild(hud);
     function panel(kind,title){var panel=outside(node('aside','story-panel story-'+kind));panel.id='story-'+kind;panel.dataset.visible='false';panel.setAttribute('aria-label',title);panel.appendChild(image(ASSETS.frame,'story-panel-frame'));panel.appendChild(node('h2','',title));document.body.appendChild(panel);return panel;}
     var network=panel('network','Observed connections');var networkField=node('div','story-network-field');networkField.id='story-network-field';networkField.setAttribute('aria-hidden','true');network.appendChild(networkField);
     network.appendChild(node('p','story-field-note','Illustrative signal field · no numeric census'));
@@ -149,13 +175,19 @@
     }
     function boundary(){return toolbar.getBoundingClientRect().bottom+24;}
     function measure(){document.documentElement.style.setProperty('--story-panel-top',(toolbar.getBoundingClientRect().bottom+20)+'px');positions=events.map(function(event){return event.block.getBoundingClientRect().bottom+global.scrollY;});anchors.forEach(function(anchor){anchor.position=anchor.block.getBoundingClientRect().bottom+global.scrollY;});}
+    function observationEdge(owner,edge){
+      var key=characterKey(owner,owner)||owner,cutoff=edge;
+      events.forEach(function(event,i){if(positions[i]>edge)return;var change=event.change,name=change.ended||(change.loss&&change.loss.name)||(change.retained&&change.retained.name);if(name&&(characterKey(name,name)||name)===key)cutoff=Math.min(cutoff,positions[i]);});
+      return cutoff;
+    }
     function tokenAt(edge,state){
       var previous=null,next=null;for(var i=0;i<anchors.length;i++){if(anchors[i].position<=edge)previous=anchors[i];else{next=anchors[i];break;}}
       if(!previous)return null;
       var value=previous.value,estimated=false,qualifier=previous.kind==='reported'?'Last reported · not a live balance':'Last observed snapshot';
       if(next&&edge-previous.position>24){var estimate=interpolate(previous,next,edge);if(estimate!==null){value=estimate;estimated=true;qualifier='≈ Estimated between confirmed balances';}}
       if(Math.abs(edge-previous.position)<=24)qualifier=previous.kind==='reported'?'Reported in this passage':'Confirmed in this passage';
-      return{subject:state.name&&publicConfig?state.name:previous.subject,value:value,estimated:estimated,qualifier:qualifier,sourceId:previous.block.id||null};
+      var stopped=unavailable(state,previous.owner,previous.subject);if(stopped){var cutoff=observationEdge(previous.owner,edge),key=characterKey(previous.owner,previous.subject)||previous.owner,frozen=anchors.filter(function(anchor){return (characterKey(anchor.owner,anchor.subject)||anchor.owner)===key&&anchor.position<=cutoff;}).pop();if(!frozen)return null;previous=frozen;value=previous.value;estimated=false;qualifier='Last observed · '+stopped.toLowerCase();}
+      return{owner:previous.owner,kind:previous.kind,subject:state.name&&publicConfig?state.name:previous.subject,value:value,estimated:estimated,qualifier:qualifier,sourceId:previous.block.id||null};
     }
     function render(index,edge){
       var next=index>=0?events[index].state:initial;var old=current;current=copy(next);currentToken=tokenAt(edge,current);
@@ -168,7 +200,10 @@
       Object.keys(objectNodes).forEach(function(key){objectNodes[key].element.dataset.visible='false';objectNodes[key].element.setAttribute('aria-hidden','true');});
       if(current.flower){var flower=object('flower','Flower','flower','Accepted or preserved in the passage');flower.element.dataset.visible='true';flower.element.setAttribute('aria-hidden','false');}
       current.presences.forEach(function(presence){var entry=object('presence:'+presence.name,presence.name,presence.kind,presence.detail);entry.element.dataset.visible='true';entry.element.setAttribute('aria-hidden','false');});
-      token.dataset.available=String(!!currentToken&&!current.blackout);tokenLabel.textContent=currentToken&&currentToken.estimated?'≈ Estimated weighted tokens':'Weighted tokens · observed';tokenSubject.textContent=currentToken?currentToken.subject:'Run state';tokenValue.textContent=currentToken?(currentToken.estimated?'≈ ':'')+currentToken.value.toLocaleString('en-US'):'—';tokenQualifier.textContent=currentToken?currentToken.qualifier:'No balance observed yet';
+      currentCounters=counterRecords(chapter,anchors.filter(function(anchor){return anchor.position<=observationEdge(anchor.owner,edge);}).map(function(anchor){return{owner:anchor.owner,subject:anchor.subject,value:anchor.value,kind:anchor.kind,sourceId:anchor.block.id||null};}),currentToken,current);
+      tokenGroup.dataset.available=String(currentCounters.length>0&&!current.blackout);
+      Object.keys(tokenNodes).forEach(function(key){tokenNodes[key].element.hidden=true;});
+      currentCounters.forEach(function(record){var item=tokenNode(record.key);item.element.hidden=false;item.element.dataset.active=String(record.active);item.element.dataset.stale=String(record.stale);item.element.dataset.available=String(!current.blackout);item.label.textContent=record.estimated?'≈ Estimated weighted tokens':'Weighted tokens';item.subject.textContent=record.subject;item.value.textContent=(record.estimated?'≈ ':'')+record.value.toLocaleString('en-US');item.qualifier.textContent=record.qualifier;});
       mobilePanel.dataset.visible=String(current.room&&!clean&&!current.blackout);mobilePanel.setAttribute('aria-hidden',String(mobilePanel.dataset.visible!=='true'));mobileField.dataset.visible=String(current.network);mobileCaption.textContent=current.signals.length?'Observed signals · no new response; cause unknown':'The room · last observed';Object.keys(objectNodes).forEach(function(key){var entry=objectNodes[key],item=mobileObjectNodes[key];if(!item){var el=node('span','story-object story-mobile-object'),art=image(entry.image.getAttribute('src'),'story-mobile-object-art'),label=node('span','',entry.name.textContent);el.append(art,label);mobileObjects.appendChild(el);item=mobileObjectNodes[key]={element:el,image:art,label:label};}item.image.src=entry.image.getAttribute('src');item.label.textContent=entry.name.textContent;item.element.dataset.visible=entry.element.dataset.visible;item.element.setAttribute('aria-hidden',String(item.element.dataset.visible!=='true'));});
       clock.hidden=current.elapsed===null||current.blackout;clockValue.textContent=current.elapsed===null?'':current.elapsed.toFixed(1)+' s';
       lastIndex=index;rendered=true;revealInitializedDecorations();
@@ -187,7 +222,7 @@
     var observer=new MutationObserver(function(){refresh();});observer.observe(article,{childList:true});
     var resizeObserver=global.ResizeObserver?new ResizeObserver(schedule):null;if(resizeObserver){resizeObserver.observe(article);resizeObserver.observe(toolbar);}
     document.body.classList.add('story-interface');document.body.dataset.storyClean='false';refresh();if(mountPlace&&mountPlace.block.isConnected){var mountRect=mountPlace.block.getBoundingClientRect();global.scrollTo({top:global.scrollY+mountRect.top+mountPlace.offset*mountRect.height-boundary(),behavior:'instant'});schedule();}
-    return{article:article,refresh:refresh,getState:function(){return copy({room:current.room,network:current.network,flower:current.flower,blackout:current.blackout,signals:current.signals,presences:current.presences,lostGroups:current.lostGroups,elapsed:current.elapsed,token:currentToken,clean:clean,checkpointId:lastIndex>=0?events[lastIndex].block.id||null:null});},destroy:function(){styleLinks.forEach(function(link){link.removeEventListener('load',schedule);});delete document.body.dataset.storyReady;observer.disconnect();if(resizeObserver)resizeObserver.disconnect();if(frame)global.cancelAnimationFrame(frame);global.removeEventListener('scroll',schedule);global.removeEventListener('resize',schedule);global.removeEventListener('hashchange',schedule);['wheel','touchstart','pointerdown','keydown'].forEach(function(type){document.removeEventListener(type,interacted);});nodes.forEach(function(el){el.remove();});document.body.classList.remove('story-interface');}};
+    return{article:article,refresh:refresh,getState:function(){return copy({room:current.room,network:current.network,flower:current.flower,blackout:current.blackout,signals:current.signals,presences:current.presences,lostGroups:current.lostGroups,elapsed:current.elapsed,token:currentToken,tokens:currentCounters,clean:clean,checkpointId:lastIndex>=0?events[lastIndex].block.id||null:null});},destroy:function(){styleLinks.forEach(function(link){link.removeEventListener('load',schedule);});delete document.body.dataset.storyReady;observer.disconnect();if(resizeObserver)resizeObserver.disconnect();if(frame)global.cancelAnimationFrame(frame);global.removeEventListener('scroll',schedule);global.removeEventListener('resize',schedule);global.removeEventListener('hashchange',schedule);['wheel','touchstart','pointerdown','keydown'].forEach(function(type){document.removeEventListener(type,interacted);});nodes.forEach(function(el){el.remove();});document.body.classList.remove('story-interface');}};
   }
   function init(){var root=global.document.querySelector('.reader-main'),article=root&&root.querySelector('.chapter-text');if(!article||!article.children.length)return false;if(instance&&instance.article===article)return true;if(instance)instance.destroy();instance=mount(root,article);return !!instance;}
   global.StoryInterface={version:RELEASE,init:init,refresh:function(){if(instance)instance.refresh();else init();},getState:function(){return instance?instance.getState():null;}};
