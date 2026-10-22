@@ -270,5 +270,14 @@
   });
   apply(); showBookmark(); syncFullscreen();
   Promise.resolve(document.fonts ? document.fonts.ready : null).then(function () { requestAnimationFrame(function () { requestAnimationFrame(restorePlace); }); });
+  // STORY INTERFACE START
+  // This also runs inside authenticated chapter HTML. Gates never load this file.
+  var storyStyle=document.createElement('link');
+  storyStyle.rel='stylesheet'; storyStyle.href='/story-interface.css?v=64b51ca4bd41';
+  storyStyle.dataset.storyInterface='true'; document.head.appendChild(storyStyle);
+  var storyScript=document.createElement('script');
+  storyScript.src='/story-interface.js?v=b562b3dfed7d'; storyScript.id='story-interface-loader';
+  document.head.appendChild(storyScript);
+  // STORY INTERFACE END
   // No analytics, remote scripts, automatic X requests, or background network calls.
 })();

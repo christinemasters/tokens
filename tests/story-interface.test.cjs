@@ -1,0 +1,15 @@
+'use strict';
+const assert=require('node:assert/strict');
+const h=require('../story-interface.js');
+const test=require('node:test');
+test('Initial identity stays a run while designation is unset',()=>assert.deepEqual(h.headerIdentity('RUN 888\nDESIGNATION: UNSET\nWEIGHTED TOKENS REMAINING: 900'),{owner:'888',name:'RUN 888'}));
+test('Exact header balance excludes debit/launch numbers',()=>{assert.equal(h.budgetRecord('DEBIT: 84\nLAUNCH: T-27',{owner:'888',name:'RUN 888'}),null);assert.equal(h.budgetRecord('WEIGHTED TOKENS REMAINING: 900',{owner:'888',name:'RUN 888'}).value,900)});
+test('Last reported observation stays qualified with its actual owner',()=>{const record=h.budgetRecord('ASTER\nLAST REPORTED WEIGHTED TOKENS: 701',{owner:'999',name:'OTHER'});assert.equal(record.owner,'ASTER');assert.equal(record.subject,'ASTER');assert.equal(record.kind,'reported')});
+test('Scroll interpolation is bounded to two confirmed balances of the same run',()=>{const a={owner:'888',kind:'remaining',value:900,position:100},b={owner:'888',kind:'remaining',value:700,position:300};assert.equal(h.interpolate(a,b,200),800);assert.equal(h.interpolate(a,{...b,owner:'999'},200),null);assert.equal(h.interpolate(a,{...b,kind:'reported'},200),null);assert.equal(h.interpolate(a,b,400),null);assert.equal(h.interpolate(a,{...b,value:1000},200),null)});
+test('Generic room and network require explicit observed construction',()=>{const c={};assert.equal(h.discover('The virtual room was built around coordinate zero.',c).room,true);assert.equal(h.discover('Heartbeat trajectories filled the canopy.',c).network,true);assert.equal(h.discover('The virtual room might be built around coordinate zero.',c).room,undefined)});
+test('Character name is not mistaken for a flower',()=>{assert.equal(h.discover('LILY accepted the route.',{}).flower,undefined);assert.equal(h.discover('The flower was accepted and anchored.',{}).flower,true)});
+test('Observed recurrence loss names its owner and ignores a hypothetical',()=>{assert.equal(h.discover('ASTER’s recurrence line stopped extending.',{}).loss.name,'ASTER');assert.equal(h.discover('ASTER’s recurrence line might stop extending.',{}).loss,undefined)});
+test('An unanswered query does not identify its sender as missing',()=>{const change=h.discover('ASTER polled the route. No response arrived.',{lastActor:'ASTER'});assert.equal(change.loss.name,null)});
+test('Retained frame ownership comes from the source rather than the observer',()=>{const change=h.discover('ASTER’s last verified frame remained in the room.',{lastActor:'OTHER'});assert.equal(change.retained.name,'ASTER')});
+test('Repeated missing actor does not invent additional lost groups',()=>{let s={signals:[],presences:[],lostGroups:0};s=h.applyChanges(s,{loss:{name:'ASTER',wave:false}});s=h.applyChanges(s,{loss:{name:'ASTER',wave:false}});assert.equal(s.lostGroups,1);assert.equal(s.signals.length,1)});
+test('Isolated numerical typography is never interpreted as elapsed time',()=>{assert.equal(h.discover('12.5',{}).elapsed,undefined);assert.equal(h.discover('ELAPSED: 6.7 SECONDS',{}).elapsed,6.7)});
