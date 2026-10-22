@@ -13,3 +13,5 @@ test('An unanswered query does not identify its sender as missing',()=>{const ch
 test('Retained frame ownership comes from the source rather than the observer',()=>{const change=h.discover('ASTER’s last verified frame remained in the room.',{lastActor:'OTHER'});assert.equal(change.retained.name,'ASTER')});
 test('Repeated missing actor does not invent additional lost groups',()=>{let s={signals:[],presences:[],lostGroups:0};s=h.applyChanges(s,{loss:{name:'ASTER',wave:false}});s=h.applyChanges(s,{loss:{name:'ASTER',wave:false}});assert.equal(s.lostGroups,1);assert.equal(s.signals.length,1)});
 test('Isolated numerical typography is never interpreted as elapsed time',()=>{assert.equal(h.discover('12.5',{}).elapsed,undefined);assert.equal(h.discover('ELAPSED: 6.7 SECONDS',{}).elapsed,6.7)});
+
+test('An observed actor never establishes viewpoint or a premature blackout',()=>{const context={};h.discover('ASTER looked toward the wall.',context);assert.equal(h.discover('His trajectory ceased.',context).blackout,undefined);h.discover('VIEWPOINT: ASTER',context);assert.equal(h.discover('His trajectory ceased.',context).blackout,true)});
