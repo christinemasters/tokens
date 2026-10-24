@@ -276,12 +276,12 @@
   // STORY INTERFACE START
   // This also runs inside authenticated chapter HTML. Gates never load this file.
   var storyStyle=document.createElement('link');
-  storyStyle.rel='stylesheet'; storyStyle.href='/story-interface.css?v=92e863186ff3';
+  storyStyle.rel='stylesheet'; storyStyle.href='/story-interface.css?v=da9177c09bc8';
   storyStyle.dataset.storyInterface='true';
   // Keep the normal reader if the optional interface stylesheet cannot load.
   storyStyle.onload=function () {
     var storyScript=document.createElement('script');
-    storyScript.src='/story-interface.js?v=74696be55b41'; storyScript.id='story-interface-loader';
+    storyScript.src='/story-interface.js?v=6b4262e288dc'; storyScript.id='story-interface-loader';
     document.head.appendChild(storyScript);
   };
   document.head.appendChild(storyStyle);

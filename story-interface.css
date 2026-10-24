@@ -58,3 +58,34 @@ body[data-story-clean="true"] .story-token-group{display:none!important}
 @media(max-width:620px){.story-token-group{flex:1 0 100%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:0;order:0}.story-token-group .story-token{width:100%;max-width:none;gap:2px 5px;text-align:left;grid-template-columns:minmax(0,1fr)}.story-token-group .story-token-label,.story-token-group .story-token-qualifier,.story-token-group .story-token-subject,.story-token-group .story-token-value{grid-column:1;max-width:none;overflow-wrap:anywhere}.story-token-group .story-token-label{font-size:9px;letter-spacing:.025em}.story-token-group .story-token-subject{font-size:11px}.story-token-group .story-token-value{font-size:22px}.story-token-group .story-token-qualifier{font-size:10px;line-height:1.5}.story-token-group .story-token:only-child{grid-column:2}.story-hud .story-clean-toggle{margin-right:auto}}
 .story-token-group{min-height:61px}
 @media(max-width:620px){.story-token-group{flex:1 1 220px;min-height:112px}.story-token-group .story-token-value{font-size:19px}}
+
+/* Encountered characters share the reader's narrative clock and bounded art slots. */
+body[data-story-characters="true"] .story-token-group{display:none}
+.story-characters{left:20px;width:clamp(220px,20vw,294px);padding:54px 30px 82px;scroll-padding:54px 0 82px;background:transparent}
+.story-characters .story-panel-frame{opacity:0;transition:opacity .7s ease}
+body[data-story-room="true"] .story-characters{background:#00142ad9}
+body[data-story-room="true"] .story-characters .story-panel-frame{opacity:.8}
+.story-roster{display:grid;gap:12px;min-width:0}
+.story-person{display:grid;grid-template-columns:60px minmax(0,1fr);column-gap:14px;align-items:center;min-width:0;padding:11px 0 16px;border-bottom:1px solid #5a91b12b;animation:story-character-arrive .65s ease both}
+.story-person[hidden]{display:none}.story-person:last-child{border-bottom:0}
+.story-avatar{width:60px;height:76px;max-width:100%;min-width:0;overflow:hidden;contain:paint;display:flex;align-items:center;justify-content:center;isolation:isolate;transition:filter .65s ease,opacity .65s ease}
+.story-avatar img{display:block;width:100%;height:100%;max-width:100%;max-height:100%;object-fit:contain;flex:none}
+.story-avatar .story-crystal{width:72%;height:72%;transform-origin:50% 50%;animation:story-crystal-drift var(--float-duration,11s) ease-in-out var(--float-delay,0s) infinite,story-crystal-glisten 13s ease-in-out var(--float-delay,0s) infinite}
+.story-avatar .story-portrait{clip-path:polygon(12% 0,88% 0,100% 12%,100% 88%,88% 100%,12% 100%,0 88%,0 12%)}
+.story-character-copy{min-width:0;max-width:100%}
+.story-characters .story-character-name{margin:0;color:#dbeeff;font:500 13px/1.4 ui-monospace,monospace;overflow-wrap:anywhere}
+.story-characters .story-character-value{margin:5px 0 3px;color:#f1f7ff;font:400 24px/1.3 ui-monospace,monospace;letter-spacing:.025em;overflow-wrap:anywhere}
+.story-characters .story-character-status{margin:0;color:#bdcedc;font:10px/1.65 ui-monospace,monospace;overflow-wrap:anywhere}
+.story-characters .story-character-note{margin:22px 0 0;padding:0;color:#b4c6d7;font:10px/1.8 ui-monospace,monospace;overflow-wrap:anywhere}
+.story-person[data-unknown="true"] .story-avatar,.story-person[data-closed="true"] .story-avatar{filter:saturate(.38) brightness(.72);opacity:.8}
+.story-person[data-confirmed-dead="true"] .story-avatar{filter:grayscale(1) brightness(1.35);opacity:.52}
+.story-person[data-unknown="true"] .story-crystal,.story-person[data-closed="true"] .story-crystal,.story-person[data-confirmed-dead="true"] .story-crystal{animation:none;transform:rotate(var(--crystal-angle,0deg)) scale(.94)}
+@keyframes story-crystal-drift{0%,100%{transform:translateY(1px) rotate(var(--crystal-angle,0deg)) scale(.92)}50%{transform:translateY(-2px) rotate(calc(var(--crystal-angle,0deg) + 3deg)) scale(.96)}}
+@keyframes story-crystal-glisten{0%,100%{filter:brightness(.96) drop-shadow(0 0 4px #74bdff55)}50%{filter:brightness(1.08) drop-shadow(0 0 7px #9dd7ff77)}}
+@keyframes story-character-arrive{from{opacity:0}to{opacity:1}}
+@media(min-width:1201px){.story-network{left:auto;right:20px;max-height:calc((100svh - var(--story-panel-top,195px) - 38px)*.58);padding:38px 28px}.story-network-field{height:110px;margin-bottom:8px}.story-keepsakes{top:auto;bottom:20px;max-height:calc((100svh - var(--story-panel-top,195px) - 38px)*.4);padding:38px 28px}.story-characters h2{font-size:14px}.story-characters .story-person{grid-template-columns:48px minmax(0,1fr);gap:12px}.story-characters .story-avatar{width:48px;height:64px}.story-characters .story-character-value{font-size:21px}}
+@media(min-width:1550px){.story-characters .story-person{grid-template-columns:60px minmax(0,1fr);gap:14px}.story-characters .story-avatar{width:60px;height:76px}.story-characters .story-character-value{font-size:24px}}
+@media(max-width:1200px){.story-characters{display:block;position:relative;left:auto;top:auto;flex:1 0 100%;width:100%;max-height:none;padding:12px 18px 16px;scroll-padding:12px 0 16px;overflow:visible;transform:none;order:2;margin:0;max-width:100%}.story-characters[data-visible="false"]{display:none}.story-characters .story-panel-frame{display:none}.story-characters h2{font:400 12px/1.5 ui-monospace,monospace;margin:0 0 9px}.story-roster{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 16px}.story-person{grid-template-columns:40px minmax(0,1fr);gap:10px;padding:2px 0 5px;border:0}.story-avatar{width:40px;height:53px}.story-characters .story-character-name{font-size:12px}.story-characters .story-character-value{font-size:19px;margin:2px 0;letter-spacing:0}.story-characters .story-character-status{font-size:10px;line-height:1.5}.story-characters .story-character-note{margin:10px 0 0;font-size:9px}.story-hud{min-height:44px}.story-characters .story-character-copy{align-self:center}}
+@media(min-width:761px) and (max-width:1200px){.story-roster{grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.story-person{grid-template-columns:40px minmax(0,1fr)}.story-characters .story-character-value{font-size:18px}}
+@media(max-width:360px){.story-characters{padding-left:12px;padding-right:12px}.story-roster{gap:12px 10px}.story-person{grid-template-columns:32px minmax(0,1fr);gap:8px}.story-avatar{width:32px;height:46px}.story-characters .story-character-name{font-size:11px}.story-characters .story-character-value{font-size:17px}.story-characters .story-character-status{font-size:9px}}
+@media(prefers-reduced-motion:reduce){.story-avatar .story-crystal{animation:none!important;transform:rotate(var(--crystal-angle,0deg)) scale(.94);filter:drop-shadow(0 0 4px #74bdff55)}}
