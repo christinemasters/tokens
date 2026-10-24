@@ -273,3 +273,8 @@
     transform: none;
   }
 }
+
+/* Keep the mobile still and video aligned through the loading handoff. */
+.hero-immersive .hero-video,.hero-immersive .hero-image{transition:opacity 350ms ease}
+@media(max-aspect-ratio:6/5){.home-page .hero-immersive .hero-image{height:min(65svh,max(36rem,75vw));mask-image:linear-gradient(to bottom,#000 70%,transparent)}}
+@media(prefers-reduced-motion:reduce){.hero-immersive .hero-video,.hero-immersive .hero-image{transition:none}.home-page .hero-immersive .hero-image{height:100%;mask-image:none}}

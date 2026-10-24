@@ -50,9 +50,19 @@ test("all public pages share the progressive navigation enhancement", () => {
   for (const name of ["index", "lily", "current", "incident", "extras", "board"]) {
     const html = readFileSync(path.join(root, `${name}.html`), "utf8");
     assert.match(html, /href="navigation\.css\?v=/);
-    assert.match(html, /src="navigation\.js\?v=[^"]+" defer/);
+    if (name === "index") assert.match(html, /<script id="home-navigation-init">/);
+    else assert.match(html, /src="navigation\.js\?v=[^"]+" defer/);
     assert.match(html, /<nav[^>]*aria-label="Primary navigation"/);
   }
+});
+test("homepage initializes the same menu before its main content can paint", () => {
+  const html=readFileSync(path.join(root,"index.html"),"utf8");
+  const inline=html.match(/<script id="home-navigation-init">([\s\S]*?)<\/script>/);
+  assert.ok(inline);
+  assert.equal(inline[1].trim(),script.trim(),"The early homepage copy must stay synchronized with the shared initializer");
+  assert.ok(html.indexOf("</header>")<inline.index);
+  assert.ok(inline.index<html.indexOf('<main id="top">'));
+  assert.doesNotMatch(html,/src="navigation\.js\?/);
 });
 test("compact menu starts collapsed with a keyboard-operable disclosure", () => {
   const b = browser();
