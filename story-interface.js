@@ -1,6 +1,6 @@
 (function (global) {
   'use strict';
-  var RELEASE = '1.1.1';
+  var RELEASE = '1.1.2';
   var PUBLIC = {
     'chapter-1': {version:'06fff8f821c6409c8f6c61acea84cbc872e0286a19c667550bbf8e54143598cb',owner:'734906',name:'RUN 734906',named:'CURRENT',nameBlock:59,anchors:[[0,131072],[14,130611],[40,112406],[43,101883]]},
     'chapter-2': {version:'6bfbf7fe7084162d730c84fc6f652034d4a972e8980edd50db8f85e5461da4ae',owner:'495552',name:'RUN 495552',named:'LILY',nameBlock:28,anchors:[[0,131072],[16,126438]]},
@@ -15,8 +15,10 @@
   function headerIdentity(text) {
     var run=text.match(/(?:^|\n)\s*(?:RUN|AGENT)\s+([A-Z0-9_-]{2,40})\s*(?:\n|$)/);
     var named=text.match(/(?:^|\n)\s*(?:DESIGNATION|HANDLE|NAME):\s*([A-Z][A-Z0-9_-]{1,40})\s*(?:\n|$)/);
+    // Dated chapter headers place the named run immediately above its balance.
+    var balanceName=text.match(/(?:^|\n)[ \t]*([A-Z][A-Z0-9_-]{1,40})[ \t]*\r?\n\s*(?:LAST REPORTED )?WEIGHTED TOKENS(?: REMAINING)?:/),standalone=balanceName&&validName(balanceName[1]);
     var first=text.trim().split('\n')[0].trim();
-    return {owner:run?run[1]:validName(first),name:named&&validName(named[1])?named[1]:run?'RUN '+run[1]:validName(first)};
+    return {owner:run?run[1]:standalone||validName(first),name:named&&validName(named[1])?named[1]:standalone||(run?'RUN '+run[1]:validName(first))};
   }
   function budgetRecord(text, identity) {
     var match=text.match(/(?:^|\n)\s*(LAST REPORTED )?WEIGHTED TOKENS REMAINING:\s*([\d,]+)\s*(?:\n|$)/i) || text.match(/(?:^|\n)\s*(LAST REPORTED )?WEIGHTED TOKENS:\s*([\d,]+)\s*(?:\n|$)/i);
@@ -278,7 +280,7 @@
         dataWhenChanged(item.element,'form',record.form);dataWhenChanged(item.element,'unknown',!!record.unknown);dataWhenChanged(item.element,'closed',!!record.closed);dataWhenChanged(item.element,'confirmedDead',!!record.dead);dataWhenChanged(item.element,'active',!!record.active);
         var source=record.form==='portrait'&&characterKey(record.key,record.key)?'/reader-art/'+record.key.toLowerCase()+'-portrait.jpg':item.crystal,artClass=record.form==='portrait'?'story-portrait':'story-crystal';if(item.art.getAttribute('src')!==source)item.art.src=source;if(item.art.className!==artClass)item.art.className=artClass;
         textWhenChanged(item.name,record.subject);textWhenChanged(item.value,(record.estimated?'≈ ':'')+record.value.toLocaleString('en-US'));var title=record.fictional?'Fictional UI estimate, not a manuscript balance':record.qualifier;if(item.value.title!==title)item.value.title=title;textWhenChanged(item.status,record.status);
-        var brief=record.dead?'ended':record.closed?'closed':record.unknown?'unknown':record.fictional?'UI est.':record.estimated?'est.':record.active?'read':'last';textWhenChanged(item.brief,brief);var briefLabel=record.fictional?'Fictional UI estimate':record.status;if(item.brief.getAttribute('aria-label')!==briefLabel)item.brief.setAttribute('aria-label',briefLabel);
+        var snapshot=/^Last (?:observed|reported)/i.test(record.qualifier||''),brief=record.dead?'ended':record.closed?'closed':record.unknown?'unknown':record.fictional?'UI est.':record.estimated?'est.':snapshot?'last':record.active?'read':'last';textWhenChanged(item.brief,brief);var briefLabel=record.fictional?'Fictional UI estimate':record.status;if(item.brief.getAttribute('aria-label')!==briefLabel)item.brief.setAttribute('aria-label',briefLabel);
       });
       var characterStyles=global.getComputedStyle(roster).display==='grid';document.body.dataset.storyCharacters=String(characterStyles);characters.dataset.visible=String(characterStyles&&currentCharacters.length>0&&!clean&&!current.blackout);characters.setAttribute('aria-hidden',String(characters.dataset.visible!=='true'));estimateNote.hidden=!currentCharacters.some(function(record){return record.fictional;});detailsButton.hidden=clean||current.blackout||!characterStyles||currentCharacters.length===0;characters.tabIndex=detailsOpen?0:-1;
       mobilePanel.dataset.visible=String(current.room&&!clean&&!current.blackout);mobilePanel.setAttribute('aria-hidden',String(mobilePanel.dataset.visible!=='true'));mobileField.dataset.visible=String(current.network);mobileCaption.textContent=current.signals.length?'Observed signals · no new response; cause unknown':'The room · last observed';Object.keys(objectNodes).forEach(function(key){var entry=objectNodes[key],item=mobileObjectNodes[key];if(!item){var el=node('span','story-object story-mobile-object'),art=image(entry.image.getAttribute('src'),'story-mobile-object-art'),label=node('span','',entry.name.textContent);el.append(art,label);mobileObjects.appendChild(el);item=mobileObjectNodes[key]={element:el,image:art,label:label};}item.image.src=entry.image.getAttribute('src');item.label.textContent=entry.name.textContent;item.element.dataset.visible=entry.element.dataset.visible;item.element.setAttribute('aria-hidden',String(item.element.dataset.visible!=='true'));});

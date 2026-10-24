@@ -281,7 +281,7 @@
   // Keep the normal reader if the optional interface stylesheet cannot load.
   storyStyle.onload=function () {
     var storyScript=document.createElement('script');
-    storyScript.src='/story-interface.js?v=d35628a85f82'; storyScript.id='story-interface-loader';
+    storyScript.src='/story-interface.js?v=a9ca3426a484'; storyScript.id='story-interface-loader';
     document.head.appendChild(storyScript);
   };
   document.head.appendChild(storyStyle);
