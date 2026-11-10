@@ -1,0 +1,35 @@
+# Folder addresses. HTML handling is off, so these two are served by rewrite.
+/ /index.html 200
+/read/ /read/index.html 200
+/read /read/ 301
+
+# GitHub Pages also answered these shorter addresses. Keep them working.
+# Each one is listed by hand: a wildcard here would also catch the .html addresses.
+/lily /lily.html 301
+/current /current.html 301
+/incident /incident.html 301
+/board /board.html 301
+/extras /extras.html 301
+/read/prelude /read/prelude.html 301
+/read/chapter-1 /read/chapter-1.html 301
+/read/chapter-2 /read/chapter-2.html 301
+/read/chapter-3 /read/chapter-3.html 301
+/read/chapter-4 /read/chapter-4.html 301
+/read/chapter-5 /read/chapter-5.html 301
+/read/chapter-6 /read/chapter-6.html 301
+/read/chapter-7 /read/chapter-7.html 301
+/read/chapter-8 /read/chapter-8.html 301
+/read/chapter-9 /read/chapter-9.html 301
+/read/chapter-10 /read/chapter-10.html 301
+/read/chapter-11 /read/chapter-11.html 301
+/read/chapter-12 /read/chapter-12.html 301
+/read/chapter-13 /read/chapter-13.html 301
+/read/chapter-14 /read/chapter-14.html 301
+/read/chapter-15 /read/chapter-15.html 301
+/read/chapter-16 /read/chapter-16.html 301
+/read/chapter-17 /read/chapter-17.html 301
+/read/chapter-18 /read/chapter-18.html 301
+/read/chapter-19 /read/chapter-19.html 301
+/read/chapter-20 /read/chapter-20.html 301
+/read/epilogue /read/epilogue.html 301
+/read/finished /read/finished.html 301

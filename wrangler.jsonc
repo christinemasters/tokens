@@ -1,0 +1,36 @@
+{
+  // Hosting setup for allthetokenswehaveleft.com on Cloudflare.
+  // Pages, scripts, images and chapter files are served as plain files.
+  // One small Worker, _cloudflare/media-range.js, answers video and audio
+  // requests only. Safari needs partial downloads to play video, and the
+  // file host does not provide them by itself.
+  // The name must match the Worker's name in the Cloudflare dashboard.
+  "name": "all-the-tokens-site",
+  "main": "_cloudflare/media-range.js",
+  "compatibility_date": "2026-08-30",
+  "workers_dev": false,
+  "preview_urls": false,
+
+  // The real domain is attached by a route. A route only takes effect while
+  // the domain's DNS record in Cloudflare is set to "Proxied". Setting the
+  // record back to "DNS only" sends visitors to the previous host again.
+  "routes": [
+    { "pattern": "allthetokenswehaveleft.com/*", "zone_name": "allthetokenswehaveleft.com" },
+    // Test hostname. Remove once the move has settled.
+    { "pattern": "preview.allthetokenswehaveleft.com", "custom_domain": true }
+  ],
+
+  "assets": {
+    "directory": ".",
+    "binding": "ASSETS",
+
+    // Keep every address exactly as it is today. Private chapters are locked
+    // to their exact address (for example /read/chapter-5.html). If Cloudflare
+    // redirected .html addresses to shorter ones, the right password would fail.
+    "html_handling": "none",
+    "not_found_handling": "404-page",
+
+    // Only these paths run the Worker. Everything else never touches it.
+    "run_worker_first": ["/*.mp4", "/*.mp3"]
+  }
+}

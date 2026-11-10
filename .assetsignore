@@ -1,0 +1,13 @@
+# Not part of the public site. GitHub Pages serves these today; Cloudflare should not.
+.git
+.gitignore
+.nojekyll
+.assetsignore
+.wrangler
+node_modules
+CNAME
+README.md
+wrangler.jsonc
+board-api
+tests
+_cloudflare

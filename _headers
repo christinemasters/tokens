@@ -1,0 +1,39 @@
+# Safe on every page: none of these change how the site behaves.
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Content-Security-Policy: frame-ancestors 'none'
+  # One day while the move settles. Raise to 31536000 after a quiet week.
+  Strict-Transport-Security: max-age=86400
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+
+# File names here contain a content hash, so they can be cached for a year.
+/illustrations/*
+  Cache-Control: public, max-age=31536000, immutable
+/read/locked/*
+  Cache-Control: public, max-age=31536000, immutable
+  X-Robots-Tag: noindex
+
+# Video and audio headers are set in _cloudflare/media-range.js, not here.
+
+# Label text files as UTF-8, as GitHub did.
+/
+  Content-Type: text/html; charset=utf-8
+/read/
+  Content-Type: text/html; charset=utf-8
+/*.html
+  Content-Type: text/html; charset=utf-8
+/*.txt
+  Content-Type: text/plain; charset=utf-8
+/*.md
+  Content-Type: text/markdown; charset=utf-8
+/*.js
+  Content-Type: text/javascript; charset=utf-8
+/*.css
+  Content-Type: text/css; charset=utf-8
+/*.json
+  Content-Type: application/json; charset=utf-8
+
+# The test hostname must never be indexed.
+https://preview.allthetokenswehaveleft.com/*
+  X-Robots-Tag: noindex

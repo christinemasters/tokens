@@ -1,0 +1,17 @@
+{
+  // A second, tiny Worker: it only redirects www to the bare domain.
+  // Publish it from this folder. It is separate from the site itself.
+  "name": "all-the-tokens-www",
+  "main": "index.js",
+  "compatibility_date": "2026-08-30",
+  "workers_dev": false,
+  "preview_urls": false,
+
+  // Attached by a route, which only takes effect while the www DNS record
+  // in Cloudflare is set to "Proxied".
+  "routes": [
+    { "pattern": "www.allthetokenswehaveleft.com/*", "zone_name": "allthetokenswehaveleft.com" },
+    // Test hostname. Remove once the move has settled.
+    { "pattern": "preview-www.allthetokenswehaveleft.com", "custom_domain": true }
+  ]
+}
